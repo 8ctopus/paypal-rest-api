@@ -26,7 +26,7 @@ class Subscription extends RestBase
      *
      * @param string $id
      *
-     * @return array
+     * @return array<mixed>
      */
     public function get(string $id) : array
     {

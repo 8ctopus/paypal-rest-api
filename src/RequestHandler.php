@@ -19,7 +19,7 @@ class RequestHandler
      *
      * @param ClientInterface         $client
      * @param RequestFactoryInterface $requestFactory
-     * @param StreamInterface         $streamInterface
+     * @param StreamInterface         $stream
      */
     public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamInterface $stream)
     {
@@ -33,7 +33,7 @@ class RequestHandler
      *
      * @param string  $method
      * @param string  $uri
-     * @param array   $headers
+     * @param array<string>   $headers
      * @param ?string $body
      * @param int     $expectedStatus
      *

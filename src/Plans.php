@@ -24,7 +24,7 @@ class Plans extends RestBase
     /**
      * List plans
      *
-     * @return array
+     * @return array<mixed>
      *
      * @throws PayPalException
      */
@@ -42,7 +42,7 @@ class Plans extends RestBase
      *
      * @param string $id
      *
-     * @return array
+     * @return array<mixed>
      *
      * @throws PayPalException
      */
@@ -58,7 +58,7 @@ class Plans extends RestBase
     /**
      * Add plan
      *
-     * @param array $plan
+     * @param array<string> $plan
      *
      * @return self
      *

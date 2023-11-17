@@ -21,15 +21,33 @@ abstract class RestBase
         $this->auth = $auth;
     }
 
+    /**
+     * Send request
+     *
+     * @param string  $method
+     * @param string  $uri
+     * @param array<string>   $headers
+     * @param ?string $body
+     * @param int     $expectedStatus
+     *
+     * @return string
+     *
+     * @throws PayPalException
+     */
     protected function request(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
     {
         return $this->handler->request($method, $this->baseUri . $uri, array_merge($this->headers(), $headers), $body, $expectedStatus);
     }
 
+    /**
+     * Get headers
+     *
+     * @return array<string, string>
+     */
     protected function headers() : array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Authorization' => 'Bearer ' . $this->auth?->token(),
             'Content-Type' => 'application/json',
         ];
     }

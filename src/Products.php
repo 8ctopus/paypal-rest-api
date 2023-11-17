@@ -24,7 +24,7 @@ class Products extends RestBase
     /**
      * List products
      *
-     * @return array
+     * @return array<mixed>
      */
     public function list() : array
     {
@@ -40,7 +40,7 @@ class Products extends RestBase
      *
      * @param string $id
      *
-     * @return array
+     * @return array<mixed>
      */
     public function get(string $id) : array
     {
@@ -54,11 +54,11 @@ class Products extends RestBase
     /**
      * Add product
      *
-     * @param array $product
+     * @param array<string> $product
      *
      * @return self
      *
-     * @throws PayPalException
+     * @throws PayPalException|\JsonException
      */
     public function add(array $product) : self
     {
@@ -79,7 +79,7 @@ class Products extends RestBase
 
         $url = '/v1/catalogs/products';
 
-        $body = json_encode($product, JSON_PRETTY_PRINT);
+        $body = json_encode($product, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $this->request('POST', $url, [], $body, 201);
 

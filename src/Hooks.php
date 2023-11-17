@@ -24,7 +24,7 @@ class Hooks extends RestBase
     /**
      * List hooks
      *
-     * @return array
+     * @return array<mixed>
      */
     public function list() : array
     {
@@ -39,11 +39,11 @@ class Hooks extends RestBase
      * Add hook
      *
      * @param string $url
-     * @param array  $eventTypes
+     * @param array<string>  $eventTypes
      *
      * @return string id
      *
-     * @throws PayPalException
+     * @throws PayPalException|\JsonException
      */
     public function add(string $url, array $eventTypes) : string
     {
@@ -58,7 +58,7 @@ class Hooks extends RestBase
 
         $url = '/v1/notifications/webhooks';
 
-        $body = json_encode($data, JSON_PRETTY_PRINT);
+        $body = json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $json = $this->request('POST', $url, [], $body, 201);
 
@@ -93,7 +93,9 @@ class Hooks extends RestBase
      * @param string $webhookId
      * @param string $eventType
      *
-     * @return array
+     * @return array<mixed>
+     *
+     * @throws \JsonException
      */
     public function simulate(string $webhookId, string $eventType) : array
     {
@@ -114,7 +116,7 @@ class Hooks extends RestBase
             'webhook_id' => $webhookId,
             'event_type' => $eventType,
             'resource_version' => $version,
-        ], JSON_PRETTY_PRINT);
+        ], JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $json = $this->request('POST', $url, [], $body, 202);
 

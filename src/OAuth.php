@@ -73,8 +73,13 @@ class OAuth extends RestBase
 
         $nonce = $decoded['nonce'];
         $nonce = substr($nonce, 0, strpos($nonce, 'Z') + 1);
+        $nonce = DateTime::createFromFormat(DateTimeInterface::RFC3339, $nonce);
 
-        $this->expires = DateTime::createFromFormat(DateTimeInterface::RFC3339, $nonce)->getTimestamp() + $decoded['expires_in'];
+        if ($nonce === false) {
+            throw new PayPalException("invalid date - {$nonce}");
+        }
+
+        $this->expires = $nonce->getTimestamp() + $decoded['expires_in'];
 
         $this->save();
 

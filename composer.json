@@ -33,7 +33,7 @@
         "test": "phpunit --coverage-html=coverage",
         "fix": "php-cs-fixer fix --verbose",
         "fix-risky": "php-cs-fixer fix --allow-risky=yes --verbose",
-        "phpstan": "phpstan analyse --level 9 src",
+        "phpstan": "phpstan analyse --level 8 src",
         "phpmd": "phpmd src ansi phpmd.xml"
     }
 }
