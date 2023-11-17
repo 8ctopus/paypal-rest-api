@@ -18,7 +18,33 @@ It is a work in progress and contributions are welcome. For now, it only covers 
 
 ## demo
 
-For now look at `demo.php`
+Also check `demo.php`
+
+```php
+use HttpSoft\Message\RequestFactory;
+use HttpSoft\Message\Stream;
+use Nimbly\Shuttle\Shuttle;
+use Oct8pus\PayPal\Hooks;
+use Oct8pus\PayPal\OAuth;
+use Oct8pus\PayPal\RequestHandler;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$handler = new RequestHandler(
+    // PSR-18 http client
+    new Shuttle(),
+    // PSR-17 request factory
+    new RequestFactory(),
+    // PSR-7 stream
+    new Stream()
+);
+
+// get oauth token
+$auth = new OAuth($handler, 'rest.id', 'rest.pass');
+
+$webhooks = new Hooks($handler, $auth);
+var_dump($webhooks->list());
+```
 
 ## run tests
 
