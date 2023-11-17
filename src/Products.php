@@ -8,7 +8,10 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-class Products extends Curl
+use Oct8pus\PayPal\Client;
+use Oct8pus\PayPal\OAuth;
+
+class Products extends Client
 {
     private OAuth $auth;
 

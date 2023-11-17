@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\Curl;
+use Oct8pus\PayPal\Client;
 use DateTime;
 use DateTimeInterface;
 
-class OAuth extends Curl
+class OAuth extends Client
 {
     private readonly string $clientId;
     private readonly string $clientSecret;

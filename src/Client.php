@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-abstract class Curl
+abstract class Client
 {
     protected readonly string $baseUri;
 
