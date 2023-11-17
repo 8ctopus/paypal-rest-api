@@ -24,11 +24,6 @@ For now look at `demo.php`
 
     composer test
 
-## clean code
-
-    composer fix
-    composer fix-risky
-
 # references
 
 - PayPal REST api official documentation: https://developer.paypal.com/api/rest/
