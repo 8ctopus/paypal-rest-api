@@ -61,11 +61,13 @@ class OAuth extends RestBase
 
         $headers = [
             'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
-            'Content-Type: application/x-www-form-urlencoded',
-            'Accept: application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
         ];
 
-        $body = http_build_query(['grant_type' => 'client_credentials']);
+        $body = http_build_query([
+            'grant_type' => 'client_credentials'
+        ]);
 
         $json = $this->request('POST', $url, $headers, $body, 200);
 
