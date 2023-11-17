@@ -10,8 +10,6 @@ namespace Oct8pus\PayPal;
 
 class Products extends RestBase
 {
-    private OAuth $auth;
-
     /**
      * Constructor
      *
@@ -20,9 +18,7 @@ class Products extends RestBase
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {
-        parent::__construct(true, $handler);
-
-        $this->auth = $auth;
+        parent::__construct(true, $handler, $auth);
     }
 
     /**
@@ -34,12 +30,7 @@ class Products extends RestBase
     {
         $url = '/v1/catalogs/products';
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true)['products'];
     }
@@ -55,12 +46,7 @@ class Products extends RestBase
     {
         $url = "/v1/catalogs/products/{$id}";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -93,14 +79,9 @@ class Products extends RestBase
 
         $url = '/v1/catalogs/products';
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
         $body = json_encode($product, JSON_PRETTY_PRINT);
 
-        $this->request('POST', $url, $headers, $body, 201);
+        $this->request('POST', $url, [], $body, 201);
 
         return $this;
     }

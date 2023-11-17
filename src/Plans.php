@@ -10,8 +10,6 @@ namespace Oct8pus\PayPal;
 
 class Plans extends RestBase
 {
-    private OAuth $auth;
-
     /**
      * Constructor
      *
@@ -20,9 +18,7 @@ class Plans extends RestBase
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {
-        parent::__construct(true, $handler);
-
-        $this->auth = $auth;
+        parent::__construct(true, $handler, $auth);
     }
 
     /**
@@ -36,12 +32,7 @@ class Plans extends RestBase
     {
         $url = '/v1/billing/plans';
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true)['plans'];
     }
@@ -59,12 +50,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -112,12 +98,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}/activate";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('POST', $url, $headers, null, 204);
+        $this->request('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -135,12 +116,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}/deactivate";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('POST', $url, $headers, null, 204);
+        $this->request('POST', $url, [], null, 204);
 
         return $this;
     }

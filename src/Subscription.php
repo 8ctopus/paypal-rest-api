@@ -10,8 +10,6 @@ namespace Oct8pus\PayPal;
 
 class Subscription extends RestBase
 {
-    private OAuth $auth;
-
     /**
      * Constructor
      *
@@ -20,9 +18,7 @@ class Subscription extends RestBase
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {
-        parent::__construct(true, $handler);
-
-        $this->auth = $auth;
+        parent::__construct(true, $handler, $auth);
     }
 
     /**
@@ -36,12 +32,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -57,12 +48,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/cancel";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('POST', $url, $headers, null, 204);
+        $this->request('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -78,12 +64,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/suspend";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('POST', $url, $headers, null, 204);
+        $this->request('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -99,12 +80,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/activate";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('POST', $url, $headers, null, 204);
+        $this->request('POST', $url, [], null, 204);
 
         return $this;
     }

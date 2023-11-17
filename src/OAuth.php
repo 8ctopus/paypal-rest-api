@@ -30,7 +30,7 @@ class OAuth extends RestBase
      */
     public function __construct(RequestHandler $handler, string $clientId, string $clientSecret)
     {
-        parent::__construct(true, $handler);
+        parent::__construct(true, $handler, null);
 
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
@@ -57,17 +57,11 @@ class OAuth extends RestBase
 
         $url = '/v1/oauth2/token';
 
-        $headers = [
-            'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'Accept' => 'application/json',
-        ];
-
         $body = http_build_query([
             'grant_type' => 'client_credentials'
         ]);
 
-        $json = $this->request('POST', $url, $headers, $body, 200);
+        $json = $this->request('POST', $url, [], $body, 200);
 
         $decoded = json_decode($json, true);
 
@@ -85,6 +79,15 @@ class OAuth extends RestBase
         $this->save();
 
         return $this->token;
+    }
+
+    protected function headers() : array
+    {
+        return [
+            'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
+        ];
     }
 
     /**

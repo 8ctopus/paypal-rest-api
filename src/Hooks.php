@@ -10,8 +10,6 @@ namespace Oct8pus\PayPal;
 
 class Hooks extends RestBase
 {
-    private OAuth $auth;
-
     /**
      * Constructor
      *
@@ -20,9 +18,7 @@ class Hooks extends RestBase
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {
-        parent::__construct(true, $handler);
-
-        $this->auth = $auth;
+        parent::__construct(true, $handler, $auth);
     }
 
     /**
@@ -34,12 +30,7 @@ class Hooks extends RestBase
     {
         $url = '/v1/notifications/webhooks';
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $json = $this->request('GET', $url, $headers, null, 200);
+        $json = $this->request('GET', $url, [], null, 200);
 
         return json_decode($json, true)['webhooks'];
     }
@@ -56,11 +47,6 @@ class Hooks extends RestBase
      */
     public function add(string $url, array $eventTypes) : string
     {
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
         $data = [
             'url' => $url,
             'event_types' => [],
@@ -74,7 +60,7 @@ class Hooks extends RestBase
 
         $body = json_encode($data, JSON_PRETTY_PRINT);
 
-        $json = $this->request('POST', $url, $headers, $body, 201);
+        $json = $this->request('POST', $url, [], $body, 201);
 
         $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
@@ -96,12 +82,7 @@ class Hooks extends RestBase
     {
         $url = "/v1/notifications/webhooks/{$id}";
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
-        $this->request('DELETE', $url, $headers, null, 204);
+        $this->request('DELETE', $url, [], null, 204);
 
         return $this;
     }
@@ -129,18 +110,13 @@ class Hooks extends RestBase
                 break;
         }
 
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->auth->token(),
-            'Content-Type' => 'application/json',
-        ];
-
         $body = json_encode([
             'webhook_id' => $webhookId,
             'event_type' => $eventType,
             'resource_version' => $version,
         ], JSON_PRETTY_PRINT);
 
-        $json = $this->request('POST', $url, $headers, $body, 202);
+        $json = $this->request('POST', $url, [], $body, 202);
 
         return json_decode($json, true);
     }
