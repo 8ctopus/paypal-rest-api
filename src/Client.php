@@ -54,6 +54,7 @@ abstract class Client
         if ($body !== null) {
             $stream = new Stream();
             $stream->write($body);
+            $stream->rewind();
 
             $request = $request->withBody($stream);
         }
