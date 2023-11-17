@@ -214,9 +214,9 @@ switch ($group) {
 
         break;
 
-    case 'token':
+    case 'auth':
         switch ($command) {
-            case 'get':
+            case 'token':
                 dump($auth->token());
                 break;
 
