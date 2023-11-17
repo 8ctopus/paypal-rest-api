@@ -141,7 +141,6 @@ switch ($group) {
             case 'list':
                 $plans = new Plans($auth);
 
-                // fails with error 500
                 dump($plans->list());
                 break;
 
@@ -183,7 +182,6 @@ switch ($group) {
             case 'list':
                 $products = new Products($auth);
 
-                // fails with error 500
                 dump($products->list());
                 break;
 
