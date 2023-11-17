@@ -141,13 +141,13 @@ class Hooks extends Client
             'Content-Type' => 'application/json',
         ];
 
-        $data = json_encode([
+        $body = json_encode([
             'webhook_id' => $webhookId,
             'event_type' => $eventType,
             'resource_version' => $version,
         ], JSON_PRETTY_PRINT);
 
-        $json = $this->request('POST', $url, $headers, $data, 202);
+        $json = $this->request('POST', $url, $headers, $body, 202);
 
         return json_decode($json, true);
     }
