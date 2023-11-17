@@ -14,7 +14,7 @@ class Plans extends RestBase
      * Constructor
      *
      * @param RequestHandler $handler
-     * @param OAuth $auth
+     * @param OAuth          $auth
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {

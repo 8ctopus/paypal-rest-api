@@ -5,13 +5,13 @@ declare(strict_types=1);
 use HttpSoft\Message\RequestFactory;
 use HttpSoft\Message\Stream;
 use Nimbly\Shuttle\Shuttle;
+use Noodlehaus\Config;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Products;
-use Oct8pus\PayPal\Subscription;
-use Noodlehaus\Config;
 use Oct8pus\PayPal\RequestHandler;
+use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -276,8 +276,8 @@ function dump($var) : void
 /**
  * Simulate custom event
  *
- * @param  string $webhookUrl
- * @param  string $file
+ * @param string $webhookUrl
+ * @param string $file
  *
  * @return void
  */

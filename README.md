@@ -8,7 +8,7 @@
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/lines.svg)
 
-PayPal REST api implementation using PSR-7, PSR-17 and PSR-18.
+PayPal REST api php implementation using PSR-7, PSR-17 and PSR-18.
 
 It is a work in progress and contributions are welcome. For now, it only covers subscriptions.
 

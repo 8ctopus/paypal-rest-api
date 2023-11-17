@@ -31,11 +31,11 @@ class RequestHandler
     /**
      * Send request
      *
-     * @param  string  $method
-     * @param  string  $uri
-     * @param  array   $headers
-     * @param  ?string $body
-     * @param  int     $expectedStatus
+     * @param string  $method
+     * @param string  $uri
+     * @param array   $headers
+     * @param ?string $body
+     * @param int     $expectedStatus
      *
      * @return string
      *

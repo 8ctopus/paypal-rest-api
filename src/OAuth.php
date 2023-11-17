@@ -25,8 +25,8 @@ class OAuth extends RestBase
      * Constructor
      *
      * @param RequestHandler $handler
-     * @param string $clientId
-     * @param string $clientSecret
+     * @param string         $clientId
+     * @param string         $clientSecret
      */
     public function __construct(RequestHandler $handler, string $clientId, string $clientSecret)
     {
@@ -58,7 +58,7 @@ class OAuth extends RestBase
         $url = '/v1/oauth2/token';
 
         $body = http_build_query([
-            'grant_type' => 'client_credentials'
+            'grant_type' => 'client_credentials',
         ]);
 
         $json = $this->request('POST', $url, [], $body, 200);
