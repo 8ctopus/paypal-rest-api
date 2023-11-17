@@ -73,4 +73,46 @@ class Subscription extends Client
 
         return $this;
     }
+
+    /**
+     * Suspend
+     *
+     * @param string $id
+     *
+     * @return self
+     */
+    public function suspend(string $id) : self
+    {
+        $url = "/v1/billing/subscriptions/{$id}/suspend";
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
+        ];
+
+        $this->request('POST', $url, $headers, null, 204);
+
+        return $this;
+    }
+
+    /**
+     * Activate
+     *
+     * @param string $id
+     *
+     * @return self
+     */
+    public function activate(string $id) : self
+    {
+        $url = "/v1/billing/subscriptions/{$id}/activate";
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
+        ];
+
+        $this->request('POST', $url, $headers, null, 204);
+
+        return $this;
+    }
 }

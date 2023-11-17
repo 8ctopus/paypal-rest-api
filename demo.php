@@ -132,6 +132,24 @@ switch ($group) {
                 $subscription = new Subscription($auth);
                 $subscription->cancel($args[0]);
                 break;
+
+            case 'suspend':
+                if (count($args) < 1) {
+                    throw new Exception('missing subscription');
+                }
+
+                $subscription = new Subscription($auth);
+                $subscription->suspend($args[0]);
+                break;
+
+            case 'activate':
+                if (count($args) < 1) {
+                    throw new Exception('missing subscription');
+                }
+
+                $subscription = new Subscription($auth);
+                $subscription->activate($args[0]);
+                break;
         }
 
         break;
