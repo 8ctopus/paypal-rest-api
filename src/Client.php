@@ -63,7 +63,7 @@ abstract class Client
         $status = $response->getStatusCode();
 
         if ($status !== $expectedStatus) {
-            throw new PayPalException("status {$status}, expected {$expectedStatus}");
+            throw new PayPalException("status {$status}, expected {$expectedStatus} - " . (string) $response->getBody());
         }
 
         return (string) $response->getBody();
