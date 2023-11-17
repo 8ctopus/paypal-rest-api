@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Clue\Commander\Router;
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
@@ -15,262 +16,163 @@ use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$args = $argv;
-
-// remove file name
-array_shift($args);
-
-if (count($args) < 2) {
-    throw new Exception('missing group or command');
-}
-
 $config = Config::load(__DIR__ . '/.env.php');
 
 $handler = new HttpHandler(new Shuttle(), new RequestFactory(), new StreamFactory());
 
 $auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
 
-$group = array_shift($args);
-$command = array_shift($args);
+$router = new Router();
 
-switch ($group) {
-    case 'hooks':
-        switch ($command) {
-            case 'list':
-                $webhooks = new Hooks($handler, $auth);
-                $hooks = $webhooks->list();
+$router->add('hooks list', function () use ($handler, $auth) {
+    $webhooks = new Hooks($handler, $auth);
+    $hooks = $webhooks->list();
 
-                foreach ($hooks as $hook) {
-                    echo "{$hook['id']} - {$hook['url']}\n";
-                }
+    foreach ($hooks as $hook) {
+        echo "{$hook['id']} - {$hook['url']}\n";
+    }
+});
 
-                break;
+$router->add('hooks add <url>', function (array $args) use ($handler, $auth) {
+    $webhooks = new Hooks($handler, $auth);
+    $webhooks->add($args['url'], [
+        // a payment on a subscription was made
+        'PAYMENT.SALE.COMPLETED',
+        // a payment on a subscription was refunded
+        'PAYMENT.SALE.REFUNDED',
+        // a payment on a subscription was reversed
+        'PAYMENT.SALE.REVERSED',
 
-            case 'add':
-                if (count($args) < 1) {
-                    throw new Exception('missing hook url');
-                }
+        // user starts subscription process - it's not completed yet!
+        'BILLING.SUBSCRIPTION.CREATED',
+        // user just subscribed to a plan - no payment yet
+        // subscription resumed
+        'BILLING.SUBSCRIPTION.ACTIVATED',
+        // subscription is updated - how to do that? (like suspended, change of state? no)
+        'BILLING.SUBSCRIPTION.UPDATED',
+        // subscription expired
+        'BILLING.SUBSCRIPTION.EXPIRED',
+        // user subscription was canceled (from PayPal admin, REST api or from user side inside account)
+        'BILLING.SUBSCRIPTION.CANCELLED',
+        // subscription paused
+        'BILLING.SUBSCRIPTION.SUSPENDED',
+        // payment failed on subscription
+        'BILLING.SUBSCRIPTION.PAYMENT.FAILED',
 
-                $webhooks = new Hooks($handler, $auth);
-                $webhooks->add($args[0], [
-                    // a payment on a subscription was made
-                    'PAYMENT.SALE.COMPLETED',
-                    // a payment on a subscription was refunded
-                    'PAYMENT.SALE.REFUNDED',
-                    // a payment on a subscription was reversed
-                    'PAYMENT.SALE.REVERSED',
+        //'PAYMENT.AUTHORIZATION.CREATED',
+        //'PAYMENT.AUTHORIZATION.VOIDED',
+        //'PAYMENT.CAPTURE.COMPLETED',
+    ]);
+});
 
-                    // user starts subscription process - it's not completed yet!
-                    'BILLING.SUBSCRIPTION.CREATED',
-                    // user just subscribed to a plan - no payment yet
-                    // subscription resumed
-                    'BILLING.SUBSCRIPTION.ACTIVATED',
-                    // subscription is updated - how to do that? (like suspended, change of state? no)
-                    'BILLING.SUBSCRIPTION.UPDATED',
-                    // subscription expired
-                    'BILLING.SUBSCRIPTION.EXPIRED',
-                    // user subscription was canceled (from PayPal admin, REST api or from user side inside account)
-                    'BILLING.SUBSCRIPTION.CANCELLED',
-                    // subscription paused
-                    'BILLING.SUBSCRIPTION.SUSPENDED',
-                    // payment failed on subscription
-                    'BILLING.SUBSCRIPTION.PAYMENT.FAILED',
+$router->add('hooks delete <id>', function (array $args) use ($handler, $auth) {
+    $webhooks = new Hooks($handler, $auth);
+    $webhooks->delete($args['id']);
+});
 
-                    //'PAYMENT.AUTHORIZATION.CREATED',
-                    //'PAYMENT.AUTHORIZATION.VOIDED',
-                    //'PAYMENT.CAPTURE.COMPLETED',
-                ]);
+$router->add('hooks clear', function () use ($handler, $auth) {
+    $webhooks = new Hooks($handler, $auth);
+    $hooks = $webhooks->list();
 
-                break;
+    foreach ($hooks as $hook) {
+        $webhooks->delete($hook['id']);
+    }
+});
 
-            case 'delete':
-                if (count($args) < 1) {
-                    throw new Exception('missing hook id');
-                }
+$router->add('hooks simulate <id> <event>', function (array $args) use ($handler, $auth) {
+    $webhooks = new Hooks($handler, $auth);
+    dump($webhooks->simulate($args['id'], $args['event']));
+});
 
-                $webhooks = new Hooks($handler, $auth);
-                $webhooks->delete($args[0]);
+$router->add('subscriptions get <id>', function (array $args) use ($handler, $auth) {
+    $subscription = new Subscription($handler, $auth);
+    dump($subscription->get($args['id']));
+});
 
-                break;
+$router->add('subscriptions cancel <id>', function (array $args) use ($handler, $auth) {
+    $subscription = new Subscription($handler, $auth);
+    dump($subscription->cancel($args['id']));
+});
 
-            case 'clear':
-                $webhooks = new Hooks($handler, $auth);
-                $hooks = $webhooks->list();
+$router->add('subscriptions suspend <id>', function (array $args) use ($handler, $auth) {
+    $subscription = new Subscription($handler, $auth);
+    dump($subscription->suspend($args['id']));
+});
 
-                foreach ($hooks as $hook) {
-                    $webhooks->delete($hook['id']);
-                }
+$router->add('subscriptions activate <id>', function (array $args) use ($handler, $auth) {
+    $subscription = new Subscription($handler, $auth);
+    dump($subscription->activate($args['id']));
+});
 
-                break;
+$router->add('plans list', function () use ($handler, $auth) {
+    $plans = new Plans($handler, $auth);
+    dump($plans->list());
+});
 
-            case 'simulate':
-                if (count($args) < 2) {
-                    throw new Exception('missing webhook id or event type');
-                }
+$router->add('plans get <id>', function (array $args) use ($handler, $auth) {
+    $plans = new Plans($handler, $auth);
+    dump($plans->get($args['id']));
+});
 
-                $webhooks = new Hooks($handler, $auth);
-                dump($webhooks->simulate($args[0], $args[1]));
+$router->add('plans activate <id>', function (array $args) use ($handler, $auth) {
+    $plans = new Plans($handler, $auth);
+    dump($plans->activate($args['id']));
+});
 
-                break;
+$router->add('plans deactivate <id>', function (array $args) use ($handler, $auth) {
+    $plans = new Plans($handler, $auth);
+    dump($plans->deactivate($args['id']));
+});
 
-            default:
-                throw new Exception("unknown command - {$command}");
-        }
+$router->add('products list', function () use ($handler, $auth) {
+    $products = new Products($handler, $auth);
+    dump($products->list());
+});
 
-        break;
+$router->add('plans get <id>', function (array $args) use ($handler, $auth) {
+    $products = new Products($handler, $auth);
+    dump($products->get($args['id']));
+});
 
-    case 'subscriptions':
-        switch ($command) {
-            case 'get':
-                if (count($args) < 1) {
-                    throw new Exception('missing subscription');
-                }
+$router->add('plans get <id> <name> <description> <type> <category> <home_url> <image_url>', function (array $args) use ($handler, $auth) {
+    $products = new Products($handler, $auth);
+    dump($products->add([
+        'name' => $args['name'],
+        'description' => $args['description'],
+        'type' => $args['type'], // Physical Goods, Digital Goods, Service
+        'category' => $args['category'], // Software
+        'home_url' => $args['home_url'],
+        'image_url' => $args['image_url'],
+    ]));
+});
 
-                $subscription = new Subscription($handler, $auth);
-                dump($subscription->get($args[0]));
-                break;
+$router->add('auth token', function () use ($handler, $auth) {
+    dump($auth->token());
+});
 
-            case 'cancel':
-                if (count($args) < 1) {
-                    throw new Exception('missing subscription');
-                }
+$router->add('custom simulate <url> <file>', function (array $args) use ($handler, $auth) {
+    simulate($args['url'], $args['file']);
+});
 
-                $subscription = new Subscription($handler, $auth);
-                $subscription->cancel($args[0]);
-                break;
+$router->add('[--help | -h]', function () use ($router) {
+    echo 'Usage:' . PHP_EOL;
+    foreach ($router->getRoutes() as $route) {
+        echo '  ' .$route . PHP_EOL;
+    }
+});
 
-            case 'suspend':
-                if (count($args) < 1) {
-                    throw new Exception('missing subscription');
-                }
+$router->execArgv();
 
-                $subscription = new Subscription($handler, $auth);
-                $subscription->suspend($args[0]);
-                break;
-
-            case 'activate':
-                if (count($args) < 1) {
-                    throw new Exception('missing subscription');
-                }
-
-                $subscription = new Subscription($handler, $auth);
-                $subscription->activate($args[0]);
-                break;
-        }
-
-        break;
-
-    case 'plans':
-        switch ($command) {
-            case 'list':
-                $plans = new Plans($handler, $auth);
-
-                dump($plans->list());
-                break;
-
-            case 'get':
-                if (count($args) < 1) {
-                    throw new Exception('missing plan');
-                }
-
-                $plans = new Plans($handler, $auth);
-                dump($plans->get($args[0]));
-                break;
-
-            case 'activate':
-                if (count($args) < 1) {
-                    throw new Exception('missing plan');
-                }
-
-                $plans = new Plans($handler, $auth);
-                dump($plans->activate($args[0]));
-                break;
-
-            case 'deactivate':
-                if (count($args) < 1) {
-                    throw new Exception('missing plan');
-                }
-
-                $plans = new Plans($handler, $auth);
-                dump($plans->deactivate($args[0]));
-                break;
-
-            default:
-                throw new Exception("unknown command - {$command}");
-        }
-
-        break;
-
-    case 'products':
-        switch ($command) {
-            case 'list':
-                $products = new Products($handler, $auth);
-
-                dump($products->list());
-                break;
-
-            case 'get':
-                if (count($args) < 1) {
-                    throw new Exception('missing product');
-                }
-
-                $products = new Products($handler, $auth);
-                dump($products->get($args[0]));
-                break;
-
-            case 'add':
-                $products = new Products($handler, $auth);
-                dump($products->add([
-                    'name' => 'Test',
-                    'description' => 'Test',
-                    'type' => 'Service', // Physical Goods, Digital Goods, Service
-                    'category' => 'Software',
-                    'home_url' => 'https://test.net/',
-                    'image_url' => 'https://test.net/logo.svg',
-                ]));
-                break;
-
-            default:
-                throw new Exception("unknown command - {$command}");
-        }
-
-        break;
-
-    case 'auth':
-        switch ($command) {
-            case 'token':
-                dump($auth->token());
-                break;
-
-            default:
-                throw new Exception("unknown command - {$command}");
-        }
-
-        break;
-
-    case 'custom':
-        switch ($command) {
-            case 'simulate':
-                if (count($args) < 2) {
-                    throw new Exception('missing webhook url or file');
-                }
-
-                simulate($args[0], $args[1]);
-                break;
-
-            default:
-                throw new Exception("unknown command - {$command}");
-        }
-
-        break;
-
-    default:
-        throw new Exception("unknown group - {$group}");
-}
-
-function dump($var) : void
+/**
+ * Dump variable
+ *
+ * @param  mixed $variable
+ *
+ * @return void
+ */
+function dump(mixed $variable) : void
 {
-    echo json_encode($var, JSON_PRETTY_PRINT) . PHP_EOL;
+    echo json_encode($variable, JSON_PRETTY_PRINT) . PHP_EOL;
 }
 
 /**
