@@ -12,9 +12,8 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-abstract class Client
+class RequestHandler
 {
-    protected readonly string $baseUri;
     protected readonly ClientInterface $client;
     protected readonly RequestFactoryInterface $requestFactory;
     protected readonly StreamInterface $stream;
@@ -22,14 +21,12 @@ abstract class Client
     /**
      * Constructor
      *
-     * @param bool                    $sandbox
      * @param ClientInterface         $client
      * @param RequestFactoryInterface $requestFactory
      * @param StreamInterface         $streamInterface
      */
-    public function __construct(bool $sandbox, ClientInterface $client, RequestFactoryInterface $requestFactory, StreamInterface $stream)
+    public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamInterface $stream)
     {
-        $this->baseUri = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
         $this->client = $client;
         $this->requestFactory = $requestFactory;
         $this->stream = $stream;
@@ -50,7 +47,7 @@ abstract class Client
      */
     public function request(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
     {
-        $request = $this->requestFactory->createRequest($method, "{$this->baseUri}{$uri}");
+        $request = $this->requestFactory->createRequest($method, $uri);
 
         foreach ($headers as $name => $value) {
             $request = $request->withHeader($name, $value);

@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
+use HttpSoft\Message\RequestFactory;
+use HttpSoft\Message\Stream;
+use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Products;
 use Oct8pus\PayPal\Subscription;
 use Noodlehaus\Config;
+use Oct8pus\PayPal\RequestHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -22,7 +26,9 @@ if (count($args) < 2) {
 
 $config = Config::load(__DIR__ . '/.env.php');
 
-$auth = new OAuth($config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
+$handler = new RequestHandler(new Shuttle(), new RequestFactory(), new Stream());
+
+$auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
 
 $group = array_shift($args);
 $command = array_shift($args);
@@ -31,7 +37,7 @@ switch ($group) {
     case 'hooks':
         switch ($command) {
             case 'list':
-                $webhooks = new Hooks($auth);
+                $webhooks = new Hooks($handler, $auth);
                 $hooks = $webhooks->list();
 
                 foreach ($hooks as $hook) {
@@ -45,7 +51,7 @@ switch ($group) {
                     throw new Exception('missing hook url');
                 }
 
-                $webhooks = new Hooks($auth);
+                $webhooks = new Hooks($handler, $auth);
                 $webhooks->add($args[0] . '/paypal/hook/', [
                     // a payment on a subscription was made
                     'PAYMENT.SALE.COMPLETED',
@@ -82,13 +88,13 @@ switch ($group) {
                     throw new Exception('missing hook id');
                 }
 
-                $webhooks = new Hooks($auth);
+                $webhooks = new Hooks($handler, $auth);
                 $webhooks->delete($args[0]);
 
                 break;
 
             case 'clear':
-                $webhooks = new Hooks($auth);
+                $webhooks = new Hooks($handler, $auth);
                 $hooks = $webhooks->list();
 
                 foreach ($hooks as $hook) {
@@ -102,7 +108,7 @@ switch ($group) {
                     throw new Exception('missing webhook id or event type');
                 }
 
-                $webhooks = new Hooks($auth);
+                $webhooks = new Hooks($handler, $auth);
                 dump($webhooks->simulate($args[0], $args[1]));
 
                 break;
@@ -120,7 +126,7 @@ switch ($group) {
                     throw new Exception('missing subscription');
                 }
 
-                $subscription = new Subscription($auth);
+                $subscription = new Subscription($handler, $auth);
                 dump($subscription->get($args[0]));
                 break;
 
@@ -129,7 +135,7 @@ switch ($group) {
                     throw new Exception('missing subscription');
                 }
 
-                $subscription = new Subscription($auth);
+                $subscription = new Subscription($handler, $auth);
                 $subscription->cancel($args[0]);
                 break;
 
@@ -138,7 +144,7 @@ switch ($group) {
                     throw new Exception('missing subscription');
                 }
 
-                $subscription = new Subscription($auth);
+                $subscription = new Subscription($handler, $auth);
                 $subscription->suspend($args[0]);
                 break;
 
@@ -147,7 +153,7 @@ switch ($group) {
                     throw new Exception('missing subscription');
                 }
 
-                $subscription = new Subscription($auth);
+                $subscription = new Subscription($handler, $auth);
                 $subscription->activate($args[0]);
                 break;
         }
@@ -157,7 +163,7 @@ switch ($group) {
     case 'plans':
         switch ($command) {
             case 'list':
-                $plans = new Plans($auth);
+                $plans = new Plans($handler, $auth);
 
                 dump($plans->list());
                 break;
@@ -167,7 +173,7 @@ switch ($group) {
                     throw new Exception('missing plan');
                 }
 
-                $plans = new Plans($auth);
+                $plans = new Plans($handler, $auth);
                 dump($plans->get($args[0]));
                 break;
 
@@ -176,7 +182,7 @@ switch ($group) {
                     throw new Exception('missing plan');
                 }
 
-                $plans = new Plans($auth);
+                $plans = new Plans($handler, $auth);
                 dump($plans->activate($args[0]));
                 break;
 
@@ -185,7 +191,7 @@ switch ($group) {
                     throw new Exception('missing plan');
                 }
 
-                $plans = new Plans($auth);
+                $plans = new Plans($handler, $auth);
                 dump($plans->deactivate($args[0]));
                 break;
 
@@ -198,7 +204,7 @@ switch ($group) {
     case 'products':
         switch ($command) {
             case 'list':
-                $products = new Products($auth);
+                $products = new Products($handler, $auth);
 
                 dump($products->list());
                 break;
@@ -208,19 +214,19 @@ switch ($group) {
                     throw new Exception('missing product');
                 }
 
-                $products = new Products($auth);
+                $products = new Products($handler, $auth);
                 dump($products->get($args[0]));
                 break;
 
             case 'add':
-                $products = new Products($auth);
+                $products = new Products($handler, $auth);
                 dump($products->add([
-                    'name' => 'CopyTrans Studio',
-                    'description' => 'CopyTrans Studio',
+                    'name' => 'Test',
+                    'description' => 'Test',
                     'type' => 'Service', // Physical Goods, Digital Goods, Service
                     'category' => 'Software',
-                    'home_url' => 'https://copytrans.studio/',
-                    'image_url' => 'https://copytrans.studio/app/themes/studio/assets/images/logo.svg',
+                    'home_url' => 'https://test.net/',
+                    'image_url' => 'https://test.net/logo.svg',
                 ]));
                 break;
 

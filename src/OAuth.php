@@ -8,14 +8,12 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\Client;
 use DateTime;
 use DateTimeInterface;
-use HttpSoft\Message\RequestFactory;
-use HttpSoft\Message\Stream;
-use Nimbly\Shuttle\Shuttle;
+use Oct8pus\PayPal\RequestHandler;
+use Oct8pus\PayPal\RestBase;
 
-class OAuth extends Client
+class OAuth extends RestBase
 {
     private readonly string $clientId;
     private readonly string $clientSecret;
@@ -28,16 +26,13 @@ class OAuth extends Client
     /**
      * Constructor
      *
+     * @param RequestHandler $handler
      * @param string $clientId
      * @param string $clientSecret
      */
-    public function __construct(string $clientId, string $clientSecret)
+    public function __construct(RequestHandler $handler, string $clientId, string $clientSecret)
     {
-        $shuttle = new Shuttle();
-        $factory = new RequestFactory();
-        $stream = new Stream();
-
-        parent::__construct(true, $shuttle, $factory, $stream);
+        parent::__construct(true, $handler);
 
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;

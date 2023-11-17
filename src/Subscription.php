@@ -8,28 +8,23 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\Client;
 use Oct8pus\PayPal\OAuth;
-use HttpSoft\Message\RequestFactory;
-use HttpSoft\Message\Stream;
-use Nimbly\Shuttle\Shuttle;
+use Oct8pus\PayPal\RequestHandler;
+use Oct8pus\PayPal\RestBase;
 
-class Subscription extends Client
+class Subscription extends RestBase
 {
     private OAuth $auth;
 
     /**
      * Constructor
      *
+     * @param RequestHandler $handler
      * @param OAuth $auth - OAuth 2.0 token
      */
-    public function __construct(OAuth $auth)
+    public function __construct(RequestHandler $handler, OAuth $auth)
     {
-        $shuttle = new Shuttle();
-        $factory = new RequestFactory();
-        $stream = new Stream();
-
-        parent::__construct(true, $shuttle, $factory, $stream);
+        parent::__construct(true, $handler);
 
         $this->auth = $auth;
     }
