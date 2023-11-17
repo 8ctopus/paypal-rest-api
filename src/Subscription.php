@@ -11,6 +11,7 @@ namespace Oct8pus\PayPal;
 use Oct8pus\PayPal\Client;
 use Oct8pus\PayPal\OAuth;
 use HttpSoft\Message\RequestFactory;
+use HttpSoft\Message\Stream;
 use Nimbly\Shuttle\Shuttle;
 
 class Subscription extends Client
@@ -26,8 +27,9 @@ class Subscription extends Client
     {
         $shuttle = new Shuttle();
         $factory = new RequestFactory();
+        $stream = new Stream();
 
-        parent::__construct(true, $shuttle, $factory);
+        parent::__construct(true, $shuttle, $factory, $stream);
 
         $this->auth = $auth;
     }

@@ -12,6 +12,7 @@ use Oct8pus\PayPal\Client;
 use DateTime;
 use DateTimeInterface;
 use HttpSoft\Message\RequestFactory;
+use HttpSoft\Message\Stream;
 use Nimbly\Shuttle\Shuttle;
 
 class OAuth extends Client
@@ -34,8 +35,9 @@ class OAuth extends Client
     {
         $shuttle = new Shuttle();
         $factory = new RequestFactory();
+        $stream = new Stream();
 
-        parent::__construct(true, $shuttle, $factory);
+        parent::__construct(true, $shuttle, $factory, $stream);
 
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;

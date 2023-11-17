@@ -8,26 +8,31 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use HttpSoft\Message\Stream;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 
 abstract class Client
 {
     protected readonly string $baseUri;
-    protected readonly ClientInterface $clientInterface;
-    protected readonly RequestFactoryInterface $requestFactoryInterface;
+    protected readonly ClientInterface $client;
+    protected readonly RequestFactoryInterface $requestFactory;
+    protected readonly StreamInterface $stream;
 
     /**
      * Constructor
      *
-     * @param bool $sandbox
+     * @param bool                    $sandbox
+     * @param ClientInterface         $client
+     * @param RequestFactoryInterface $requestFactory
+     * @param StreamInterface         $streamInterface
      */
-    public function __construct(bool $sandbox, ClientInterface $clientInterface, RequestFactoryInterface $requestFactoryInterface)
+    public function __construct(bool $sandbox, ClientInterface $client, RequestFactoryInterface $requestFactory, StreamInterface $stream)
     {
         $this->baseUri = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
-        $this->clientInterface = $clientInterface;
-        $this->requestFactoryInterface = $requestFactoryInterface;
+        $this->client = $client;
+        $this->requestFactory = $requestFactory;
+        $this->stream = $stream;
     }
 
     /**
@@ -45,21 +50,20 @@ abstract class Client
      */
     public function request(string $method, string $url, array $headers, ?string $body, int $expectedStatus) : string
     {
-        $request = $this->requestFactoryInterface->createRequest($method, "{$this->baseUri}{$url}");
+        $request = $this->requestFactory->createRequest($method, "{$this->baseUri}{$url}");
 
         foreach ($headers as $name => $value) {
             $request = $request->withHeader($name, $value);
         }
 
         if ($body !== null) {
-            $stream = new Stream();
-            $stream->write($body);
-            $stream->rewind();
+            $this->stream->write($body);
+            $this->stream->rewind();
 
-            $request = $request->withBody($stream);
+            $request = $request->withBody($this->stream);
         }
 
-        $response = $this->clientInterface->sendRequest($request);
+        $response = $this->client->sendRequest($request);
 
         $status = $response->getStatusCode();
 
