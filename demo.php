@@ -217,7 +217,7 @@ switch ($group) {
     case 'token':
         switch ($command) {
             case 'get':
-                dump($auth->get());
+                dump($auth->token());
                 break;
 
             default:

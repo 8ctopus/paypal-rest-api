@@ -41,7 +41,7 @@ class Subscription extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
         ];
@@ -65,7 +65,7 @@ class Subscription extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
             CURLOPT_POST => true,

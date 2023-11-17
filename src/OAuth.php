@@ -47,7 +47,7 @@ class OAuth extends Client
      *
      * @throws PayPalException
      */
-    public function get() : string
+    public function token() : string
     {
         if (isset($this->token)) {
             if (time() < $this->expires) {

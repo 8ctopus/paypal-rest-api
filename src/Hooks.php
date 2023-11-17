@@ -39,7 +39,7 @@ class Hooks extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
         ];
@@ -77,7 +77,7 @@ class Hooks extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
             CURLOPT_POST => true,
@@ -109,7 +109,7 @@ class Hooks extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
             CURLOPT_CUSTOMREQUEST => 'DELETE',
@@ -152,7 +152,7 @@ class Hooks extends Client
         $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->get(),
+                'Authorization: Bearer ' . $this->auth->token(),
                 'Content-Type: application/json',
             ],
             CURLOPT_POST => true,
