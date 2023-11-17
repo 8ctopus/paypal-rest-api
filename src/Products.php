@@ -10,6 +10,8 @@ namespace Oct8pus\PayPal;
 
 use Oct8pus\PayPal\Client;
 use Oct8pus\PayPal\OAuth;
+use HttpSoft\Message\RequestFactory;
+use Nimbly\Shuttle\Shuttle;
 
 class Products extends Client
 {
@@ -22,7 +24,10 @@ class Products extends Client
      */
     public function __construct(OAuth $auth)
     {
-        parent::__construct(true);
+        $shuttle = new Shuttle();
+        $factory = new RequestFactory();
+
+        parent::__construct(true, $shuttle, $factory);
 
         $this->auth = $auth;
     }
@@ -36,15 +41,12 @@ class Products extends Client
     {
         $url = '/v1/catalogs/products';
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $json = $this->request('GET', $url, $headers, null, 200);
 
         return json_decode($json, true)['products'];
     }
@@ -60,15 +62,12 @@ class Products extends Client
     {
         $url = "/v1/catalogs/products/{$id}";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $json = $this->request('GET', $url, $headers, null, 200);
 
         return json_decode($json, true);
     }
@@ -101,17 +100,14 @@ class Products extends Client
 
         $url = '/v1/catalogs/products';
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($product, JSON_PRETTY_PRINT),
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $this->curl($url, $options, 201);
+        $body = json_encode($product, JSON_PRETTY_PRINT);
+
+        $this->request('POST', $url, $headers, $body, 201);
 
         return $this;
     }

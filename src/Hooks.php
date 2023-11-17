@@ -10,6 +10,8 @@ namespace Oct8pus\PayPal;
 
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\Client;
+use HttpSoft\Message\RequestFactory;
+use Nimbly\Shuttle\Shuttle;
 
 class Hooks extends Client
 {
@@ -22,7 +24,10 @@ class Hooks extends Client
      */
     public function __construct(OAuth $auth)
     {
-        parent::__construct(true);
+        $shuttle = new Shuttle();
+        $factory = new RequestFactory();
+
+        parent::__construct(true, $shuttle, $factory);
 
         $this->auth = $auth;
     }
@@ -36,15 +41,12 @@ class Hooks extends Client
     {
         $url = '/v1/notifications/webhooks';
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $json = $this->request('GET', $url, $headers, null, 200);
 
         return json_decode($json, true)['webhooks'];
     }
@@ -61,6 +63,13 @@ class Hooks extends Client
      */
     public function add(string $url, array $eventTypes) : string
     {
+        $url = '/v1/notifications/webhooks';
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
+        ];
+
         $data = [
             'url' => $url,
             'event_types' => [],
@@ -70,21 +79,9 @@ class Hooks extends Client
             $data['event_types'][] = ['name' => $type];
         }
 
-        $data = json_encode($data, JSON_PRETTY_PRINT);
+        $body = json_encode($data, JSON_PRETTY_PRINT);
 
-        $url = '/v1/notifications/webhooks';
-
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $data,
-        ];
-
-        $json = $this->curl($url, $options, 201);
+        $json = $this->request('POST', $url, $headers, $body, 201);
 
         $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
@@ -106,16 +103,12 @@ class Hooks extends Client
     {
         $url = "/v1/notifications/webhooks/{$id}";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_CUSTOMREQUEST => 'DELETE',
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $this->curl($url, $options, 204);
+        $this->request('DELETE', $url, $headers, null, 204);
 
         return $this;
     }
@@ -143,23 +136,18 @@ class Hooks extends Client
                 break;
         }
 
-        $data = [
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
+        ];
+
+        $data = json_encode([
             'webhook_id' => $webhookId,
             'event_type' => $eventType,
             'resource_version' => $version,
-        ];
+        ], JSON_PRETTY_PRINT);
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($data, JSON_PRETTY_PRINT),
-        ];
-
-        $json = $this->curl($url, $options, 202);
+        $json = $this->request('POST', $url, $headers, $data, 202);
 
         return json_decode($json, true);
     }

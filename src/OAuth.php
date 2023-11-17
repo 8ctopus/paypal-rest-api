@@ -11,6 +11,8 @@ namespace Oct8pus\PayPal;
 use Oct8pus\PayPal\Client;
 use DateTime;
 use DateTimeInterface;
+use HttpSoft\Message\RequestFactory;
+use Nimbly\Shuttle\Shuttle;
 
 class OAuth extends Client
 {
@@ -30,7 +32,10 @@ class OAuth extends Client
      */
     public function __construct(string $clientId, string $clientSecret)
     {
-        parent::__construct(true);
+        $shuttle = new Shuttle();
+        $factory = new RequestFactory();
+
+        parent::__construct(true, $shuttle, $factory);
 
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
@@ -57,20 +62,15 @@ class OAuth extends Client
 
         $url = '/v1/oauth2/token';
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
-                'Content-Type: application/x-www-form-urlencoded',
-                'Accept: application/json',
-            ],
-            // alternative way to supply authorization
-            //CURLOPT_USERPWD => $this->clientId . ':' . $this->clientSecret,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => http_build_query(['grant_type' => 'client_credentials']),
+        $headers = [
+            'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $body = http_build_query(['grant_type' => 'client_credentials']);
+
+        $json = $this->request('POST', $url, $headers, $body, 200);
 
         $decoded = json_decode($json, true);
 

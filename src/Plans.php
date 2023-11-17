@@ -10,6 +10,8 @@ namespace Oct8pus\PayPal;
 
 use Oct8pus\PayPal\Client;
 use Oct8pus\PayPal\OAuth;
+use HttpSoft\Message\RequestFactory;
+use Nimbly\Shuttle\Shuttle;
 
 class Plans extends Client
 {
@@ -22,7 +24,10 @@ class Plans extends Client
      */
     public function __construct(OAuth $auth)
     {
-        parent::__construct(true);
+        $shuttle = new Shuttle();
+        $factory = new RequestFactory();
+
+        parent::__construct(true, $shuttle, $factory);
 
         $this->auth = $auth;
     }
@@ -38,15 +43,12 @@ class Plans extends Client
     {
         $url = '/v1/billing/plans';
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $json = $this->request('GET', $url, $headers, null, 200);
 
         return json_decode($json, true)['plans'];
     }
@@ -64,15 +66,12 @@ class Plans extends Client
     {
         $url = "/v1/billing/plans/{$id}";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $json = $this->curl($url, $options, 200);
+        $json = $this->request('GET', $url, $headers, null, 200);
 
         return json_decode($json, true);
     }
@@ -120,17 +119,12 @@ class Plans extends Client
     {
         $url = "/v1/billing/plans/{$id}/activate";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => '',
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $this->curl($url, $options, 204);
+        $this->request('POST', $url, $headers, null, 204);
 
         return $this;
     }
@@ -148,17 +142,12 @@ class Plans extends Client
     {
         $url = "/v1/billing/plans/{$id}/deactivate";
 
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $this->auth->token(),
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => '',
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->auth->token(),
+            'Content-Type' => 'application/json',
         ];
 
-        $this->curl($url, $options, 204);
+        $this->request('POST', $url, $headers, null, 204);
 
         return $this;
     }
