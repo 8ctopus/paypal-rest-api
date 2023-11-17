@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\RestBase;
-use Oct8pus\PayPal\OAuth;
-
 class Products extends RestBase
 {
     private OAuth $auth;
@@ -19,7 +16,7 @@ class Products extends RestBase
      * Constructor
      *
      * @param RequestHandler $handler
-     * @param OAuth $auth - OAuth 2.0 token
+     * @param OAuth $auth
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {

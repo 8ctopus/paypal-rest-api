@@ -8,10 +8,6 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\OAuth;
-use Oct8pus\PayPal\RequestHandler;
-use Oct8pus\PayPal\RestBase;
-
 class Hooks extends RestBase
 {
     private OAuth $auth;
@@ -20,7 +16,7 @@ class Hooks extends RestBase
      * Constructor
      *
      * @param RequestHandler $handler
-     * @param OAuth $auth - OAuth 2.0 token
+     * @param OAuth $auth
      */
     public function __construct(RequestHandler $handler, OAuth $auth)
     {

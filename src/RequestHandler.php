@@ -1,9 +1,5 @@
 <?php
 
-/**
- * https://developer.paypal.com/api/rest/
- */
-
 declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
