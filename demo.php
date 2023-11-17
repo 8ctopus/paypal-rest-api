@@ -10,7 +10,7 @@ use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Products;
-use Oct8pus\PayPal\RequestHandler;
+use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -26,7 +26,7 @@ if (count($args) < 2) {
 
 $config = Config::load(__DIR__ . '/.env.php');
 
-$handler = new RequestHandler(new Shuttle(), new RequestFactory(), new Stream());
+$handler = new HttpHandler(new Shuttle(), new RequestFactory(), new Stream());
 
 $auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
 

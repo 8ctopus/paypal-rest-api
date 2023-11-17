@@ -11,10 +11,10 @@ namespace Oct8pus\PayPal;
 abstract class RestBase
 {
     protected readonly string $baseUri;
-    protected readonly RequestHandler $handler;
+    protected readonly HttpHandler $handler;
     private ?OAuth $auth;
 
-    public function __construct(bool $sandbox, RequestHandler $handler, ?OAuth $auth)
+    public function __construct(bool $sandbox, HttpHandler $handler, ?OAuth $auth)
     {
         $this->baseUri = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
         $this->handler = $handler;

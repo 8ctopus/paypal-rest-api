@@ -8,7 +8,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-class RequestHandler
+class HttpHandler
 {
     protected readonly ClientInterface $client;
     protected readonly RequestFactoryInterface $requestFactory;

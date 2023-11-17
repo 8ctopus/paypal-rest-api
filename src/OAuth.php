@@ -24,11 +24,11 @@ class OAuth extends RestBase
     /**
      * Constructor
      *
-     * @param RequestHandler $handler
+     * @param HttpHandler $handler
      * @param string         $clientId
      * @param string         $clientSecret
      */
-    public function __construct(RequestHandler $handler, string $clientId, string $clientSecret)
+    public function __construct(HttpHandler $handler, string $clientId, string $clientSecret)
     {
         parent::__construct(true, $handler, null);
 

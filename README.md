@@ -26,11 +26,11 @@ use HttpSoft\Message\Stream;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\OAuth;
-use Oct8pus\PayPal\RequestHandler;
+use Oct8pus\PayPal\HttpHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$handler = new RequestHandler(
+$handler = new HttpHandler(
     // PSR-18 http client
     new Shuttle(),
     // PSR-17 request factory
