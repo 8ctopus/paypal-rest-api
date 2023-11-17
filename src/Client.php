@@ -39,7 +39,7 @@ abstract class Client
      * Send request
      *
      * @param  string  $method
-     * @param  string  $url
+     * @param  string  $uri
      * @param  array   $headers
      * @param  ?string $body
      * @param  int     $expectedStatus
@@ -48,9 +48,9 @@ abstract class Client
      *
      * @throws PayPalException
      */
-    public function request(string $method, string $url, array $headers, ?string $body, int $expectedStatus) : string
+    public function request(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
     {
-        $request = $this->requestFactory->createRequest($method, "{$this->baseUri}{$url}");
+        $request = $this->requestFactory->createRequest($method, "{$this->baseUri}{$uri}");
 
         foreach ($headers as $name => $value) {
             $request = $request->withHeader($name, $value);
