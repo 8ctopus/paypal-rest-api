@@ -6,26 +6,26 @@ namespace Oct8pus\PayPal;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 class HttpHandler
 {
     protected readonly ClientInterface $client;
     protected readonly RequestFactoryInterface $requestFactory;
-    protected readonly StreamInterface $stream;
+    protected readonly StreamFactoryInterface $streamFactory;
 
     /**
      * Constructor
      *
      * @param ClientInterface         $client
      * @param RequestFactoryInterface $requestFactory
-     * @param StreamInterface         $stream
+     * @param StreamInterface         $streamFactory
      */
-    public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamInterface $stream)
+    public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamFactoryInterface $streamFactory)
     {
         $this->client = $client;
         $this->requestFactory = $requestFactory;
-        $this->stream = $stream;
+        $this->streamFactory = $streamFactory;
     }
 
     /**
@@ -50,10 +50,8 @@ class HttpHandler
         }
 
         if ($body !== null) {
-            $this->stream->write($body);
-            $this->stream->rewind();
-
-            $request = $request->withBody($this->stream);
+            $stream = $this->streamFactory->createStream($body);
+            $request = $request->withBody($stream);
         }
 
         $response = $this->client->sendRequest($request);

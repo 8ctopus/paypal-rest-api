@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use HttpSoft\Message\RequestFactory;
-use HttpSoft\Message\Stream;
+use Nimbly\Capsule\Factory\RequestFactory;
+use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
 use Noodlehaus\Config;
 use Oct8pus\PayPal\Hooks;
@@ -26,7 +26,7 @@ if (count($args) < 2) {
 
 $config = Config::load(__DIR__ . '/.env.php');
 
-$handler = new HttpHandler(new Shuttle(), new RequestFactory(), new Stream());
+$handler = new HttpHandler(new Shuttle(), new RequestFactory(), new StreamFactory());
 
 $auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
 
@@ -52,7 +52,7 @@ switch ($group) {
                 }
 
                 $webhooks = new Hooks($handler, $auth);
-                $webhooks->add($args[0] . '/paypal/hook/', [
+                $webhooks->add($args[0], [
                     // a payment on a subscription was made
                     'PAYMENT.SALE.COMPLETED',
                     // a payment on a subscription was refunded
