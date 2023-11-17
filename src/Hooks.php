@@ -63,8 +63,6 @@ class Hooks extends Client
      */
     public function add(string $url, array $eventTypes) : string
     {
-        $url = '/v1/notifications/webhooks';
-
         $headers = [
             'Authorization' => 'Bearer ' . $this->auth->token(),
             'Content-Type' => 'application/json',
@@ -78,6 +76,8 @@ class Hooks extends Client
         foreach ($eventTypes as $type) {
             $data['event_types'][] = ['name' => $type];
         }
+
+        $url = '/v1/notifications/webhooks';
 
         $body = json_encode($data, JSON_PRETTY_PRINT);
 
