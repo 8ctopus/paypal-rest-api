@@ -32,7 +32,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}";
 
-        $json = $this->request('GET', $url, [], null, 200);
+        $json = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -48,7 +48,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/cancel";
 
-        $this->request('POST', $url, [], null, 204);
+        $this->sendRequest('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -64,7 +64,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/suspend";
 
-        $this->request('POST', $url, [], null, 204);
+        $this->sendRequest('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -80,7 +80,7 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}/activate";
 
-        $this->request('POST', $url, [], null, 204);
+        $this->sendRequest('POST', $url, [], null, 204);
 
         return $this;
     }

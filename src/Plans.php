@@ -32,7 +32,7 @@ class Plans extends RestBase
     {
         $url = '/v1/billing/plans';
 
-        $json = $this->request('GET', $url, [], null, 200);
+        $json = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($json, true)['plans'];
     }
@@ -50,7 +50,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}";
 
-        $json = $this->request('GET', $url, [], null, 200);
+        $json = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -98,7 +98,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}/activate";
 
-        $this->request('POST', $url, [], null, 204);
+        $this->sendRequest('POST', $url, [], null, 204);
 
         return $this;
     }
@@ -116,7 +116,7 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}/deactivate";
 
-        $this->request('POST', $url, [], null, 204);
+        $this->sendRequest('POST', $url, [], null, 204);
 
         return $this;
     }

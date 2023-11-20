@@ -41,7 +41,7 @@ class HttpHandler
      *
      * @throws PayPalException
      */
-    public function request(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
+    public function createRequest(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
     {
         $request = $this->requestFactory->createRequest($method, $uri);
 

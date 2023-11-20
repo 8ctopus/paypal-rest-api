@@ -32,7 +32,7 @@ class Products extends RestBase
     {
         $url = '/v1/catalogs/products';
 
-        $json = $this->request('GET', $url, [], null, 200);
+        $json = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($json, true)['products'];
     }
@@ -48,7 +48,7 @@ class Products extends RestBase
     {
         $url = "/v1/catalogs/products/{$id}";
 
-        $json = $this->request('GET', $url, [], null, 200);
+        $json = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($json, true);
     }
@@ -83,7 +83,7 @@ class Products extends RestBase
 
         $body = json_encode($product, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
-        $this->request('POST', $url, [], $body, 201);
+        $this->sendRequest('POST', $url, [], $body, 201);
 
         return $this;
     }

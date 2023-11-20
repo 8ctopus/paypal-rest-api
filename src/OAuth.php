@@ -54,7 +54,7 @@ class OAuth extends RestBase
             'grant_type' => 'client_credentials',
         ]);
 
-        $json = $this->request('POST', $url, [], $body, 200);
+        $json = $this->sendRequest('POST', $url, [], $body, 200);
 
         $decoded = json_decode($json, true);
 
