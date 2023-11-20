@@ -19,7 +19,7 @@ class HttpHandler
      *
      * @param ClientInterface         $client
      * @param RequestFactoryInterface $requestFactory
-     * @param StreamInterface         $streamFactory
+     * @param StreamFactoryInterface  $streamFactory
      */
     public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamFactoryInterface $streamFactory)
     {
