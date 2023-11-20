@@ -10,7 +10,7 @@
 
 php implementation of PayPal's REST api using PSR-7, PSR-17 and PSR-18.
 
-It is a work in progress and contributions are welcome. For now, it only covers subscriptions.
+It is a work in progress and contributions are welcome. For now, it covers subscriptions (Products and Plans) and web hooks.
 
 ## install
 
@@ -18,7 +18,7 @@ It is a work in progress and contributions are welcome. For now, it only covers 
 
 ## demo
 
-Also check `demo.php`
+Also run the `demo.php` to see what is possible.
 
 ```php
 use HttpSoft\Message\RequestFactory;
@@ -42,6 +42,7 @@ $handler = new HttpHandler(
 // get oauth token
 $auth = new OAuth($handler, 'rest.id', 'rest.pass');
 
+// list webhooks
 $webhooks = new Hooks($handler, $auth);
 var_dump($webhooks->list());
 ```
