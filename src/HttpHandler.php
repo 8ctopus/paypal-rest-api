@@ -59,7 +59,10 @@ class HttpHandler
 
     public function sendRequest(RequestInterface $request) : ResponseInterface
     {
+        // @codeCoverageIgnoreStart
+        // testing the http client is out of scope
         return $this->client->sendRequest($request);
+        // @codeCoverageIgnoreEnd
     }
 
     public function processResponse(ResponseInterface $response, int $expectedStatus) : string
