@@ -18,7 +18,7 @@ It is a work in progress and contributions are welcome. For now, it covers subsc
 
 ## demo
 
-Also run the `demo.php` to see what is possible.
+Run `demo.php` to see what is possible. Here's a code snippet:
 
 ```php
 use HttpSoft\Message\RequestFactory;
