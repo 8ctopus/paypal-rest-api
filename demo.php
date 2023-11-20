@@ -9,7 +9,7 @@ use Nimbly\Shuttle\Shuttle;
 use Noodlehaus\Config;
 use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
-use Oct8pus\PayPal\OAuth;
+use Oct8pus\PayPal\OAuthCache;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Products;
 use Oct8pus\PayPal\HttpHandler;
@@ -39,7 +39,9 @@ $handler = new HttpHandler(
     new StreamFactory()
 );
 
-$auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
+$cacheFile = __DIR__ . '/.cache.json';
+
+$auth = new OAuthCache($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'), $cacheFile);
 
 $router = new Router();
 
