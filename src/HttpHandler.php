@@ -6,6 +6,7 @@ namespace Oct8pus\PayPal;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 class HttpHandler
@@ -37,11 +38,9 @@ class HttpHandler
      * @param ?string       $body
      * @param int           $expectedStatus
      *
-     * @return string
-     *
-     * @throws PayPalException
+     * @return RequestInterface
      */
-    public function createRequest(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
+    public function createRequest(string $method, string $uri, array $headers, ?string $body) : RequestInterface
     {
         $request = $this->requestFactory->createRequest($method, $uri);
 
@@ -54,6 +53,11 @@ class HttpHandler
             $request = $request->withBody($stream);
         }
 
+        return $request;
+    }
+
+    public function sendRequest(RequestInterface $request, int $expectedStatus) : string
+    {
         $response = $this->client->sendRequest($request);
 
         $status = $response->getStatusCode();

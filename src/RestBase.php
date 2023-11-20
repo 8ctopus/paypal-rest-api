@@ -36,7 +36,9 @@ abstract class RestBase
      */
     protected function sendRequest(string $method, string $uri, array $headers, ?string $body, int $expectedStatus) : string
     {
-        return $this->handler->createRequest($method, $this->baseUri . $uri, array_merge($this->headers(), $headers), $body, $expectedStatus);
+        $request = $this->handler->createRequest($method, $this->baseUri . $uri, array_merge($this->headers(), $headers), $body);
+
+        return $this->handler->sendRequest($request, $expectedStatus);
     }
 
     /**
