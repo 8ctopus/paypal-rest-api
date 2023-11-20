@@ -19,11 +19,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class OAuthTest extends TestCase
 {
-    private static TestHttpHandler $handler;
+    private static HttpHandlerMock $handler;
 
     public static function setUpBeforeClass() : void
     {
-        self::$handler = new TestHttpHandler(new Shuttle(), new RequestFactory(), new StreamFactory());
+        self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
     }
 
     public function testToken() : void
