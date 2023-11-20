@@ -28,12 +28,12 @@ final class PlansTest extends TestCase
     {
         self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
         self::$auth = new OAuthMock(self::$handler, 'testId', 'testSecret');
-        self::$plans = new Plans(self::$handler, self::$auth);
+        self::$plans = new Plans(true, self::$handler, self::$auth);
     }
 
     public function testConstructor() : void
     {
-        self::assertInstanceOf(Plans::class, new Plans(self::$handler, self::$auth));
+        self::assertInstanceOf(Plans::class, new Plans(true, self::$handler, self::$auth));
     }
 
     public function testList() : void

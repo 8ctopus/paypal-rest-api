@@ -26,12 +26,12 @@ final class HooksTest extends TestCase
     {
         self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
         self::$auth = new OAuthMock(self::$handler, 'testId', 'testSecret');
-        self::$hooks = new Hooks(self::$handler, self::$auth);
+        self::$hooks = new Hooks(true, self::$handler, self::$auth);
     }
 
     public function testConstructor() : void
     {
-        self::assertInstanceOf(Hooks::class, new Hooks(self::$handler, self::$auth));
+        self::assertInstanceOf(Hooks::class, new Hooks(true, self::$handler, self::$auth));
     }
 
     public function testList() : void

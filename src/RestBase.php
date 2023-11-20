@@ -14,6 +14,13 @@ abstract class RestBase
     protected readonly HttpHandler $handler;
     private ?OAuth $auth;
 
+    /**
+     * Constructor
+     *
+     * @param bool        $sandbox - use PayPal sandbox/production
+     * @param HttpHandler $handler
+     * @param OAuth       $auth
+     */
     public function __construct(bool $sandbox, HttpHandler $handler, ?OAuth $auth)
     {
         $this->baseUri = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';

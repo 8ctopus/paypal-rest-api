@@ -15,14 +15,15 @@ class OAuthCache extends OAuth
     /**
      * Constructor
      *
+     * @param bool        $sandbox
      * @param HttpHandler $handler
      * @param string      $clientId
      * @param string      $clientSecret
      * @param string      $cacheFile
      */
-    public function __construct(HttpHandler $handler, string $clientId, string $clientSecret, string $cacheFile)
+    public function __construct(bool $sandbox, HttpHandler $handler, string $clientId, string $clientSecret, string $cacheFile)
     {
-        parent::__construct($handler, $clientId, $clientSecret);
+        parent::__construct($sandbox, $handler, $clientId, $clientSecret);
 
         $this->file = $cacheFile;
 
@@ -68,6 +69,10 @@ class OAuthCache extends OAuth
      */
     private function save() : void
     {
+        if (!isset($this->token)) {
+            return;
+        }
+
         $json = [
             'token' => $this->token,
             'expires' => $this->expires,

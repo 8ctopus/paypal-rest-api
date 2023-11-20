@@ -27,12 +27,12 @@ final class SubscriptionTest extends TestCase
     {
         self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
         self::$auth = new OAuthMock(self::$handler, 'testId', 'testSecret');
-        self::$subscription = new Subscription(self::$handler, self::$auth);
+        self::$subscription = new Subscription(true, self::$handler, self::$auth);
     }
 
     public function testConstructor() : void
     {
-        self::assertInstanceOf(Subscription::class, new Subscription(self::$handler, self::$auth));
+        self::assertInstanceOf(Subscription::class, new Subscription(true, self::$handler, self::$auth));
     }
 
     public function testGet() : void

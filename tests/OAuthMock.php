@@ -14,6 +14,6 @@ class OAuthMock extends OAuth
         $this->token = 'test';
         $this->expires = time() + 3600;
 
-        parent::__construct($handler, $clientId, $clientSecret);
+        parent::__construct(true, $handler, $clientId, $clientSecret);
     }
 }

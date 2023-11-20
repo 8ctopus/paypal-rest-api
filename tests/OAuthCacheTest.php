@@ -32,7 +32,7 @@ final class OAuthCacheTest extends TestCase
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
 
-        $token = (new OAuthCache(self::$handler, 'testId', 'testSecret', self::$cacheFile))
+        $token = (new OAuthCache(true, self::$handler, 'testId', 'testSecret', self::$cacheFile))
             ->token();
 
         self::assertSame('A21AAKhpstvuJ7TbYe3kZrQDlO-nmW_Dxby3W06pGsWNRGH447IxnAbWXTD_01X1PT_ISaoY-Fq7LI-VWDgxAUqPDYONyZ9fA', $token);
@@ -42,7 +42,7 @@ final class OAuthCacheTest extends TestCase
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
 
-        $token = (new OAuthCache(self::$handler, 'testId', 'testSecret2', self::$cacheFile))
+        $token = (new OAuthCache(true, self::$handler, 'testId', 'testSecret2', self::$cacheFile))
             ->token();
 
         self::assertSame('A21AAKhpstvuJ7TbYe3kZrQDlO-nmW_Dxby3W06pGsWNRGH447IxnAbWXTD_01X1PT_ISaoY-Fq7LI-VWDgxAUqPDYONyZ9fA', $token);

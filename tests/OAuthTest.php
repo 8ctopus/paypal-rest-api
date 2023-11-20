@@ -30,7 +30,7 @@ final class OAuthTest extends TestCase
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
 
-        $token = (new OAuth(self::$handler, 'testId', 'testSecret'))
+        $token = (new OAuth(true, self::$handler, 'testId', 'testSecret'))
             ->token();
 
         self::assertSame('A21AAKhpstvuJ7TbYe3kZrQDlO-nmW_Dxby3W06pGsWNRGH447IxnAbWXTD_01X1PT_ISaoY-Fq7LI-VWDgxAUqPDYONyZ9fA', $token);

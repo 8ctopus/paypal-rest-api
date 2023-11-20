@@ -15,12 +15,13 @@ class Products extends RestBase
     /**
      * Constructor
      *
+     * @param bool        $sandbox
      * @param HttpHandler $handler
      * @param OAuth       $auth
      */
-    public function __construct(HttpHandler $handler, OAuth $auth)
+    public function __construct(bool $sandbox, HttpHandler $handler, OAuth $auth)
     {
-        parent::__construct(true, $handler, $auth);
+        parent::__construct($sandbox, $handler, $auth);
     }
 
     /**

@@ -27,12 +27,12 @@ final class ProductsTest extends TestCase
     {
         self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
         self::$auth = new OAuthMock(self::$handler, 'testId', 'testSecret');
-        self::$products = new Products(self::$handler, self::$auth);
+        self::$products = new Products(true, self::$handler, self::$auth);
     }
 
     public function testConstructor() : void
     {
-        self::assertInstanceOf(Products::class, new Products(self::$handler, self::$auth));
+        self::assertInstanceOf(Products::class, new Products(true, self::$handler, self::$auth));
     }
 
     public function testList() : void
