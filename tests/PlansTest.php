@@ -8,6 +8,7 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
+use Oct8pus\PayPal\PayPalException;
 use Oct8pus\PayPal\Plans;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +30,7 @@ final class PlansTest extends TestCase
         self::$plans = new Plans(self::$handler, self::$auth);
     }
 
-    public function testListPlans() : void
+    public function testList() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlansList.json')));
 
@@ -46,7 +47,7 @@ final class PlansTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 
-    public function testGetPlan() : void
+    public function testGet() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlanDetails.json')));
 
@@ -101,5 +102,25 @@ final class PlansTest extends TestCase
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
+    }
+
+    public function testAdd() : void
+    {
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlanAdd.json')));
+
+        self::expectException(PayPalException::class);
+        self::expectExceptionMessage('not implemented');
+
+        $plan = [
+            'product_id' => '',
+            'name' => '',
+            'description' => '',
+            'status' => '',
+            'billing_cycles' => '',
+            'payment_preferences' => '',
+            'taxes' => '',
+        ];
+
+        self::$plans->add($plan);
     }
 }
