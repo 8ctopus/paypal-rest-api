@@ -110,7 +110,7 @@ final class PlansTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 
-    public function testAdd() : void
+    public function testCreate() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlanAdd.json')));
 
@@ -127,6 +127,6 @@ final class PlansTest extends TestCase
             'taxes' => '',
         ];
 
-        self::$plans->add($plan);
+        self::$plans->create($plan);
     }
 }

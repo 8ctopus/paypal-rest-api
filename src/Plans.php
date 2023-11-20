@@ -56,7 +56,7 @@ class Plans extends RestBase
     }
 
     /**
-     * Add plan
+     * Create plan
      *
      * @param array<string> $plan
      *
@@ -64,7 +64,7 @@ class Plans extends RestBase
      *
      * @throws PayPalException
      */
-    public function add(array $plan) : self
+    public function create(array $plan) : self
     {
         $keys = [
             'product_id',

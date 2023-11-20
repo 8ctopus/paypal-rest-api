@@ -38,7 +38,7 @@ class Hooks extends RestBase
     }
 
     /**
-     * Add hook
+     * Create hook
      *
      * @param string        $url
      * @param array<string> $eventTypes
@@ -47,7 +47,7 @@ class Hooks extends RestBase
      *
      * @throws JsonException|PayPalException
      */
-    public function add(string $url, array $eventTypes) : string
+    public function create(string $url, array $eventTypes) : string
     {
         $data = [
             'url' => $url,

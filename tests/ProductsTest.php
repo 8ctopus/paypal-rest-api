@@ -71,7 +71,7 @@ final class ProductsTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 
-    public function testAdd() : void
+    public function testCreate() : void
     {
         self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/ProductAdd.json')));
 
@@ -84,7 +84,7 @@ final class ProductsTest extends TestCase
             'home_url' => 'https://example.com/home',
         ];
 
-        self::$products->add($product);
+        self::$products->create($product);
 
         $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/catalogs/products

@@ -54,7 +54,7 @@ class Products extends RestBase
     }
 
     /**
-     * Add product
+     * Create product
      *
      * @param array<string> $product
      *
@@ -62,7 +62,7 @@ class Products extends RestBase
      *
      * @throws JsonException|PayPalException
      */
-    public function add(array $product) : self
+    public function create(array $product) : self
     {
         $keys = [
             'name',

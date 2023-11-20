@@ -51,7 +51,7 @@ final class HooksTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 
-    public function testAdd() : void
+    public function testCreate() : void
     {
         self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/HookAdd.json')));
 
@@ -62,7 +62,7 @@ final class HooksTest extends TestCase
             'PAYMENT.AUTHORIZATION.VOIDED',
         ];
 
-        self::$hooks->add($url, $types);
+        self::$hooks->create($url, $types);
 
         $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/notifications/webhooks

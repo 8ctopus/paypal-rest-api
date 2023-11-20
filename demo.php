@@ -56,7 +56,7 @@ $router->add('hooks list', static function () use ($handler, $auth) : void {
 
 $router->add('hooks add <url>', static function (array $args) use ($handler, $auth) : void {
     $webhooks = new Hooks($handler, $auth);
-    $webhooks->add($args['url'], [
+    $webhooks->create($args['url'], [
         // a payment on a subscription was made
         'PAYMENT.SALE.COMPLETED',
         // a payment on a subscription was refunded
@@ -157,7 +157,7 @@ $router->add('plans get <id>', static function (array $args) use ($handler, $aut
 
 $router->add('plans get <id> <name> <description> <type> <category> <home_url> <image_url>', static function (array $args) use ($handler, $auth) : void {
     $products = new Products($handler, $auth);
-    dump($products->add([
+    dump($products->create([
         'name' => $args['name'],
         'description' => $args['description'],
         'type' => $args['type'], // Physical Goods, Digital Goods, Service
