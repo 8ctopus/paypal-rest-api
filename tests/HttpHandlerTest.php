@@ -10,7 +10,6 @@ use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\PayPalException;
-use Oct8pus\PayPal\Subscription;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -38,7 +37,7 @@ final class HttpHandlerTest extends TestCase
             $dump .= $name . ': ' . implode(', ', $values) . "\n";
         }
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         http://localhost/
         Host: localhost
         Authorization: Basic dGVzdDp0ZXN0

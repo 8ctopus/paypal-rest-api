@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \Oct8pus\PayPal\Subscription
  * @covers \Oct8pus\PayPal\RestBase
+ * @covers \Oct8pus\PayPal\Subscription
  */
 final class SubscriptionTest extends TestCase
 {

@@ -64,7 +64,7 @@ final class HooksTest extends TestCase
 
         self::$hooks->add($url, $types);
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/notifications/webhooks
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
@@ -102,7 +102,7 @@ final class HooksTest extends TestCase
 
         self::$hooks->simulate($id, 'PAYMENT.AUTHORIZATION.CREATED');
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/notifications/simulate-event
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
