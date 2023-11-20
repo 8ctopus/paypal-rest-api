@@ -58,16 +58,12 @@ class OAuthCache extends OAuth
     }
 
     /**
-     * Save token to file
+     * Save token
      *
      * @return void
      */
     protected function save() : void
     {
-        if (!isset($this->token)) {
-            return;
-        }
-
         $json = [
             'token' => $this->token,
             'expires' => $this->expires,
