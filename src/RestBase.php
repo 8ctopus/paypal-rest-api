@@ -38,7 +38,9 @@ abstract class RestBase
     {
         $request = $this->handler->createRequest($method, $this->baseUri . $uri, array_merge($this->headers(), $headers), $body);
 
-        return $this->handler->sendRequest($request, $expectedStatus);
+        $response = $this->handler->sendRequest($request, $expectedStatus);
+
+        return $this->handler->processResponse($response, $expectedStatus);
     }
 
     /**

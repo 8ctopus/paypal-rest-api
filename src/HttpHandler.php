@@ -7,6 +7,7 @@ namespace Oct8pus\PayPal;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 class HttpHandler
@@ -56,10 +57,13 @@ class HttpHandler
         return $request;
     }
 
-    public function sendRequest(RequestInterface $request, int $expectedStatus) : string
+    public function sendRequest(RequestInterface $request) : ResponseInterface
     {
-        $response = $this->client->sendRequest($request);
+        return $this->client->sendRequest($request);
+    }
 
+    public function processResponse(ResponseInterface $response, int $expectedStatus) : string
+    {
         $status = $response->getStatusCode();
 
         if ($status !== $expectedStatus) {
