@@ -7,6 +7,7 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
 use Noodlehaus\Config;
+use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\Plans;
@@ -15,6 +16,8 @@ use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
+
+(new Provider())->register();
 
 $file = __DIR__ . '/.env.php';
 
