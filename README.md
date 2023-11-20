@@ -30,6 +30,8 @@ use Oct8pus\PayPal\HttpHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+$sandbox = true;
+
 $handler = new HttpHandler(
     // PSR-18 http client
     new Shuttle(),
@@ -40,10 +42,10 @@ $handler = new HttpHandler(
 );
 
 // get oauth token
-$auth = new OAuth($handler, 'rest.id', 'rest.pass');
+$auth = new OAuth($sandbox, $handler, 'rest.id', 'rest.pass');
 
 // list webhooks
-$webhooks = new Hooks($handler, $auth);
+$webhooks = new Hooks($sandbox, $handler, $auth);
 var_dump($webhooks->list());
 ```
 
