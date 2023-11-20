@@ -1,0 +1,101 @@
+{
+  "plans": [
+    {
+      "id": "P-9CT60829WM695623HL7QGYOI",
+      "name": "Netflix Plan 17012019",
+      "status": "ACTIVE",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-23T07:08:40Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-9CT60829WM695623HL7QGYOI",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "id": "P-7CE83846EJ264184CL7QHL3I",
+      "name": "Netflix Plan 17012019",
+      "status": "CREATED",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-23T07:06:08Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-7CE83846EJ264184CL7QHL3I",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "id": "P-1HG35083DU289225LL7QIDKA",
+      "name": "Netflix Plan 17012019",
+      "status": "ACTIVE",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-22T06:41:26Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-1HG35083DU289225LL7QIDKA",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "id": "P-5V279629EP569145RL7QZKFQ",
+      "name": "Netflix Plan 17012019",
+      "status": "CREATED",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-21T11:06:16Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-5V279629EP569145RL7QZKFQ",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "id": "P-69D48725TK8139022L7ROYYA",
+      "name": "Netflix Plan 17012019",
+      "status": "ACTIVE",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-21T10:16:13Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-69D48725TK8139022L7ROYYA",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "id": "P-87R81207W88552156L7ROZ6A",
+      "name": "Netflix Plan 17012019",
+      "status": "ACTIVE",
+      "description": "Netflix basic plan",
+      "usage_type": "LICENSED",
+      "create_time": "2020-12-21T09:34:49Z",
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/billing/plans/P-87R81207W88552156L7ROZ6A",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "href": "https://api-m.paypal.com/v1/billing/plans?page_size=10&page=1",
+      "rel": "self",
+      "method": "GET"
+    }
+  ]
+}
