@@ -75,7 +75,14 @@ class OAuth extends RestBase
 
         $this->expires = $nonce->getTimestamp() + $decoded['expires_in'];
 
+        $this->save();
+
         return $this->token;
+    }
+
+    protected function save() : void
+    {
+        // so that inherited classes can save token
     }
 
     protected function headers() : array

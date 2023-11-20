@@ -30,11 +30,6 @@ class OAuthCache extends OAuth
         $this->load();
     }
 
-    public function __destruct()
-    {
-        $this->save();
-    }
-
     /**
      * Load token from file
      *
@@ -67,7 +62,7 @@ class OAuthCache extends OAuth
      *
      * @return void
      */
-    private function save() : void
+    protected function save() : void
     {
         if (!isset($this->token)) {
             return;
