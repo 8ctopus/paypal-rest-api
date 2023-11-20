@@ -39,7 +39,7 @@ class HttpHandlerMock extends HttpHandler
         $dump = (string) $this->request->getUri() . "\n";
 
         foreach ($this->request->getHeaders() as $name => $values) {
-            $dump .= $name . ": " . implode(", ", $values) . "\n";
+            $dump .= $name . ': ' . implode(', ', $values) . "\n";
         }
 
         return $dump;

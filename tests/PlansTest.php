@@ -35,7 +35,7 @@ final class PlansTest extends TestCase
 
         self::$plans->list();
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/billing/plans
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
