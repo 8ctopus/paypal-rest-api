@@ -53,7 +53,7 @@ class OAuthCache extends OAuth
 
         $decoded = json_decode($json, true);
 
-        if ($decoded === false) {
+        if (!is_array($decoded)) {
             return;
         }
 
