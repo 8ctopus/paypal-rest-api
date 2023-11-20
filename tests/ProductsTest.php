@@ -67,7 +67,7 @@ final class ProductsTest extends TestCase
 
     public function testAdd() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/ProductAdd.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/ProductAdd.json')));
 
         $product = [
             'name' => 'Video Streaming Service',
