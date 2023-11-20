@@ -165,11 +165,11 @@ $router->add('plans get <id> <name> <description> <type> <category> <home_url> <
     ]));
 });
 
-$router->add('auth token', function () use ($handler, $auth) {
+$router->add('auth token', function () use ($auth) {
     dump($auth->token());
 });
 
-$router->add('custom simulate <url> <file>', function (array $args) use ($handler, $auth) {
+$router->add('custom simulate <url> <file>', function (array $args) {
     simulate($args['url'], $args['file']);
 });
 
