@@ -67,7 +67,7 @@ class HttpHandler
         $status = $response->getStatusCode();
 
         if ($status !== $expectedStatus) {
-            throw new PayPalException("status {$status}, expected {$expectedStatus} - " . (string) $response->getBody());
+            throw new PayPalException("status {$status} - expected {$expectedStatus} - " . (string) $response->getBody());
         }
 
         return (string) $response->getBody();
