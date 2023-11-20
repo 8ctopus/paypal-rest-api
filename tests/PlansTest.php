@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \Oct8pus\PayPal\Plans
  * @covers \Oct8pus\PayPal\RestBase
- * @covers \Oct8pus\PayPal\HttpHandler
  */
 final class PlansTest extends TestCase
 {
