@@ -29,6 +29,11 @@ final class HooksTest extends TestCase
         self::$hooks = new Hooks(self::$handler, self::$auth);
     }
 
+    public function testConstructor() : void
+    {
+        self::assertInstanceOf(Hooks::class, new Hooks(self::$handler, self::$auth));
+    }
+
     public function testList() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/HooksList.json')));

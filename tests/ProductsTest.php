@@ -29,6 +29,11 @@ final class ProductsTest extends TestCase
         self::$products = new Products(self::$handler, self::$auth);
     }
 
+    public function testConstructor() : void
+    {
+        self::assertInstanceOf(Products::class, new Products(self::$handler, self::$auth));
+    }
+
     public function testList() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/ProductsList.json')));

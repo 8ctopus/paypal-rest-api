@@ -30,6 +30,11 @@ final class PlansTest extends TestCase
         self::$plans = new Plans(self::$handler, self::$auth);
     }
 
+    public function testConstructor() : void
+    {
+        self::assertInstanceOf(Plans::class, new Plans(self::$handler, self::$auth));
+    }
+
     public function testList() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlansList.json')));
