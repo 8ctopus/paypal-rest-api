@@ -16,9 +16,25 @@ use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$config = Config::load(__DIR__ . '/.env.php');
+$file = __DIR__ . '/.env.php';
 
-$handler = new HttpHandler(new Shuttle(), new RequestFactory(), new StreamFactory());
+if (!file_exists($file)) {
+    echo <<<TXT
+    Please create env.php based on env.php.example
+
+    TXT;
+}
+
+$config = Config::load($file);
+
+$handler = new HttpHandler(
+    // PSR-18 http client
+    new Shuttle(),
+    // PSR-17 request factory
+    new RequestFactory(),
+    // PSR-7 stream
+    new StreamFactory()
+);
 
 $auth = new OAuth($handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'));
 
