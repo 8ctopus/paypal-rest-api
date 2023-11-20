@@ -31,6 +31,21 @@ class OAuthCache extends OAuth
     }
 
     /**
+     * Save token
+     *
+     * @return void
+     */
+    protected function save() : void
+    {
+        $json = [
+            'token' => $this->token,
+            'expires' => $this->expires,
+        ];
+
+        file_put_contents($this->file, json_encode($json, JSON_PRETTY_PRINT));
+    }
+
+    /**
      * Load token from file
      *
      * @return void
@@ -55,20 +70,5 @@ class OAuthCache extends OAuth
 
         $this->token = $decoded['token'];
         $this->expires = (int) $decoded['expires'];
-    }
-
-    /**
-     * Save token
-     *
-     * @return void
-     */
-    protected function save() : void
-    {
-        $json = [
-            'token' => $this->token,
-            'expires' => $this->expires,
-        ];
-
-        file_put_contents($this->file, json_encode($json, JSON_PRETTY_PRINT));
     }
 }
