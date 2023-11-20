@@ -8,7 +8,6 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\PayPalException;
 use Oct8pus\PayPal\Subscription;
 use PHPUnit\Framework\TestCase;
 
@@ -16,6 +15,7 @@ use PHPUnit\Framework\TestCase;
  * @internal
  *
  * @covers \Oct8pus\PayPal\Subscription
+ * @covers \Oct8pus\PayPal\RestBase
  */
 final class SubscriptionTest extends TestCase
 {

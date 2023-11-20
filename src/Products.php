@@ -75,7 +75,7 @@ class Products extends RestBase
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $product)) {
-                throw new PayPalException("missing key {$key}");
+                throw new PayPalException("missing key - {$key}");
             }
         }
 

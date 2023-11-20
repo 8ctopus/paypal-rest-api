@@ -78,7 +78,7 @@ class Plans extends RestBase
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $plan)) {
-                throw new PayPalException("missing key {$key}");
+                throw new PayPalException("missing key - {$key}");
             }
         }
 
