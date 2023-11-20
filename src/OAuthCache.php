@@ -16,9 +16,9 @@ class OAuthCache extends OAuth
      * Constructor
      *
      * @param HttpHandler $handler
-     * @param string         $clientId
-     * @param string         $clientSecret
-     * @param string         $cacheFile
+     * @param string      $clientId
+     * @param string      $clientSecret
+     * @param string      $cacheFile
      */
     public function __construct(HttpHandler $handler, string $clientId, string $clientSecret, string $cacheFile)
     {

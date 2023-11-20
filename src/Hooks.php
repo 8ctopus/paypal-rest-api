@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use JsonException;
+
 class Hooks extends RestBase
 {
     /**
      * Constructor
      *
      * @param HttpHandler $handler
-     * @param OAuth          $auth
+     * @param OAuth       $auth
      */
     public function __construct(HttpHandler $handler, OAuth $auth)
     {
@@ -38,12 +40,12 @@ class Hooks extends RestBase
     /**
      * Add hook
      *
-     * @param string $url
-     * @param array<string>  $eventTypes
+     * @param string        $url
+     * @param array<string> $eventTypes
      *
      * @return string id
      *
-     * @throws PayPalException|\JsonException
+     * @throws JsonException|PayPalException
      */
     public function add(string $url, array $eventTypes) : string
     {
@@ -95,7 +97,7 @@ class Hooks extends RestBase
      *
      * @return array<mixed>
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function simulate(string $webhookId, string $eventType) : array
     {

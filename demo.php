@@ -9,10 +9,10 @@ use Nimbly\Shuttle\Shuttle;
 use Noodlehaus\Config;
 use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
+use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\OAuthCache;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Products;
-use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -22,7 +22,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $file = __DIR__ . '/.env.php';
 
 if (!file_exists($file)) {
-    echo <<<TXT
+    echo <<<'TXT'
     Please create env.php based on env.php.example
 
     TXT;
@@ -45,7 +45,7 @@ $auth = new OAuthCache($handler, $config->get('paypal.rest.id'), $config->get('p
 
 $router = new Router();
 
-$router->add('hooks list', function () use ($handler, $auth) {
+$router->add('hooks list', static function () use ($handler, $auth): void {
     $webhooks = new Hooks($handler, $auth);
     $hooks = $webhooks->list();
 
@@ -54,7 +54,7 @@ $router->add('hooks list', function () use ($handler, $auth) {
     }
 });
 
-$router->add('hooks add <url>', function (array $args) use ($handler, $auth) {
+$router->add('hooks add <url>', static function (array $args) use ($handler, $auth): void {
     $webhooks = new Hooks($handler, $auth);
     $webhooks->add($args['url'], [
         // a payment on a subscription was made
@@ -86,12 +86,12 @@ $router->add('hooks add <url>', function (array $args) use ($handler, $auth) {
     ]);
 });
 
-$router->add('hooks delete <id>', function (array $args) use ($handler, $auth) {
+$router->add('hooks delete <id>', static function (array $args) use ($handler, $auth): void {
     $webhooks = new Hooks($handler, $auth);
     $webhooks->delete($args['id']);
 });
 
-$router->add('hooks clear', function () use ($handler, $auth) {
+$router->add('hooks clear', static function () use ($handler, $auth): void {
     $webhooks = new Hooks($handler, $auth);
     $hooks = $webhooks->list();
 
@@ -100,62 +100,62 @@ $router->add('hooks clear', function () use ($handler, $auth) {
     }
 });
 
-$router->add('hooks simulate <id> <event>', function (array $args) use ($handler, $auth) {
+$router->add('hooks simulate <id> <event>', static function (array $args) use ($handler, $auth): void {
     $webhooks = new Hooks($handler, $auth);
     dump($webhooks->simulate($args['id'], $args['event']));
 });
 
-$router->add('subscriptions get <id>', function (array $args) use ($handler, $auth) {
+$router->add('subscriptions get <id>', static function (array $args) use ($handler, $auth): void {
     $subscription = new Subscription($handler, $auth);
     dump($subscription->get($args['id']));
 });
 
-$router->add('subscriptions cancel <id>', function (array $args) use ($handler, $auth) {
+$router->add('subscriptions cancel <id>', static function (array $args) use ($handler, $auth): void {
     $subscription = new Subscription($handler, $auth);
     dump($subscription->cancel($args['id']));
 });
 
-$router->add('subscriptions suspend <id>', function (array $args) use ($handler, $auth) {
+$router->add('subscriptions suspend <id>', static function (array $args) use ($handler, $auth): void {
     $subscription = new Subscription($handler, $auth);
     dump($subscription->suspend($args['id']));
 });
 
-$router->add('subscriptions activate <id>', function (array $args) use ($handler, $auth) {
+$router->add('subscriptions activate <id>', static function (array $args) use ($handler, $auth): void {
     $subscription = new Subscription($handler, $auth);
     dump($subscription->activate($args['id']));
 });
 
-$router->add('plans list', function () use ($handler, $auth) {
+$router->add('plans list', static function () use ($handler, $auth): void {
     $plans = new Plans($handler, $auth);
     dump($plans->list());
 });
 
-$router->add('plans get <id>', function (array $args) use ($handler, $auth) {
+$router->add('plans get <id>', static function (array $args) use ($handler, $auth): void {
     $plans = new Plans($handler, $auth);
     dump($plans->get($args['id']));
 });
 
-$router->add('plans activate <id>', function (array $args) use ($handler, $auth) {
+$router->add('plans activate <id>', static function (array $args) use ($handler, $auth): void {
     $plans = new Plans($handler, $auth);
     dump($plans->activate($args['id']));
 });
 
-$router->add('plans deactivate <id>', function (array $args) use ($handler, $auth) {
+$router->add('plans deactivate <id>', static function (array $args) use ($handler, $auth): void {
     $plans = new Plans($handler, $auth);
     dump($plans->deactivate($args['id']));
 });
 
-$router->add('products list', function () use ($handler, $auth) {
+$router->add('products list', static function () use ($handler, $auth): void {
     $products = new Products($handler, $auth);
     dump($products->list());
 });
 
-$router->add('plans get <id>', function (array $args) use ($handler, $auth) {
+$router->add('plans get <id>', static function (array $args) use ($handler, $auth): void {
     $products = new Products($handler, $auth);
     dump($products->get($args['id']));
 });
 
-$router->add('plans get <id> <name> <description> <type> <category> <home_url> <image_url>', function (array $args) use ($handler, $auth) {
+$router->add('plans get <id> <name> <description> <type> <category> <home_url> <image_url>', static function (array $args) use ($handler, $auth): void {
     $products = new Products($handler, $auth);
     dump($products->add([
         'name' => $args['name'],
@@ -167,18 +167,18 @@ $router->add('plans get <id> <name> <description> <type> <category> <home_url> <
     ]));
 });
 
-$router->add('auth token', function () use ($auth) {
+$router->add('auth token', static function () use ($auth): void {
     dump($auth->token());
 });
 
-$router->add('custom simulate <url> <file>', function (array $args) {
+$router->add('custom simulate <url> <file>', static function (array $args): void {
     simulate($args['url'], $args['file']);
 });
 
-$router->add('[--help | -h]', function () use ($router) {
+$router->add('[--help | -h]', static function () use ($router): void {
     echo 'Usage:' . PHP_EOL;
     foreach ($router->getRoutes() as $route) {
-        echo '  ' .$route . PHP_EOL;
+        echo '  ' . $route . PHP_EOL;
     }
 });
 
@@ -187,7 +187,7 @@ $router->execArgv();
 /**
  * Dump variable
  *
- * @param  mixed $variable
+ * @param mixed $variable
  *
  * @return void
  */

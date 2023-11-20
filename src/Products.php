@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use JsonException;
+
 class Products extends RestBase
 {
     /**
      * Constructor
      *
      * @param HttpHandler $handler
-     * @param OAuth          $auth
+     * @param OAuth       $auth
      */
     public function __construct(HttpHandler $handler, OAuth $auth)
     {
@@ -58,7 +60,7 @@ class Products extends RestBase
      *
      * @return self
      *
-     * @throws PayPalException|\JsonException
+     * @throws JsonException|PayPalException
      */
     public function add(array $product) : self
     {

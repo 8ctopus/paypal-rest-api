@@ -13,18 +13,17 @@ use DateTimeInterface;
 
 class OAuth extends RestBase
 {
-    private readonly string $clientId;
-    private readonly string $clientSecret;
-
     protected string $token;
     protected int $expires;
+    private readonly string $clientId;
+    private readonly string $clientSecret;
 
     /**
      * Constructor
      *
      * @param HttpHandler $handler
-     * @param string         $clientId
-     * @param string         $clientSecret
+     * @param string      $clientId
+     * @param string      $clientSecret
      */
     public function __construct(HttpHandler $handler, string $clientId, string $clientSecret)
     {

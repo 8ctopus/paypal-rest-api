@@ -24,11 +24,11 @@ abstract class RestBase
     /**
      * Send request
      *
-     * @param string  $method
-     * @param string  $uri
-     * @param array<string>   $headers
-     * @param ?string $body
-     * @param int     $expectedStatus
+     * @param string        $method
+     * @param string        $uri
+     * @param array<string> $headers
+     * @param ?string       $body
+     * @param int           $expectedStatus
      *
      * @return string
      *

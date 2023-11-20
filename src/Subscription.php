@@ -14,7 +14,7 @@ class Subscription extends RestBase
      * Constructor
      *
      * @param HttpHandler $handler
-     * @param OAuth          $auth
+     * @param OAuth       $auth
      */
     public function __construct(HttpHandler $handler, OAuth $auth)
     {
