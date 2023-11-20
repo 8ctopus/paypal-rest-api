@@ -8,7 +8,6 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\PayPalException;
 use Oct8pus\PayPal\Hooks;
 use PHPUnit\Framework\TestCase;
 
