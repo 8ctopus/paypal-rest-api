@@ -106,22 +106,22 @@ $router->add('hooks simulate <id> <event>', static function (array $args) use ($
     dump($webhooks->simulate($args['id'], $args['event']));
 });
 
-$router->add('subscriptions get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscription get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscription = new Subscription($sandbox, $handler, $auth);
     dump($subscription->get($args['id']));
 });
 
-$router->add('subscriptions cancel <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscription cancel <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscription = new Subscription($sandbox, $handler, $auth);
     dump($subscription->cancel($args['id']));
 });
 
-$router->add('subscriptions suspend <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscription suspend <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscription = new Subscription($sandbox, $handler, $auth);
     dump($subscription->suspend($args['id']));
 });
 
-$router->add('subscriptions activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscription activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscription = new Subscription($sandbox, $handler, $auth);
     dump($subscription->activate($args['id']));
 });
