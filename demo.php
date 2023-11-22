@@ -55,6 +55,11 @@ $router->add('hooks list', static function () use ($sandbox, $handler, $auth) : 
     }
 });
 
+$router->add('hooks show <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $webhooks = new Hooks($sandbox, $handler, $auth);
+    dump($webhooks->show($args['id']));
+});
+
 $router->add('hooks add <url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
     $webhooks->create($args['url'], [

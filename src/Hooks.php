@@ -39,6 +39,22 @@ class Hooks extends RestBase
     }
 
     /**
+     * Show hook details
+     *
+     * @param string $id
+     *
+     * @return array
+     */
+    public function show(string $id) : array
+    {
+        $url = "/v1/notifications/webhooks/{$id}";
+
+        $json = $this->sendRequest('GET', $url, [], null, 200);
+
+        return json_decode($json, true);
+    }
+
+    /**
      * Create hook
      *
      * @param string        $url
