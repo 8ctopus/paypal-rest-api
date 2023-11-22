@@ -10,6 +10,23 @@ namespace Oct8pus\PayPal;
 
 use JsonException;
 
+/* FIX ME
+enum Operation : string
+{
+    case Add = 'add';
+    case Replace = 'replace';
+    case Remove = 'remove';
+}
+
+enum Path : string
+{
+    case Description = '/description';
+    case Category = '/category';
+    case HomeUrl = '/home_url';
+    case ImageUrl = '/image_url';
+}
+*/
+
 class Products extends RestBase
 {
     /**
@@ -85,6 +102,34 @@ class Products extends RestBase
         $body = json_encode($product, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $this->sendRequest('POST', $url, [], $body, 201);
+
+        return $this;
+    }
+
+    /**
+     * Update product
+     *
+     * @param  string    $id
+     * @param  string    $operation
+     * @param  string    $path
+     * @param  string    $value
+     *
+     * @return self
+     */
+    public function update(string $id, string $operation, string $path, string $value) : self
+    {
+        $update = [[
+                'op' => $operation,
+                'path' => "/{$path}",
+                'value' => $value,
+            ],
+        ];
+
+        $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $url = "/v1/catalogs/products/{$id}";
+
+        $this->sendRequest('PATCH', $url, [], $body, 204);
 
         return $this;
     }

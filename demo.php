@@ -151,12 +151,12 @@ $router->add('products list', static function () use ($sandbox, $handler, $auth)
     dump($products->list());
 });
 
-$router->add('plans get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
     dump($products->get($args['id']));
 });
 
-$router->add('plans get <id> <name> <description> <type> <category> <home_url> <image_url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products create <id> <name> <description> <type> <category> <home_url> <image_url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
     dump($products->create([
         'name' => $args['name'],
@@ -166,6 +166,11 @@ $router->add('plans get <id> <name> <description> <type> <category> <home_url> <
         'home_url' => $args['home_url'],
         'image_url' => $args['image_url'],
     ]));
+});
+
+$router->add('products update <id> <operation> <path> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $products = new Products($sandbox, $handler, $auth);
+    $products->update($args['id'], $args['operation'], $args['path'], $args['value']);
 });
 
 $router->add('auth token', static function () use ($auth) : void {
