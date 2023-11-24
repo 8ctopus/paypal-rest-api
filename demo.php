@@ -72,11 +72,8 @@ $router->add('hooks add <url>', static function (array $args) use ($sandbox, $ha
 
         // user starts subscription process - it's not completed yet!
         'BILLING.SUBSCRIPTION.CREATED',
-        // user just subscribed to a plan - no payment yet
-        // subscription resumed
+        // either user just subscribed to a plan - no payment yet or subscription resumed
         'BILLING.SUBSCRIPTION.ACTIVATED',
-        // subscription is updated - how to do that? (like suspended, change of state? no)
-        'BILLING.SUBSCRIPTION.UPDATED',
         // subscription expired
         'BILLING.SUBSCRIPTION.EXPIRED',
         // user subscription was canceled (from PayPal admin, REST api or from user side inside account)
@@ -85,6 +82,8 @@ $router->add('hooks add <url>', static function (array $args) use ($sandbox, $ha
         'BILLING.SUBSCRIPTION.SUSPENDED',
         // payment failed on subscription
         'BILLING.SUBSCRIPTION.PAYMENT.FAILED',
+        // subscription is updated - how to do that? (like suspended, change of state? no)
+        'BILLING.SUBSCRIPTION.UPDATED',
 
         //'PAYMENT.AUTHORIZATION.CREATED',
         //'PAYMENT.AUTHORIZATION.VOIDED',
