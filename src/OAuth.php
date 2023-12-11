@@ -15,7 +15,7 @@ class OAuth extends RestBase
 {
     protected string $token;
     protected int $expires;
-    private readonly string $clientId;
+    protected readonly string $clientId;
     private readonly string $clientSecret;
 
     /**

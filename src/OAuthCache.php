@@ -38,6 +38,7 @@ class OAuthCache extends OAuth
     protected function save() : void
     {
         $json = [
+            'clientId' => $this->clientId,
             'token' => $this->token,
             'expires' => $this->expires,
         ];
@@ -65,6 +66,10 @@ class OAuthCache extends OAuth
         $decoded = json_decode($json, true);
 
         if (!is_array($decoded)) {
+            return;
+        }
+
+        if (($decoded['clientId'] ?? '') !== $this->clientId) {
             return;
         }
 
