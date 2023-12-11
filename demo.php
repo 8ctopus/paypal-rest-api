@@ -30,6 +30,8 @@ if (!file_exists($file)) {
 
 $config = Config::load($file);
 
+$sandbox = $config->get('paypal.rest.sandbox');
+
 $handler = new HttpHandler(
     // PSR-18 http client
     new Shuttle(),
@@ -39,10 +41,7 @@ $handler = new HttpHandler(
     new StreamFactory()
 );
 
-$cacheFile = __DIR__ . '/.cache.json';
-$sandbox = $config->get('paypal.rest.sandbox');
-
-$auth = new OAuthCache($sandbox, $handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'), $cacheFile);
+$auth = new OAuthCache($sandbox, $handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'), __DIR__ . '/.cache.json');
 
 $router = new Router();
 
