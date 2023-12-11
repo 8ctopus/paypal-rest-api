@@ -191,6 +191,8 @@ $router->add('[--help | -h]', static function () use ($router) : void {
     }
 });
 
+echo $sandbox ? "SANDBOX\n" : "PRODUCTION\n";
+
 $router->execArgv();
 
 /**
