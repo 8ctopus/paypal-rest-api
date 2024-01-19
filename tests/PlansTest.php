@@ -10,6 +10,16 @@ use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\PayPalException;
 use Oct8pus\PayPal\Plans;
+use Oct8pus\PayPal\Plans\BillingCycle;
+use Oct8pus\PayPal\Plans\BillingCycles;
+use Oct8pus\PayPal\Plans\Frequency;
+use Oct8pus\PayPal\Plans\IntervalUnit;
+use Oct8pus\PayPal\Plans\PaymentPreferences;
+use Oct8pus\PayPal\Plans\PricingScheme;
+use Oct8pus\PayPal\Plans\SetupFeeFailure;
+use Oct8pus\PayPal\Plans\Taxes;
+use Oct8pus\PayPal\Plans\TenureType;
+use Oct8pus\PayPal\Status;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -112,21 +122,35 @@ final class PlansTest extends TestCase
 
     public function testCreate() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/PlanAdd.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/PlanCreate.json')));
 
-        self::expectException(PayPalException::class);
-        self::expectExceptionMessage('not implemented');
+        $billingCycles = new BillingCycles();
+        $billingCycles
+            ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3, 'USD')))
+            ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6, 'USD')))
+            ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10, 'USD')));
 
-        $plan = [
-            'product_id' => '',
-            'name' => '',
-            'description' => '',
-            'status' => '',
-            'billing_cycles' => '',
-            'payment_preferences' => '',
-            'taxes' => '',
-        ];
+        $paymentPreferences = new PaymentPreferences(true, 10, SetupFeeFailure::Continue, 3);
+        $taxes = new Taxes(0.10, false);
 
-        self::$plans->create($plan);
+        self::$plans->create(
+            '',
+            '',
+            '',
+            Status::Active,
+            $billingCycles,
+            $paymentPreferences,
+            $taxes,
+        );
+
+        $expected = <<<TEXT
+        https://api-m.sandbox.paypal.com/v1/billing/plans
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
     }
 }

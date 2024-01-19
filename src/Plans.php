@@ -83,15 +83,11 @@ class Plans extends RestBase
      * @param  PaymentPreferences $payment
      * @param  Taxes              $taxes
      *
-     * @return self
+     * @return array
      */
-    public function create(string $productId, string $name, string $description, Status $status, BillingCycles $cycles, PaymentPreferences $payment, Taxes $taxes) : self
+    public function create(string $productId, string $name, string $description, Status $status, BillingCycles $cycles, PaymentPreferences $payment, Taxes $taxes) : array
     {
-        /*
-        $object->billing_cycles = $cycles->object();
-        $object->payment_preferences = $payment->object();
-        $object->taxes = $taxes->object();
-        */
+        $url = '/v1/billing/plans';
 
         $object1 = new stdClass();
         $object1->product_id = $productId;
@@ -103,12 +99,11 @@ class Plans extends RestBase
 
         $object = (object) array_merge((array) $object1, $cycles->object(), (array) $payment->object(), (array) $object2, (array) $taxes->object());
 
-        $json = json_encode($object, JSON_PRETTY_PRINT);
+        $body = json_encode($object, JSON_PRETTY_PRINT);
 
-        file_put_contents(__DIR__ . '/test.json', $json);
-        die;
+        $json = $this->sendRequest('POST', $url, [], $body, 201);
 
-        throw new PayPalException('not implemented');
+        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**

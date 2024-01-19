@@ -12,7 +12,7 @@
       "total_cycles": 2,
       "pricing_scheme": {
         "fixed_price": {
-          "value": "3",
+          "value": 3,
           "currency_code": "USD"
         }
       }
@@ -27,7 +27,7 @@
       "total_cycles": 3,
       "pricing_scheme": {
         "fixed_price": {
-          "value": "6",
+          "value": 6,
           "currency_code": "USD"
         }
       }
@@ -42,7 +42,7 @@
       "total_cycles": 12,
       "pricing_scheme": {
         "fixed_price": {
-          "value": "10",
+          "value": 10,
           "currency_code": "USD"
         }
       }
