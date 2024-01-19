@@ -13,6 +13,13 @@ class BillingCycles
         $this->billingCycles = [];
     }
 
+    /**
+     * Add
+     *
+     * @param  BillingCycle $billingCycle
+     *
+     * @return self
+     */
     public function add(BillingCycle $billingCycle) : self
     {
         $this->billingCycles[] = $billingCycle;

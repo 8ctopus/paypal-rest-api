@@ -18,6 +18,12 @@ class Frequency
     private readonly IntervalUnit $interval;
     private readonly int $count;
 
+    /**
+     * Constructor
+     *
+     * @param IntervalUnit $interval
+     * @param int          $count
+     */
     public function __construct(IntervalUnit $interval, int $count)
     {
         $this->interval = $interval;

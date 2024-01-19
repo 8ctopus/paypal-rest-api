@@ -14,29 +14,19 @@ enum TenureType : string
 
 class BillingCycle
 {
-    /*
-    {
-        "sequence": 1,
-        "frequency": {
-            "interval_unit": "MONTH",
-            "interval_count": 1
-        },
-        "tenure_type": "TRIAL",
-        "total_cycles": 2,
-        "pricing_scheme": {
-            "fixed_price": {
-                "value": "3",
-                "currency_code": "USD"
-            }
-        }
-    },
-    */
-
     private readonly TenureType $tenureType;
     private readonly Frequency $frequency;
     private readonly int $totalCycles;
     private readonly PricingScheme $pricingScheme;
 
+    /**
+     * Constructor
+     *
+     * @param TenureType    $tenureType
+     * @param Frequency     $frequency
+     * @param int           $totalCycles
+     * @param PricingScheme $pricingScheme
+     */
     public function __construct(TenureType $tenureType, Frequency $frequency, int $totalCycles, PricingScheme $pricingScheme)
     {
         $this->tenureType = $tenureType;

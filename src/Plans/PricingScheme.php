@@ -25,15 +25,6 @@ class PricingScheme
 
     public function object() : stdClass
     {
-        /*
-        "pricing_scheme": {
-            "fixed_price": {
-                "value": "3",
-                "currency_code": "USD"
-            }
-        }
-        */
-
         $object = new stdClass();
 
         $object->pricing_scheme = [
