@@ -73,7 +73,7 @@ final class ProductsTest extends TestCase
 
     public function testCreate() : void
     {
-        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/ProductAdd.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/ProductCreate.json')));
 
         $product = [
             'name' => 'Video Streaming Service',
@@ -99,7 +99,7 @@ final class ProductsTest extends TestCase
 
     public function testUpdate() : void
     {
-        self::$handler->setResponse(new Response(204, file_get_contents(__DIR__ . '/fixtures/ProductAdd.json')));
+        self::$handler->setResponse(new Response(204, file_get_contents(__DIR__ . '/fixtures/ProductCreate.json')));
 
         self::$products->update('PROD-111', 'replace', '/description', 'test');
 

@@ -72,7 +72,7 @@ final class HooksTest extends TestCase
 
     public function testCreate() : void
     {
-        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/HookAdd.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/HookCreate.json')));
 
         $url = 'https://example.com/example_webhook';
 
