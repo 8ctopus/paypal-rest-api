@@ -8,6 +8,23 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use Oct8pus\PayPal\Plans\PaymentPreferences;
+use Oct8pus\PayPal\Plans\BillingCycles;
+use Oct8pus\PayPal\Plans\Taxes;
+use stdClass;
+
+enum Status : string
+{
+    case Created = 'CREATED';
+    case Active = 'ACTIVE';
+    case Inactive = 'INACTIVE';
+
+    public static function fromLowerCase(string $value) : self
+    {
+        return self::from(strtoupper($value));
+    }
+}
+
 class Plans extends RestBase
 {
     /**
@@ -58,29 +75,38 @@ class Plans extends RestBase
     /**
      * Create plan
      *
-     * @param array<string> $plan
+     * @param  string             $productId
+     * @param  string             $name
+     * @param  string             $description
+     * @param  Status             $status
+     * @param  BillingCycles      $cycles
+     * @param  PaymentPreferences $payment
+     * @param  Taxes              $taxes
      *
      * @return self
-     *
-     * @throws PayPalException
      */
-    public function create(array $plan) : self
+    public function create(string $productId, string $name, string $description, Status $status, BillingCycles $cycles, PaymentPreferences $payment, Taxes $taxes) : self
     {
-        $keys = [
-            'product_id',
-            'name',
-            'description',
-            'status',
-            'billing_cycles',
-            'payment_preferences',
-            'taxes',
-        ];
+        /*
+        $object->billing_cycles = $cycles->object();
+        $object->payment_preferences = $payment->object();
+        $object->taxes = $taxes->object();
+        */
 
-        foreach ($keys as $key) {
-            if (!array_key_exists($key, $plan)) {
-                throw new PayPalException("missing key - {$key}");
-            }
-        }
+        $object1 = new stdClass();
+        $object1->product_id = $productId;
+        $object1->name = $name;
+
+        $object2 = new stdClass();
+        $object2->description = $description;
+        $object2->status = $status->value;
+
+        $object = (object) array_merge((array) $object1, $cycles->object(), (array) $payment->object(), (array) $object2, (array) $taxes->object());
+
+        $json = json_encode($object, JSON_PRETTY_PRINT);
+
+        file_put_contents(__DIR__ . '/test.json', $json);
+        die;
 
         throw new PayPalException('not implemented');
     }
