@@ -43,8 +43,6 @@ class BillingCycle
         $object->sequence = $sequence;
         $object->total_cycles = $this->totalCycles;
 
-        $object = (object) array_merge((array) $object, (array) $this->pricingScheme->object());
-
-        return $object;
+        return (object) array_merge((array) $object, (array) $this->pricingScheme->object());
     }
 }

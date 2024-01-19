@@ -8,7 +8,6 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\PayPalException;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Plans\BillingCycle;
 use Oct8pus\PayPal\Plans\BillingCycles;
@@ -143,7 +142,7 @@ final class PlansTest extends TestCase
             $taxes,
         );
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/billing/plans
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test

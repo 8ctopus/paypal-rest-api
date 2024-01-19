@@ -16,7 +16,7 @@ class BillingCycles
     /**
      * Add
      *
-     * @param  BillingCycle $billingCycle
+     * @param BillingCycle $billingCycle
      *
      * @return self
      */

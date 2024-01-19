@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use Oct8pus\PayPal\Plans\PaymentPreferences;
 use Oct8pus\PayPal\Plans\BillingCycles;
+use Oct8pus\PayPal\Plans\PaymentPreferences;
 use Oct8pus\PayPal\Plans\Taxes;
 use stdClass;
 
@@ -75,13 +75,13 @@ class Plans extends RestBase
     /**
      * Create plan
      *
-     * @param  string             $productId
-     * @param  string             $name
-     * @param  string             $description
-     * @param  Status             $status
-     * @param  BillingCycles      $cycles
-     * @param  PaymentPreferences $payment
-     * @param  Taxes              $taxes
+     * @param string             $productId
+     * @param string             $name
+     * @param string             $description
+     * @param Status             $status
+     * @param BillingCycles      $cycles
+     * @param PaymentPreferences $payment
+     * @param Taxes              $taxes
      *
      * @return array
      */

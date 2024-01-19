@@ -109,20 +109,20 @@ class Products extends RestBase
     /**
      * Update product
      *
-     * @param  string    $id
-     * @param  string    $operation
-     * @param  string    $path
-     * @param  string    $value
+     * @param string $id
+     * @param string $operation
+     * @param string $path
+     * @param string $value
      *
      * @return self
      */
     public function update(string $id, string $operation, string $path, string $value) : self
     {
         $update = [[
-                'op' => $operation,
-                'path' => "/{$path}",
-                'value' => $value,
-            ],
+            'op' => $operation,
+            'path' => "/{$path}",
+            'value' => $value,
+        ],
         ];
 
         $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

@@ -21,10 +21,10 @@ class PaymentPreferences
     /**
      * Constructor
      *
-     * @param bool $autoBillOutstanding
-     * @param int  $setupFee
+     * @param bool            $autoBillOutstanding
+     * @param int             $setupFee
      * @param SetupFeeFailure $setupFeeFailure
-     * @param int  $paymentFailureThreshold
+     * @param int             $paymentFailureThreshold
      */
     public function __construct(bool $autoBillOutstanding, int $setupFee, SetupFeeFailure $setupFeeFailure, int $paymentFailureThreshold)
     {
