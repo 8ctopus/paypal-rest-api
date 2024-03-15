@@ -101,6 +101,8 @@ class Plans extends RestBase
 
         $body = json_encode($object, JSON_PRETTY_PRINT);
 
+        //echo $body; die;
+
         $json = $this->sendRequest('POST', $url, [], $body, 201);
 
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -138,6 +140,46 @@ class Plans extends RestBase
         $url = "/v1/billing/plans/{$id}/deactivate";
 
         $this->sendRequest('POST', $url, [], null, 204);
+
+        return $this;
+    }
+
+    /**
+     * Update plan
+     *
+     * @param string $id
+     * @param string $attribute
+     * @param string|int|bool $value
+     *
+     * @return self
+     *
+     * @throws PayPalException
+     */
+    public function update(string $id, string $operation, string $attribute, string|int|bool $value) : self
+    {
+        $url = "/v1/billing/plans/{$id}";
+
+        switch ($attribute) {
+            case 'name':
+            case 'description':
+                $path = "/{$attribute}";
+                break;
+
+            default:
+                throw new PayPalException("invalid attribute - {$attribute}");
+        }
+
+        $update = [
+            [
+                'op' => $operation,
+                'path' => $path,
+                'value' => $value,
+            ],
+        ];
+
+        $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $this->sendRequest('PATCH', $url, [], $body, 204);
 
         return $this;
     }

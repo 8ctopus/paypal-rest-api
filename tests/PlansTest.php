@@ -152,4 +152,21 @@ final class PlansTest extends TestCase
 
         self::assertSame($expected, self::$handler->dumpRequest());
     }
+
+    public function testUpdate() : void
+    {
+        self::$handler->setResponse(new Response(204, file_get_contents(__DIR__ . '/fixtures/PlanCreate.json')));
+
+        self::$plans->update('PROD-XXCD1234QWER65782', 'replace', 'description', 'test');
+
+        $expected = <<<'TEXT'
+        https://api-m.sandbox.paypal.com/v1/billing/plans/PROD-XXCD1234QWER65782
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
 }
