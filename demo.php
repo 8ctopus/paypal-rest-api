@@ -159,11 +159,6 @@ $router->add('plans deactivate <id>', static function (array $args) use ($sandbo
     dump($plans->deactivate($args['id']));
 });
 
-$router->add('plans update <id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
-    $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->update($args['id'], $args['operation'], $args['attribute'], $args['value']));
-});
-
 // php demo.php plans create PROD-XXCD1234QWER65782 "Video Streaming Service Plan" "Video Streaming Service basic plan" active
 $router->add('plans create <product_id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
@@ -186,6 +181,11 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
         $paymentPreferences,
         $taxes,
     ));
+});
+
+$router->add('plans update <id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $plans = new Plans($sandbox, $handler, $auth);
+    dump($plans->update($args['id'], $args['operation'], $args['attribute'], $args['value']));
 });
 
 $router->add('products list', static function () use ($sandbox, $handler, $auth) : void {
