@@ -155,7 +155,7 @@ final class PlansTest extends TestCase
 
     public function testUpdate() : void
     {
-        self::$handler->setResponse(new Response(204, file_get_contents(__DIR__ . '/fixtures/PlanCreate.json')));
+        self::$handler->setResponse(new Response(204));
 
         self::$plans->update('PROD-XXCD1234QWER65782', 'replace', 'description', 'test');
 
