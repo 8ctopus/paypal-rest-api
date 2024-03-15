@@ -99,7 +99,7 @@ final class ProductsTest extends TestCase
 
     public function testUpdate() : void
     {
-        self::$handler->setResponse(new Response(204, file_get_contents(__DIR__ . '/fixtures/ProductUpdate.json')));
+        self::$handler->setResponse(new Response(204));
 
         self::$products->update('PROD-111', 'replace', '/description', 'test');
 
