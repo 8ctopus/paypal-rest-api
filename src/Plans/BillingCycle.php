@@ -24,7 +24,7 @@ class BillingCycle
      *
      * @param TenureType    $tenureType
      * @param Frequency     $frequency
-     * @param int           $totalCycles
+     * @param int           $totalCycles - set to zero for perpertual
      * @param PricingScheme $pricingScheme
      */
     public function __construct(TenureType $tenureType, Frequency $frequency, int $totalCycles, PricingScheme $pricingScheme)

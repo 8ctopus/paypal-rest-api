@@ -9,12 +9,18 @@ use stdClass;
 class Taxes
 {
     private readonly float $percentage;
-    private readonly bool $inclusive;
+    private readonly bool $taxIncluded;
 
-    public function __construct(float $percentage, bool $inclusive)
+    /**
+     * Constructor
+     *
+     * @param float $percentage - tax percentage on billing amount
+     * @param bool  $taxIncluded - whether the tax is already included in the billing amount
+     */
+    public function __construct(float $percentage, bool $taxIncluded)
     {
         $this->percentage = $percentage;
-        $this->inclusive = $inclusive;
+        $this->taxIncluded = $taxIncluded;
     }
 
     public function object() : stdClass
@@ -23,7 +29,7 @@ class Taxes
 
         $object->taxes = [
             'percentage' => round($this->percentage * 100, 0),
-            'inclusive' => $this->inclusive,
+            'inclusive' => $this->taxIncluded,
         ];
 
         return $object;
