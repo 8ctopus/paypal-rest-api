@@ -101,8 +101,6 @@ class Plans extends RestBase
 
         $body = json_encode($object, JSON_PRETTY_PRINT);
 
-        //echo $body; die;
-
         $json = $this->sendRequest('POST', $url, [], $body, 201);
 
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -180,6 +178,25 @@ class Plans extends RestBase
         $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
         $this->sendRequest('PATCH', $url, [], $body, 204);
+
+        return $this;
+    }
+
+    /**
+     * Update pricing
+     *
+     * @param  string        $id
+     * @param  BillingCycles $cycles
+     *
+     * @return self
+     */
+    public function updatePricing(string $id, BillingCycles $cycles) : self
+    {
+        $url = "/v1/billing/plans/{$id}/update-pricing-schemes";
+
+        $body = json_encode($cycles->object(), JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $this->sendRequest('POST', $url, [], $body, 204);
 
         return $this;
     }
