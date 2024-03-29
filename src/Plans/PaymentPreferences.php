@@ -6,11 +6,6 @@ namespace Oct8pus\PayPal\Plans;
 
 use stdClass;
 
-enum SetupFeeFailure : string
-{
-    case Continue = 'CONTINUE';
-}
-
 class PaymentPreferences
 {
     private readonly bool $autoBillOutstanding;

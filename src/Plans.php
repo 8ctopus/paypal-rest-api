@@ -146,6 +146,7 @@ class Plans extends RestBase
      * Update plan
      *
      * @param string $id
+     * @param string $operation - replace
      * @param string $attribute
      * @param string|int|bool $value
      *
@@ -195,6 +196,8 @@ class Plans extends RestBase
         $url = "/v1/billing/plans/{$id}/update-pricing-schemes";
 
         $body = json_encode($cycles->object(), JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $body = str_replace(['billing_cycles', 'sequence'], ['pricing_schemes', 'billing_cycle_sequence'], $body);
 
         $this->sendRequest('POST', $url, [], $body, 204);
 

@@ -6,12 +6,6 @@ namespace Oct8pus\PayPal\Plans;
 
 use stdClass;
 
-enum TenureType : string
-{
-    case Regular = 'REGULAR';
-    case Trial = 'TRIAL';
-}
-
 class BillingCycle
 {
     private readonly TenureType $tenureType;
@@ -24,7 +18,7 @@ class BillingCycle
      *
      * @param TenureType    $tenureType
      * @param Frequency     $frequency
-     * @param int           $totalCycles - set to zero for perpertual
+     * @param int           $totalCycles - set to zero for perpetual
      * @param PricingScheme $pricingScheme
      */
     public function __construct(TenureType $tenureType, Frequency $frequency, int $totalCycles, PricingScheme $pricingScheme)
@@ -35,6 +29,13 @@ class BillingCycle
         $this->pricingScheme = $pricingScheme;
     }
 
+    /**
+     * Get object
+     *
+     * @param  int      $sequence
+     *
+     * @return stdClass
+     */
     public function object(int $sequence) : stdClass
     {
         $object = $this->frequency->object();

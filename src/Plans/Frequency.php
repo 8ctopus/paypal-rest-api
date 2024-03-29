@@ -6,13 +6,6 @@ namespace Oct8pus\PayPal\Plans;
 
 use stdClass;
 
-enum IntervalUnit : string
-{
-    case Week = 'WEEK';
-    case Month = 'MONTH';
-    case Year = 'YEAR';
-}
-
 class Frequency
 {
     private readonly IntervalUnit $interval;
