@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Clue\Commander\Router;
+use Exception;
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
@@ -163,14 +164,18 @@ $router->add('plans deactivate <id>', static function (array $args) use ($sandbo
 $router->add('plans create <product_id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
 
-    $billingCycles = new BillingCycles();
-    $billingCycles
+    /*
+    $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3, 'USD')))
         ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6, 'USD')))
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10, 'USD')));
 
     $paymentPreferences = new PaymentPreferences(true, 10, SetupFeeFailure::Continue, 3);
     $taxes = new Taxes(0.10, false);
+    */
+
+    $billingCycles = (new BillingCycles())
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
 
     dump($plans->create(
         $args['product_id'],
@@ -178,14 +183,25 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
         $args['description'],
         Status::fromLowerCase($args['status']),
         $billingCycles,
-        $paymentPreferences,
-        $taxes,
+        new PaymentPreferences(true, 0, SetupFeeFailure::Continue, 1),
+        new Taxes(0, false),
     ));
 });
 
 $router->add('plans update <id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
     dump($plans->update($args['id'], $args['operation'], $args['attribute'], $args['value']));
+});
+
+$router->add('plans update pricing <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $plans = new Plans($sandbox, $handler, $auth);
+
+    $billingCycles = (new BillingCycles())
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
+
+    throw new Exception('not working');
+
+    dump($plans->updatePricing($args['id'], $billingCycles));
 });
 
 $router->add('products list', static function () use ($sandbox, $handler, $auth) : void {
