@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Clue\Commander\Router;
-use Exception;
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
