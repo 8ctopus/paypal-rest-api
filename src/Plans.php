@@ -146,7 +146,7 @@ class Plans extends RestBase
      * Update plan
      *
      * @param string $id
-     * @param string $operation - replace
+     * @param string $operation - add, replace or delete?
      * @param string $attribute
      * @param string|int|bool $value
      *
