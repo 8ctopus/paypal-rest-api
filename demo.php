@@ -27,7 +27,8 @@ use Oct8pus\PayPal\Subscription;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-(new Provider())->register();
+(new Provider())
+    ->register();
 
 $file = __DIR__ . '/.env.php';
 
