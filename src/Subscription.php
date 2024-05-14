@@ -86,3 +86,4 @@ class Subscription extends RestBase
         return $this;
     }
 }
+
