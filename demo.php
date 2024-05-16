@@ -11,6 +11,8 @@ use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\OAuthCache;
+use Oct8pus\PayPal\Orders;
+use Oct8pus\PayPal\Orders\Intent;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Plans\BillingCycle;
 use Oct8pus\PayPal\Plans\BillingCycles;
@@ -229,6 +231,16 @@ $router->add('products create <id> <name> <description> <type> <category> <home_
 $router->add('products update <id> <operation> <path> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
     $products->update($args['id'], $args['operation'], $args['path'], $args['value']);
+});
+
+$router->add('orders create <intent> <amount> <currency>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $orders = new Orders($sandbox, $handler, $auth);
+    $orders->create(Intent::fromLowerCase($args['intent']), $args['currency'], (float) $args['amount']);
+});
+
+$router->add('orders get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $orders = new Orders($sandbox, $handler, $auth);
+    dump($orders->get($args['id']));
 });
 
 $router->add('auth token', static function () use ($auth) : void {
