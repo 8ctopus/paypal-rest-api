@@ -65,12 +65,17 @@ class HttpHandler
         // @codeCoverageIgnoreEnd
     }
 
-    public function processResponse(ResponseInterface $response, int $expectedStatus) : string
+    public function processResponse(ResponseInterface $response, int|array $expectedStatus) : string
     {
+        if (is_int($expectedStatus)) {
+            $expectedStatus = [$expectedStatus];
+        }
+
         $status = $response->getStatusCode();
 
-        if ($status !== $expectedStatus) {
-            throw new PayPalException("status {$status} - expected {$expectedStatus} - " . (string) $response->getBody());
+        if (!in_array($status, $expectedStatus, true)) {
+            $expected = implode(', ', $expectedStatus);
+            throw new PayPalException("status {$status} - expected [{$expected}] - " . (string) $response->getBody());
         }
 
         return (string) $response->getBody();

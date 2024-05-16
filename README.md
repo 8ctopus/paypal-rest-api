@@ -8,9 +8,9 @@
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/lines.svg)
 
-php implementation of PayPal's REST api using PSR-7, PSR-17 and PSR-18.
+A php implementation of PayPal REST api using `PSR-7`, `PSR-17` and `PSR-18`.
 
-It is a work in progress and contributions are welcome. For now, it covers subscriptions (Products and Plans) and web hooks.
+The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products` and `Plans`), `web hooks` and `Orders`.
 
 ## install
 
@@ -18,19 +18,18 @@ It is a work in progress and contributions are welcome. For now, it covers subsc
 
 ## demo
 
-Run `demo.php` to see what is possible. Here's a code snippet:
+Here's a simple example, run `demo.php` to see all what is possible.
 
 ```php
 use HttpSoft\Message\RequestFactory;
 use HttpSoft\Message\StreamFactory;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\Hooks;
+use Oct8pus\PayPal\Orders;
+use Oct8pus\PayPal\Orders\Intent;
 use Oct8pus\PayPal\OAuth;
 use Oct8pus\PayPal\HttpHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
-
-$sandbox = true;
 
 $handler = new HttpHandler(
     // PSR-18 http client
@@ -41,12 +40,25 @@ $handler = new HttpHandler(
     new StreamFactory()
 );
 
-// get oauth token
+$sandbox = true;
+
+// get authorization token
 $auth = new OAuth($sandbox, $handler, 'rest.id', 'rest.pass');
 
-// list webhooks
-$webhooks = new Hooks($sandbox, $handler, $auth);
-var_dump($webhooks->list());
+$orders = new Orders($sandbox, $handler, $auth);
+
+// create order
+$response = $orders->create(Intent::Capture, 'USD', 10.0);
+
+// redirect user to approve the payment
+$redirect = "https://www.sandbox.paypal.com/checkoutnow?token={$response['id']}";
+
+// once the user has approved the payment we can capture it
+$response = $orders->capture($args['id']);
+
+if ($response['status'] === 'COMPLETED') {
+    echo 'payment processed!';
+}
 ```
 
 ## run tests
@@ -56,4 +68,4 @@ var_dump($webhooks->list());
 # references
 
 - PayPal REST api official documentation: https://developer.paypal.com/api/rest/
-- PayPal REST archived SDK https://github.com/paypal/PayPal-PHP-SDK/
+- PayPal REST archived php SDK https://github.com/paypal/PayPal-PHP-SDK/

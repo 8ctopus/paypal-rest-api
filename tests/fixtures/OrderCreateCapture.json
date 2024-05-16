@@ -1,0 +1,26 @@
+{
+    "id": "30L74699WY872124E",
+    "status": "CREATED",
+    "links": [
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/30L74699WY872124E",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https:\/\/www.sandbox.paypal.com\/checkoutnow?token=30L74699WY872124E",
+            "rel": "approve",
+            "method": "GET"
+        },
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/30L74699WY872124E",
+            "rel": "update",
+            "method": "PATCH"
+        },
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/30L74699WY872124E\/capture",
+            "rel": "capture",
+            "method": "POST"
+        }
+    ]
+}

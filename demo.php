@@ -235,12 +235,26 @@ $router->add('products update <id> <operation> <path> <value>', static function 
 
 $router->add('orders create <intent> <amount> <currency>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $orders = new Orders($sandbox, $handler, $auth);
-    $orders->create(Intent::fromLowerCase($args['intent']), $args['currency'], (float) $args['amount']);
+    $response = $orders->create(Intent::fromLowerCase($args['intent']), $args['currency'], (float) $args['amount']);
+
+    echo "go to https://www.sandbox.paypal.com/checkoutnow?token={$response['id']} to approve the payment and finally capture the payment\n\n";
+
+    dump($response);
 });
 
 $router->add('orders get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $orders = new Orders($sandbox, $handler, $auth);
     dump($orders->get($args['id']));
+});
+
+$router->add('orders authorize <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $orders = new Orders($sandbox, $handler, $auth);
+    dump($orders->authorize($args['id']));
+});
+
+$router->add('orders capture <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $orders = new Orders($sandbox, $handler, $auth);
+    dump($orders->capture($args['id']));
 });
 
 $router->add('auth token', static function () use ($auth) : void {

@@ -1,0 +1,26 @@
+{
+    "id": "8AB97868H7440304S",
+    "status": "CREATED",
+    "links": [
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/8AB97868H7440304S",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https:\/\/www.sandbox.paypal.com\/checkoutnow?token=8AB97868H7440304S",
+            "rel": "approve",
+            "method": "GET"
+        },
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/8AB97868H7440304S",
+            "rel": "update",
+            "method": "PATCH"
+        },
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/8AB97868H7440304S\/authorize",
+            "rel": "authorize",
+            "method": "POST"
+        }
+    ]
+}

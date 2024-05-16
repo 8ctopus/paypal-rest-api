@@ -65,7 +65,7 @@ final class HttpHandlerTest extends TestCase
         $handler = new HttpHandler(new Shuttle(), new RequestFactory(), new StreamFactory());
 
         self::expectException(PayPalException::class);
-        self::expectExceptionMessage('status 200 - expected 201 - test');
+        self::expectExceptionMessage('status 200 - expected [201] - test');
 
         $response = new Response(200, 'test');
         $handler->processResponse($response, 201);
