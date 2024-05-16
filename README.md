@@ -50,10 +50,12 @@ $orders = new Orders($sandbox, $handler, $auth);
 // create order
 $response = $orders->create(Intent::Capture, 'USD', 10.0);
 
-// redirect user to approve the payment
-$redirect = "https://www.sandbox.paypal.com/checkoutnow?token={$response['id']}";
+// you must redirect the user to approve the payment before you can capture
+$redirectUrl = "https://www.sandbox.paypal.com/checkoutnow?token={$response['id']}";
 
-// once the user has approved the payment we can capture it
+...
+
+// once the user has approved the payment, capture it
 $response = $orders->capture($args['id']);
 
 if ($response['status'] === 'COMPLETED') {
