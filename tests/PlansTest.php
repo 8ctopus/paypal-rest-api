@@ -25,6 +25,15 @@ use PHPUnit\Framework\TestCase;
  * @internal
  *
  * @covers \Oct8pus\PayPal\Plans
+ * @covers \Oct8pus\PayPal\Plans\BillingCycle
+ * @covers \Oct8pus\PayPal\Plans\BillingCycles
+ * @covers \Oct8pus\PayPal\Plans\Frequency
+ * @covers \Oct8pus\PayPal\Plans\IntervalUnit
+ * @covers \Oct8pus\PayPal\Plans\PaymentPreferences
+ * @covers \Oct8pus\PayPal\Plans\PricingScheme
+ * @covers \Oct8pus\PayPal\Plans\SetupFeeFailure
+ * @covers \Oct8pus\PayPal\Plans\Taxes
+ * @covers \Oct8pus\PayPal\Plans\TenureType
  * @covers \Oct8pus\PayPal\RestBase
  */
 final class PlansTest extends TestCase

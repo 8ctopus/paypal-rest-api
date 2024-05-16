@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @internal
  *
  * @covers \Oct8pus\PayPal\Orders
+ * @covers \Oct8pus\PayPal\Orders\Intent
  * @covers \Oct8pus\PayPal\RestBase
  */
 final class OrdersTest extends TestCase
@@ -95,7 +96,7 @@ final class OrdersTest extends TestCase
     {
         self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/OrderCreateAuthorize.json')));
 
-        self::$orders->create(Intent::Authorize, 'USD', 10);
+        self::$orders->create(Intent::fromLowerCase('authorize'), 'USD', 10);
 
         $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v2/checkout/orders
