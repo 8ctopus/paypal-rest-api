@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Oct8pus\PayPal;
 
 use Oct8pus\PayPal\Plans\BillingCycles;
+use Oct8pus\PayPal\Plans\Operation;
 use Oct8pus\PayPal\Plans\PaymentPreferences;
 use Oct8pus\PayPal\Plans\Taxes;
 use stdClass;
@@ -146,7 +147,7 @@ class Plans extends RestBase
      * Update plan
      *
      * @param string $id
-     * @param string $operation - add, replace or delete?
+     * @param Operation $operation
      * @param string $attribute
      * @param string|int|bool $value
      *
@@ -154,7 +155,7 @@ class Plans extends RestBase
      *
      * @throws PayPalException
      */
-    public function update(string $id, string $operation, string $attribute, string|int|bool $value) : self
+    public function update(string $id, Operation $operation, string $attribute, string|int|bool $value) : self
     {
         $url = "/v1/billing/plans/{$id}";
 

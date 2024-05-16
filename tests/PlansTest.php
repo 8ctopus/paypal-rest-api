@@ -13,6 +13,7 @@ use Oct8pus\PayPal\Plans\BillingCycle;
 use Oct8pus\PayPal\Plans\BillingCycles;
 use Oct8pus\PayPal\Plans\Frequency;
 use Oct8pus\PayPal\Plans\IntervalUnit;
+use Oct8pus\PayPal\Plans\Operation;
 use Oct8pus\PayPal\Plans\PaymentPreferences;
 use Oct8pus\PayPal\Plans\PricingScheme;
 use Oct8pus\PayPal\Plans\SetupFeeFailure;
@@ -29,6 +30,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \Oct8pus\PayPal\Plans\BillingCycles
  * @covers \Oct8pus\PayPal\Plans\Frequency
  * @covers \Oct8pus\PayPal\Plans\IntervalUnit
+ * @covers \Oct8pus\PayPal\Plans\Operation
  * @covers \Oct8pus\PayPal\Plans\PaymentPreferences
  * @covers \Oct8pus\PayPal\Plans\PricingScheme
  * @covers \Oct8pus\PayPal\Plans\SetupFeeFailure
@@ -166,7 +168,7 @@ final class PlansTest extends TestCase
     {
         self::$handler->setResponse(new Response(204));
 
-        self::$plans->update('PROD-XXCD1234QWER65782', 'replace', 'description', 'test');
+        self::$plans->update('PROD-XXCD1234QWER65782', Operation::from('replace'), 'description', 'test');
 
         $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/billing/plans/PROD-XXCD1234QWER65782

@@ -18,6 +18,7 @@ use Oct8pus\PayPal\Plans\BillingCycle;
 use Oct8pus\PayPal\Plans\BillingCycles;
 use Oct8pus\PayPal\Plans\Frequency;
 use Oct8pus\PayPal\Plans\IntervalUnit;
+use Oct8pus\PayPal\Plans\Operation;
 use Oct8pus\PayPal\Plans\PaymentPreferences;
 use Oct8pus\PayPal\Plans\PricingScheme;
 use Oct8pus\PayPal\Plans\SetupFeeFailure;
@@ -195,7 +196,7 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
 
 $router->add('plans update <id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->update($args['id'], $args['operation'], $args['attribute'], $args['value']));
+    dump($plans->update($args['id'], Operation::from($args['operation']), $args['attribute'], $args['value']));
 });
 
 $router->add('plans update pricing <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
