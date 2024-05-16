@@ -55,14 +55,14 @@ final class OrdersTest extends TestCase
 
     public function testCaptureSuccess() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OrderCapture.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/OrderCapture.json')));
 
         $id = '30L74699WY872124E';
 
         self::$orders->capture($id);
 
         $expected = <<<TEXT
-        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}
+        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}/capture
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
@@ -110,14 +110,14 @@ final class OrdersTest extends TestCase
 
     public function testAuthorize() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OrderAuthorize.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/OrderAuthorize.json')));
 
         $id = '8AB97868H7440304S';
 
         self::$orders->authorize($id);
 
         $expected = <<<TEXT
-        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}
+        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}/authorize
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
@@ -129,14 +129,14 @@ final class OrdersTest extends TestCase
 
     public function testTrack() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OrderTrack.json')));
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/OrderTrack.json')));
 
         $id = '8AB97868H7440304S';
 
-        self::$orders->track($id, 'DHL', '123', '456', false);
+        self::$orders->track($id, 'DHL', '1234', '22Y6807431701101J', false);
 
         $expected = <<<TEXT
-        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}
+        https://api-m.sandbox.paypal.com/v2/checkout/orders/{$id}/track
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json

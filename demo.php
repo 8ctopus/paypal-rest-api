@@ -257,6 +257,11 @@ $router->add('orders capture <id>', static function (array $args) use ($sandbox,
     dump($orders->capture($args['id']));
 });
 
+$router->add('orders track <id> <carrier> <tracking-number> <capture-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $orders = new Orders($sandbox, $handler, $auth);
+    dump($orders->track($args['id'], $args['carrier'], $args['tracking-number'], $args['capture-id'], false));
+});
+
 $router->add('auth token', static function () use ($auth) : void {
     dump($auth->token());
 });
