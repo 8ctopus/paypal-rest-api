@@ -179,8 +179,8 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
 
-    $paymentPreferences = new PaymentPreferences(true, 0, SetupFeeFailure::Continue, 1),
-    $taxes = new Taxes(0, false),
+    $paymentPreferences = new PaymentPreferences(true, 0, SetupFeeFailure::Continue, 1);
+    $taxes = new Taxes(0, false);
 
     dump($plans->create(
         $args['product_id'],
