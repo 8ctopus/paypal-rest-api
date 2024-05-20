@@ -46,12 +46,14 @@ class Orders extends RestBase
      * @param Intent $intent
      * @param string $currency
      * @param float  $amount
+     * @param ?string $returnUrl
+     * @param ?string $cancelUrl
      *
      * @return array<mixed>
      *
      * @note in all cases, you will need to redirect the user to the rel approve url
      */
-    public function create(Intent $intent, string $currency, float $amount) : array
+    public function create(Intent $intent, string $currency, float $amount, ?string $returnUrl, ?string $cancelUrl) : array
     {
         $url = '/v2/checkout/orders';
 
@@ -65,16 +67,18 @@ class Orders extends RestBase
                     ],
                 ],
             ],
-            /*
-            'payment_source' => [
+        ];
+
+        if (isset($returnUrl)) {
+            $order['payment_source'] = [
                 'paypal' => [
                     'experience_context' => [
-                        "return_url" => "https://example.com/returnUrl",
+                        "return_url" => $returnUrl,
+                        "cancel_url" => $cancelUrl,
                     ],
                 ],
-            ],
-            */
-        ];
+            ];
+        }
 
         $body = json_encode($order, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
