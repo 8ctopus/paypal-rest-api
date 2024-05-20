@@ -1,7 +1,7 @@
 <?php
 
 /**
- * https://developer.paypal.com/docs/api/catalog-products/v1/#products_create
+ * https://developer.paypal.com/docs/api/orders/v2/
  */
 
 declare(strict_types=1);
