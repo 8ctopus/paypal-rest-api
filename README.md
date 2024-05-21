@@ -16,6 +16,12 @@ The package is a work in progress and contributions are welcome. For now, it cov
 
     composer require 8ctopus/paypal-rest-api
 
+## before you get started
+
+Copy `.env.example` to `.env` and fill in your PayPal REST api credentials. If you don't have credentials yet, follow the guide:
+
+    https://developer.paypal.com/api/rest/
+
 ## demo
 
 Here's a code sample that shows how to make a one-time payment. To see all possibilites run `demo.php`. There is also a demo store using this package, check out [PayPal sandbox](https://github.com/8ctopus/paypal-sandbox).
