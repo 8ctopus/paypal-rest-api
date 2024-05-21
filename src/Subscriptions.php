@@ -80,6 +80,36 @@ class Subscriptions extends RestBase
     }
 
     /**
+     * Capture payment
+     *
+     * @param  string $id
+     * @param  string $currency
+     * @param  float  $amount
+     * @param  string $note
+     *
+     * @return self
+     */
+    public function capture(string $id, string $currency, float $amount, string $note) : self
+    {
+        $url = "/v1/billing/subscriptions/{$id}/capture";
+
+        $capture = [
+            'capture_type' => 'OUTSTANDING_BALANCE',
+            'amount' => [
+                'currency_code' => $currency,
+                'value' => $amount,
+            ],
+            'note' => $note,
+        ];
+
+        $body = json_encode($capture, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $this->sendRequest('POST', $url, [], $body, 202);
+
+        return $this;
+    }
+
+    /**
      * Cancel
      *
      * @param string $id

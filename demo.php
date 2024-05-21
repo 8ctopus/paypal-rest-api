@@ -130,7 +130,23 @@ $router->add('subscriptions get <id>', static function (array $args) use ($sandb
 
 $router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->create($args['plan-id'], $args['success-url'], $args['cancel-url']));
+
+    $response = $subscriptions->create($args['plan-id'], $args['success-url'], $args['cancel-url']);
+
+    foreach ($response['links'] as $link) {
+        if ($link['rel'] === 'approve') {
+            echo "redirect user to {$link['href']} to approve the subscription\n\n";
+            break;
+        }
+    }
+
+    dump($response);
+
+});
+
+$router->add('subscriptions capture <id> <currency> <amount> <note>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->capture($args['id'], $args['currency'], $args['amount'], $args['note']));
 });
 
 $router->add('subscriptions activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {

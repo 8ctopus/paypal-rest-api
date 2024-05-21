@@ -73,6 +73,25 @@ final class SubscriptionsTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 
+    public function testCapture() : void
+    {
+        self::$handler->setResponse(new Response(202, ''));
+
+        $id = 'I-MT4EHFSKC1U4';
+
+        self::$subscriptions->capture($id, 'USD', 1, 'plan payment');
+
+        $expected = <<<TEXT
+        https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/capture
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
+
     public function testSuspend() : void
     {
         self::$handler->setResponse(new Response(204, ''));
