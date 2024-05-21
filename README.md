@@ -1,4 +1,4 @@
-# PayPal REST api
+# PayPal REST API
 
 [![packagist](http://poser.pugx.org/8ctopus/paypal-rest-api/v)](https://packagist.org/packages/8ctopus/paypal-rest-api)
 [![downloads](http://poser.pugx.org/8ctopus/paypal-rest-api/downloads)](https://packagist.org/packages/8ctopus/paypal-rest-api)
@@ -8,7 +8,7 @@
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/lines.svg)
 
-A php implementation of the PayPal REST api using `PSR-7`, `PSR-17` and `PSR-18`.
+A php implementation of the PayPal REST API using `PSR-7`, `PSR-17` and `PSR-18`.
 
 The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products`, `Plans` and `Subscriptions`), `Orders` and `web hooks`. That's basically what's needed to create a store, be it one-time payment or subscription based.
 
@@ -18,7 +18,7 @@ The package is a work in progress and contributions are welcome. For now, it cov
 
 ## before you get started
 
-Copy `.env.example` to `.env` and fill in your PayPal REST api credentials. If you don't have credentials yet, follow the guide:
+Copy `.env.example` to `.env` and fill in your PayPal REST API credentials. If you don't have credentials yet, follow the guide:
 
     https://developer.paypal.com/api/rest/
 
@@ -75,5 +75,5 @@ if ($response['status'] === 'COMPLETED') {
 
 # references
 
-- PayPal REST api official documentation: https://developer.paypal.com/api/rest/
+- PayPal REST API official documentation: https://developer.paypal.com/api/rest/
 - PayPal REST archived php SDK https://github.com/paypal/PayPal-PHP-SDK/
