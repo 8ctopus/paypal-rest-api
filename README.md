@@ -10,7 +10,7 @@
 
 A php implementation of PayPal REST api using `PSR-7`, `PSR-17` and `PSR-18`.
 
-The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products` and `Plans`), `web hooks` and `Orders`.
+The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products`, `Plans` and `Subscriptions`), `Orders` and `web hooks`. That's basically what's needed to create a store be it one-time payment or subscription based.
 
 ## install
 
