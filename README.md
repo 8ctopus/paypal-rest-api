@@ -8,11 +8,11 @@
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/paypal-rest-api/image-data/lines.svg)
 
-A php implementation of PayPal REST api using `PSR-7`, `PSR-17` and `PSR-18`.
+A php implementation of the PayPal REST api using `PSR-7`, `PSR-17` and `PSR-18`.
 
-The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products`, `Plans` and `Subscriptions`), `Orders` and `web hooks`. That's basically what's needed to create a store be it one-time payment or subscription based.
+The package is a work in progress and contributions are welcome. For now, it covers subscriptions (`Products`, `Plans` and `Subscriptions`), `Orders` and `web hooks`. That's basically what's needed to create a store, be it one-time payment or subscription based.
 
-## install
+## install package
 
     composer require 8ctopus/paypal-rest-api
 
