@@ -41,7 +41,7 @@ final class OrdersTest extends TestCase
     {
         self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/OrderCreateCapture.json')));
 
-        self::$orders->create(Intent::Capture, 'USD', 10);
+        self::$orders->create(Intent::Capture, 'USD', 10, 'http://localhost/success/', 'http://localhost/cancel/');
 
         $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v2/checkout/orders

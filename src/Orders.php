@@ -53,7 +53,7 @@ class Orders extends RestBase
      *
      * @note in all cases, you will need to redirect the user to the rel approve url
      */
-    public function create(Intent $intent, string $currency, float $amount, ?string $returnUrl, ?string $cancelUrl) : array
+    public function create(Intent $intent, string $currency, float $amount, ?string $returnUrl = null, ?string $cancelUrl = null) : array
     {
         $url = '/v2/checkout/orders';
 
