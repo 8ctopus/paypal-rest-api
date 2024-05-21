@@ -18,7 +18,7 @@ The package is a work in progress and contributions are welcome. For now, it cov
 
 ## demo
 
-Here's a simple example, run `demo.php` to see all what is possible.
+Here's a code sample, run `demo.php` to see all possibilites. To view a demo store using this package, check out [PayPal sandbox](https://github.com/8ctopus/paypal-sandbox).
 
 ```php
 use HttpSoft\Message\RequestFactory;
