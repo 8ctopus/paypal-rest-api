@@ -18,7 +18,7 @@ class BillingCycle
      *
      * @param TenureType    $tenureType
      * @param Frequency     $frequency
-     * @param int           $totalCycles - set to zero for perpetual
+     * @param int           $totalCycles   - set to zero for perpetual
      * @param PricingScheme $pricingScheme
      */
     public function __construct(TenureType $tenureType, Frequency $frequency, int $totalCycles, PricingScheme $pricingScheme)
@@ -32,7 +32,7 @@ class BillingCycle
     /**
      * Get object
      *
-     * @param  int      $sequence
+     * @param int $sequence
      *
      * @return stdClass
      */

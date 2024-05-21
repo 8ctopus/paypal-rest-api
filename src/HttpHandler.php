@@ -65,7 +65,7 @@ class HttpHandler
         // @codeCoverageIgnoreEnd
     }
 
-    public function processResponse(ResponseInterface $response, int|array $expectedStatus) : string
+    public function processResponse(ResponseInterface $response, array|int $expectedStatus) : string
     {
         if (is_int($expectedStatus)) {
             $expectedStatus = [$expectedStatus];

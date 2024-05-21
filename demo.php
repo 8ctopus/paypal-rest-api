@@ -26,7 +26,7 @@ use Oct8pus\PayPal\Plans\Taxes;
 use Oct8pus\PayPal\Plans\TenureType;
 use Oct8pus\PayPal\Products;
 use Oct8pus\PayPal\Status;
-use Oct8pus\PayPal\Subscription;
+use Oct8pus\PayPal\Subscriptions;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -123,24 +123,29 @@ $router->add('hooks simulate <id> <event>', static function (array $args) use ($
     dump($webhooks->simulate($args['id'], $args['event']));
 });
 
-$router->add('subscription get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
-    $subscription = new Subscription($sandbox, $handler, $auth);
-    dump($subscription->get($args['id']));
+$router->add('subscriptions get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->get($args['id']));
 });
 
-$router->add('subscription cancel <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
-    $subscription = new Subscription($sandbox, $handler, $auth);
-    dump($subscription->cancel($args['id']));
+$router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->create($args['plan-id'], $args['success-url'], $args['cancel-url']));
 });
 
-$router->add('subscription suspend <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
-    $subscription = new Subscription($sandbox, $handler, $auth);
-    dump($subscription->suspend($args['id']));
+$router->add('subscriptions activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->activate($args['id']));
 });
 
-$router->add('subscription activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
-    $subscription = new Subscription($sandbox, $handler, $auth);
-    dump($subscription->activate($args['id']));
+$router->add('subscriptions suspend <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->suspend($args['id']));
+});
+
+$router->add('subscriptions cancel <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->cancel($args['id']));
 });
 
 $router->add('plans list', static function () use ($sandbox, $handler, $auth) : void {

@@ -35,13 +35,13 @@ abstract class RestBase
      * @param string        $uri
      * @param array<string> $headers
      * @param ?string       $body
-     * @param int|array     $expectedStatus
+     * @param array|int     $expectedStatus
      *
      * @return string
      *
      * @throws PayPalException
      */
-    protected function sendRequest(string $method, string $uri, array $headers, ?string $body, int|array $expectedStatus) : string
+    protected function sendRequest(string $method, string $uri, array $headers, ?string $body, array|int $expectedStatus) : string
     {
         $request = $this->handler->createRequest($method, $this->baseUri . $uri, array_merge($this->headers(), $headers), $body);
 

@@ -50,9 +50,9 @@ class Plans extends RestBase
     {
         $url = '/v1/billing/plans';
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true)['plans'];
+        return json_decode($response, true)['plans'];
     }
 
     /**
@@ -68,9 +68,9 @@ class Plans extends RestBase
     {
         $url = "/v1/billing/plans/{$id}";
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
@@ -102,9 +102,9 @@ class Plans extends RestBase
 
         $body = json_encode($object, JSON_PRETTY_PRINT);
 
-        $json = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendRequest('POST', $url, [], $body, 201);
 
-        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -146,16 +146,16 @@ class Plans extends RestBase
     /**
      * Update plan
      *
-     * @param string $id
-     * @param Operation $operation
-     * @param string $attribute
-     * @param string|int|bool $value
+     * @param string          $id
+     * @param Operation       $operation
+     * @param string          $attribute
+     * @param bool|int|string $value
      *
      * @return self
      *
      * @throws PayPalException
      */
-    public function update(string $id, Operation $operation, string $attribute, string|int|bool $value) : self
+    public function update(string $id, Operation $operation, string $attribute, bool|int|string $value) : self
     {
         $url = "/v1/billing/plans/{$id}";
 
@@ -187,8 +187,8 @@ class Plans extends RestBase
     /**
      * Update pricing
      *
-     * @param  string        $id
-     * @param  BillingCycles $cycles
+     * @param string        $id
+     * @param BillingCycles $cycles
      *
      * @return self
      */

@@ -14,7 +14,7 @@ class Taxes
     /**
      * Constructor
      *
-     * @param float $percentage - tax percentage on billing amount
+     * @param float $percentage  - tax percentage on billing amount
      * @param bool  $taxIncluded - whether the tax is already included in the billing amount
      */
     public function __construct(float $percentage, bool $taxIncluded)

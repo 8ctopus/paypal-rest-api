@@ -27,7 +27,7 @@ class Orders extends RestBase
     /**
      * Get order
      *
-     * @param  string $id
+     * @param string $id
      *
      * @return array
      */
@@ -35,17 +35,17 @@ class Orders extends RestBase
     {
         $url = "/v2/checkout/orders/{$id}";
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
      * Create
      *
-     * @param Intent $intent
-     * @param string $currency
-     * @param float  $amount
+     * @param Intent  $intent
+     * @param string  $currency
+     * @param float   $amount
      * @param ?string $returnUrl
      * @param ?string $cancelUrl
      *
@@ -73,8 +73,8 @@ class Orders extends RestBase
             $order['payment_source'] = [
                 'paypal' => [
                     'experience_context' => [
-                        "return_url" => $returnUrl,
-                        "cancel_url" => $cancelUrl,
+                        'return_url' => $returnUrl,
+                        'cancel_url' => $cancelUrl,
                     ],
                 ],
             ];
@@ -82,15 +82,15 @@ class Orders extends RestBase
 
         $body = json_encode($order, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
-        $json = $this->sendRequest('POST', $url, [], $body, [200, 201]);
+        $response = $this->sendRequest('POST', $url, [], $body, [200, 201]);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
      * Capture payment for existing order
      *
-     * @param  string $id order id
+     * @param string $id order id
      *
      * @return array
      */
@@ -98,15 +98,15 @@ class Orders extends RestBase
     {
         $url = "/v2/checkout/orders/{$id}/capture";
 
-        $json = $this->sendRequest('POST', $url, [], null, 201);
+        $response = $this->sendRequest('POST', $url, [], null, 201);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
      * Authorize payment for existing order
      *
-     * @param  string $id order id
+     * @param string $id order id
      *
      * @return array
      */
@@ -114,19 +114,19 @@ class Orders extends RestBase
     {
         $url = "/v2/checkout/orders/{$id}/authorize";
 
-        $json = $this->sendRequest('POST', $url, [], null, 201);
+        $response = $this->sendRequest('POST', $url, [], null, 201);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
      * Add tracking
      *
-     * @param  string $id
-     * @param  string $carrier
-     * @param  string $trackingNumber
-     * @param  string $captureId
-     * @param  bool   $notifyPayer
+     * @param string $id
+     * @param string $carrier
+     * @param string $trackingNumber
+     * @param string $captureId
+     * @param bool   $notifyPayer
      *
      * @return array
      */
@@ -145,8 +145,8 @@ class Orders extends RestBase
 
         $body = json_encode($order, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
-        $json = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendRequest('POST', $url, [], $body, 201);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 }

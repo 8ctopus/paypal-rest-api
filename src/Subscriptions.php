@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-class Subscription extends RestBase
+class Subscriptions extends RestBase
 {
     /**
      * Constructor
@@ -33,9 +33,50 @@ class Subscription extends RestBase
     {
         $url = "/v1/billing/subscriptions/{$id}";
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
+    }
+
+    /**
+     * Create subscription
+     *
+     * @param string $planId
+     * @param string $successUrl
+     * @param string $cancelUrl
+     *
+     * @return array
+     *
+     * @note You must redirect the customer to PayPal to approve the subscription
+     */
+    public function create(string $planId, string $successUrl, string $cancelUrl) : array
+    {
+        $url = '/v1/billing/subscriptions';
+
+        $subscription = [
+            'plan_id' => $planId,
+            //'quantity' => 1,
+            'application_context' => [
+                //'brand_name' => 'walmart',
+                'locale' => 'en-US',
+                /*
+                'shipping_preference' => 'SET_PROVIDED_ADDRESS',
+                'user_action' => 'SUBSCRIBE_NOW',
+                'payment_method' => [
+                    'payer_selected' => 'PAYPAL',
+                    'payee_preferred' => 'IMMEDIATE_PAYMENT_REQUIRED',
+                ],
+                */
+                'return_url' => $successUrl,
+                'cancel_url' => $cancelUrl,
+            ],
+        ];
+
+        $body = json_encode($subscription, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $response = $this->sendRequest('POST', $url, [], $body, 201);
+
+        return json_decode($response, true);
     }
 
     /**

@@ -1,0 +1,22 @@
+{
+    "status": "APPROVAL_PENDING",
+    "id": "I-MT4EHFSKC1U4",
+    "create_time": "2024-05-21T11:05:59Z",
+    "links": [
+        {
+            "href": "https:\/\/www.sandbox.paypal.com\/webapps\/billing\/subscriptions?ba_token=BA-67906227A43247440",
+            "rel": "approve",
+            "method": "GET"
+        },
+        {
+            "href": "https:\/\/api-m.sandbox.paypal.com\/v1\/billing\/subscriptions\/I-MT4EHFSKC1U4",
+            "rel": "edit",
+            "method": "PATCH"
+        },
+        {
+            "href": "https:\/\/api-m.sandbox.paypal.com\/v1\/billing\/subscriptions\/I-MT4EHFSKC1U4",
+            "rel": "self",
+            "method": "GET"
+        }
+    ]
+}

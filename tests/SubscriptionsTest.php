@@ -8,31 +8,31 @@ use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\Subscription;
+use Oct8pus\PayPal\Subscriptions;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
  * @covers \Oct8pus\PayPal\RestBase
- * @covers \Oct8pus\PayPal\Subscription
+ * @covers \Oct8pus\PayPal\Subscriptions
  */
-final class SubscriptionTest extends TestCase
+final class SubscriptionsTest extends TestCase
 {
     private static HttpHandlerMock $handler;
     private static OAuthMock $auth;
-    private static Subscription $subscription;
+    private static Subscriptions $subscriptions;
 
     public static function setUpBeforeClass() : void
     {
         self::$handler = new HttpHandlerMock(new Shuttle(), new RequestFactory(), new StreamFactory());
         self::$auth = new OAuthMock(self::$handler, 'testId', 'testSecret');
-        self::$subscription = new Subscription(true, self::$handler, self::$auth);
+        self::$subscriptions = new Subscriptions(true, self::$handler, self::$auth);
     }
 
     public function testConstructor() : void
     {
-        self::assertInstanceOf(Subscription::class, new Subscription(true, self::$handler, self::$auth));
+        self::assertInstanceOf(Subscriptions::class, new Subscriptions(true, self::$handler, self::$auth));
     }
 
     public function testGet() : void
@@ -41,10 +41,29 @@ final class SubscriptionTest extends TestCase
 
         $id = 'I-BW452GLLEP1G';
 
-        self::$subscription->get($id);
+        self::$subscriptions->get($id);
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
+
+    public function testCreate() : void
+    {
+        self::$handler->setResponse(new Response(201, file_get_contents(__DIR__ . '/fixtures/SubscriptionCreate.json')));
+
+        $id = 'P-5ML4271244454362WXNWU5NQ';
+
+        self::$subscriptions->create($id, 'http://localhost/success/', 'http://localhost/cancel/');
+
+        $expected = <<<TEXT
+        https://api-m.sandbox.paypal.com/v1/billing/subscriptions
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
@@ -60,7 +79,7 @@ final class SubscriptionTest extends TestCase
 
         $id = 'I-BW452GLLEP1G';
 
-        self::$subscription->suspend($id);
+        self::$subscriptions->suspend($id);
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/suspend
@@ -79,7 +98,7 @@ final class SubscriptionTest extends TestCase
 
         $id = 'I-BW452GLLEP1G';
 
-        self::$subscription->activate($id);
+        self::$subscriptions->activate($id);
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/activate
@@ -98,7 +117,7 @@ final class SubscriptionTest extends TestCase
 
         $id = 'I-BW452GLLEP1G';
 
-        self::$subscription->cancel($id);
+        self::$subscriptions->cancel($id);
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/cancel

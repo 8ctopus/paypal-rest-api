@@ -55,9 +55,9 @@ class OAuth extends RestBase
             'grant_type' => 'client_credentials',
         ]);
 
-        $json = $this->sendRequest('POST', $url, [], $body, 200);
+        $response = $this->sendRequest('POST', $url, [], $body, 200);
 
-        $decoded = json_decode($json, true);
+        $decoded = json_decode($response, true);
 
         if (!array_key_exists('access_token', $decoded)) {
             throw new PayPalException('access token missing');

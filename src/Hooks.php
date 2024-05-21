@@ -33,9 +33,9 @@ class Hooks extends RestBase
     {
         $url = '/v1/notifications/webhooks';
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true)['webhooks'];
+        return json_decode($response, true)['webhooks'];
     }
 
     /**
@@ -49,9 +49,9 @@ class Hooks extends RestBase
     {
         $url = "/v1/notifications/webhooks/{$id}";
 
-        $json = $this->sendRequest('GET', $url, [], null, 200);
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 
     /**
@@ -79,9 +79,9 @@ class Hooks extends RestBase
 
         $body = json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
-        $json = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendRequest('POST', $url, [], $body, 201);
 
-        $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        $decoded = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         if (array_key_exists('id', $decoded)) {
             return $decoded['id'];
@@ -137,8 +137,8 @@ class Hooks extends RestBase
             'resource_version' => $version,
         ], JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
 
-        $json = $this->sendRequest('POST', $url, [], $body, 202);
+        $response = $this->sendRequest('POST', $url, [], $body, 202);
 
-        return json_decode($json, true);
+        return json_decode($response, true);
     }
 }
