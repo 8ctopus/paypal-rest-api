@@ -28,7 +28,17 @@ use Oct8pus\PayPal\Products;
 use Oct8pus\PayPal\Status;
 use Oct8pus\PayPal\Subscriptions;
 
-require_once __DIR__ . '/vendor/autoload.php';
+$vendor = __DIR__ . '/vendor/autoload.php';
+
+if (!file_exists($vendor)) {
+    echo <<<'TXT'
+    Please run composer install
+
+    TXT;
+    return;
+}
+
+require_once $vendor;
 
 (new Provider())
     ->register();
@@ -40,6 +50,7 @@ if (!file_exists($file)) {
     Please create env.php based on env.php.example
 
     TXT;
+    return;
 }
 
 $config = Config::load($file);
