@@ -2,7 +2,7 @@
     "name": "8ctopus/paypal-rest-api",
     "type": "library",
     "description": "Process payments and subscriptions with the PayPal REST API",
-    "keywords": ["paypal", "REST", "API"],
+    "keywords": ["paypal", "payments", "subscriptions"],
     "homepage": "https://github.com/8ctopus/paypal-rest-api",
     "license": "MIT",
     "authors": [
