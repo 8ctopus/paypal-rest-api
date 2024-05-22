@@ -9,6 +9,7 @@ use stdClass;
 class PaymentPreferences
 {
     private readonly bool $autoBillOutstanding;
+    private readonly string $currency;
     private readonly int $setupFee;
     private readonly SetupFeeFailure $setupFeeFailure;
     private readonly int $paymentFailureThreshold;
@@ -17,13 +18,15 @@ class PaymentPreferences
      * Constructor
      *
      * @param bool            $autoBillOutstanding
+     * @param string          $currency
      * @param int             $setupFee
      * @param SetupFeeFailure $setupFeeFailure
      * @param int             $paymentFailureThreshold
      */
-    public function __construct(bool $autoBillOutstanding, int $setupFee, SetupFeeFailure $setupFeeFailure, int $paymentFailureThreshold)
+    public function __construct(bool $autoBillOutstanding, string $currency, int $setupFee, SetupFeeFailure $setupFeeFailure, int $paymentFailureThreshold)
     {
         $this->autoBillOutstanding = $autoBillOutstanding;
+        $this->currency = $currency;
         $this->setupFee = $setupFee;
         $this->setupFeeFailure = $setupFeeFailure;
         $this->paymentFailureThreshold = $paymentFailureThreshold;
@@ -37,7 +40,7 @@ class PaymentPreferences
             'auto_bill_outstanding' => $this->autoBillOutstanding,
             'setup_fee' => [
                 'value' => $this->setupFee,
-                'currency_code' => 'USD',
+                'currency_code' => $this->currency,
             ],
             'setup_fee_failure_action' => $this->setupFeeFailure->value,
             'payment_failure_threshold' => $this->paymentFailureThreshold,

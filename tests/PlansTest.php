@@ -140,7 +140,7 @@ final class PlansTest extends TestCase
             ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6, 'USD')))
             ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10, 'USD')));
 
-        $paymentPreferences = new PaymentPreferences(true, 10, SetupFeeFailure::Continue, 3);
+        $paymentPreferences = new PaymentPreferences(true, 'USD', 10, SetupFeeFailure::Continue, 3);
         $taxes = new Taxes(0.10, false);
 
         self::$plans->create(
