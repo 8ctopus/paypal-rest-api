@@ -10,7 +10,7 @@ class PaymentPreferences
 {
     private readonly bool $autoBillOutstanding;
     private readonly string $currency;
-    private readonly int $setupFee;
+    private readonly float $setupFee;
     private readonly SetupFeeFailure $setupFeeFailure;
     private readonly int $paymentFailureThreshold;
 
@@ -19,11 +19,11 @@ class PaymentPreferences
      *
      * @param bool            $autoBillOutstanding
      * @param string          $currency
-     * @param int             $setupFee
+     * @param float           $setupFee
      * @param SetupFeeFailure $setupFeeFailure
      * @param int             $paymentFailureThreshold
      */
-    public function __construct(bool $autoBillOutstanding, string $currency, int $setupFee, SetupFeeFailure $setupFeeFailure, int $paymentFailureThreshold)
+    public function __construct(bool $autoBillOutstanding, string $currency, float $setupFee, SetupFeeFailure $setupFeeFailure, int $paymentFailureThreshold)
     {
         $this->autoBillOutstanding = $autoBillOutstanding;
         $this->currency = $currency;
