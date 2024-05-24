@@ -100,9 +100,7 @@ class Plans extends RestBase
 
         $object = (object) array_merge((array) $object1, $cycles->object(), (array) $payment->object(), (array) $object2, (array) $taxes->object());
 
-        $body = json_encode($object, JSON_PRETTY_PRINT);
-
-        $response = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendJsonRequest('POST', $url, [], (array) $object, 201);
 
         return json_decode($response, true, 512, JSON_THROW_ON_ERROR);
     }
@@ -177,9 +175,7 @@ class Plans extends RestBase
             ],
         ];
 
-        $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $this->sendRequest('PATCH', $url, [], $body, 204);
+        $this->sendJsonRequest('PATCH', $url, [], $update, 204);
 
         return $this;
     }

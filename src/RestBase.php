@@ -51,6 +51,26 @@ abstract class RestBase
     }
 
     /**
+     * Send json request
+     *
+     * @param string        $method
+     * @param string        $uri
+     * @param array<string> $headers
+     * @param array         $json
+     * @param array|int     $expectedStatus
+     *
+     * @return string
+     *
+     * @throws PayPalException
+     */
+    protected function sendJsonRequest(string $method, string $uri, array $headers, array $json, array|int $expectedStatus) : string
+    {
+        $body = json_encode($json, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        return $this->sendRequest($method, $uri, $headers, $body, $expectedStatus);
+    }
+
+    /**
      * Get headers
      *
      * @return array<string, string>

@@ -80,9 +80,7 @@ class Orders extends RestBase
             ];
         }
 
-        $body = json_encode($order, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $response = $this->sendRequest('POST', $url, [], $body, [200, 201]);
+        $response = $this->sendJsonRequest('POST', $url, [], $order, [200, 201]);
 
         return json_decode($response, true);
     }
@@ -143,9 +141,7 @@ class Orders extends RestBase
             // items
         ];
 
-        $body = json_encode($order, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $response = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendJsonRequest('POST', $url, [], $order, 201);
 
         return json_decode($response, true);
     }

@@ -77,9 +77,7 @@ class Hooks extends RestBase
 
         $url = '/v1/notifications/webhooks';
 
-        $body = json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $response = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendJsonRequest('POST', $url, [], $data, 201);
 
         $decoded = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
@@ -131,13 +129,13 @@ class Hooks extends RestBase
                 break;
         }
 
-        $body = json_encode([
+        $json = [
             'webhook_id' => $webhookId,
             'event_type' => $eventType,
             'resource_version' => $version,
-        ], JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        ];
 
-        $response = $this->sendRequest('POST', $url, [], $body, 202);
+        $response = $this->sendJsonRequest('POST', $url, [], $json, 202);
 
         return json_decode($response, true);
     }

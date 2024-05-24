@@ -99,9 +99,7 @@ class Products extends RestBase
 
         $url = '/v1/catalogs/products';
 
-        $body = json_encode($product, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $this->sendRequest('POST', $url, [], $body, 201);
+        $this->sendJsonRequest('POST', $url, [], $product, 201);
 
         return $this;
     }
@@ -126,11 +124,9 @@ class Products extends RestBase
             ],
         ];
 
-        $body = json_encode($update, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
         $url = "/v1/catalogs/products/{$id}";
 
-        $this->sendRequest('PATCH', $url, [], $body, 204);
+        $this->sendJsonRequest('PATCH', $url, [], $update, 204);
 
         return $this;
     }

@@ -72,9 +72,7 @@ class Subscriptions extends RestBase
             ],
         ];
 
-        $body = json_encode($subscription, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $response = $this->sendRequest('POST', $url, [], $body, 201);
+        $response = $this->sendJsonRequest('POST', $url, [], $subscription, 201);
 
         return json_decode($response, true);
     }
@@ -102,9 +100,7 @@ class Subscriptions extends RestBase
             'note' => $note,
         ];
 
-        $body = json_encode($capture, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-
-        $this->sendRequest('POST', $url, [], $body, 202);
+        $this->sendJsonRequest('POST', $url, [], $capture, 202);
 
         return $this;
     }
