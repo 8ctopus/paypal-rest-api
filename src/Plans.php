@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @reference https://developer.paypal.com/docs/api/subscriptions/v1/#plans_list
+ * @reference https://developer.paypal.com/docs/api/subscriptions/v1/
  */
 
 declare(strict_types=1);
@@ -80,7 +80,7 @@ class Plans extends RestBase
      * @param string             $name
      * @param string             $description
      * @param Status             $status
-     * @param BillingCycles      $cycles
+     * @param BillingCycles      $cycles - A plan can have at most two trial cycles and only one regular cycle
      * @param PaymentPreferences $payment
      * @param Taxes              $taxes
      *
