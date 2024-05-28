@@ -84,7 +84,7 @@ $router->add('hooks show <id>', static function (array $args) use ($sandbox, $ha
     dump($webhooks->show($args['id']));
 });
 
-$router->add('hooks add <url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('hooks create <url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
     $webhooks->create($args['url'], [
         // a payment on a subscription was made
