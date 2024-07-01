@@ -210,6 +210,7 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
     */
 
     /*
+    // monthly $4.99
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
 
@@ -217,6 +218,14 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
     $taxes = new Taxes(0, false);
     */
 
+    // yearly $12
+    $billingCycles = (new BillingCycles())
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(12.00, 'USD')));
+
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 0, SetupFeeFailure::Continue, 1);
+    $taxes = new Taxes(0, false);
+
+    /*
     // first year $24 then from year 2 $1 yearly
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Year, 1), 1, new PricingScheme(24, 'USD')))
@@ -224,6 +233,7 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
 
     $paymentPreferences = new PaymentPreferences(true, 'USD', 0, SetupFeeFailure::Continue, 1);
     $taxes = new Taxes(0, false);
+    */
 
     dump($plans->create(
         $args['product_id'],
