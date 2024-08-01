@@ -14,11 +14,13 @@ class BillingCycles
     }
 
     /**
-     * Add
+     * Add cycle
      *
      * @param BillingCycle $billingCycle
      *
      * @return self
+     *
+     * @note A plan can have at most two trial cycles and only one regular cycle
      */
     public function add(BillingCycle $billingCycle) : self
     {
