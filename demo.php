@@ -201,11 +201,11 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
 
     /*
     $billingCycles = (new BillingCycles())
-        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3, 'USD')))
-        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6, 'USD')))
-        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10, 'USD')));
+        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3.0, 'USD')))
+        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6.0, 'USD')))
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10.0, 'USD')));
 
-    $paymentPreferences = new PaymentPreferences(true, 'USD', 10, SetupFeeFailure::Continue, 3);
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 10.0, SetupFeeFailure::Continue, 3);
     $taxes = new Taxes(0.10, false);
     */
 
@@ -214,25 +214,25 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
 
-    $paymentPreferences = new PaymentPreferences(true, 'USD', 0, SetupFeeFailure::Continue, 1);
-    $taxes = new Taxes(0, false);
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 0.0, SetupFeeFailure::Continue, 1);
+    $taxes = new Taxes(0.0, false);
     */
 
     // yearly $12
     $billingCycles = (new BillingCycles())
-        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(12.00, 'USD')));
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(12.0, 'USD')));
 
-    $paymentPreferences = new PaymentPreferences(true, 'USD', 0, SetupFeeFailure::Continue, 1);
-    $taxes = new Taxes(0, false);
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 0.0, SetupFeeFailure::Continue, 1);
+    $taxes = new Taxes(0.0, false);
 
     /*
     // first year $24 then from year 2 $1 yearly
     $billingCycles = (new BillingCycles())
-        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Year, 1), 1, new PricingScheme(24, 'USD')))
-        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(1, 'USD')));
+        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Year, 1), 1, new PricingScheme(24.0, 'USD')))
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(1.0, 'USD')));
 
-    $paymentPreferences = new PaymentPreferences(true, 'USD', 0, SetupFeeFailure::Continue, 1);
-    $taxes = new Taxes(0, false);
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 0.0, SetupFeeFailure::Continue, 1);
+    $taxes = new Taxes(0.0, false);
     */
 
     dump($plans->create(
