@@ -112,6 +112,15 @@ $router->add('hooks create <url>', static function (array $args) use ($sandbox, 
         //'PAYMENT.AUTHORIZATION.CREATED',
         //'PAYMENT.AUTHORIZATION.VOIDED',
         //'PAYMENT.CAPTURE.COMPLETED',
+
+        // customer dispute created
+        'CUSTOMER.DISPUTE.CREATED',
+
+        // customer dispute updated
+        'CUSTOMER.DISPUTE.UPDATED',
+
+        // customer dispute resolved
+        'CUSTOMER.DISPUTE.RESOLVED',
     ]);
 });
 
