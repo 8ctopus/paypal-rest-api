@@ -57,7 +57,7 @@ final class HooksTest extends TestCase
 
         $id = '0EH40505U7160970P';
 
-        self::$hooks->show($id);
+        self::$hooks->get($id);
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/notifications/webhooks/{$id}

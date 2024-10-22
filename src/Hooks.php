@@ -39,13 +39,13 @@ class Hooks extends RestBase
     }
 
     /**
-     * Show hook details
+     * Get hook details
      *
      * @param string $id
      *
      * @return array
      */
-    public function show(string $id) : array
+    public function get(string $id) : array
     {
         $url = "/v1/notifications/webhooks/{$id}";
 
