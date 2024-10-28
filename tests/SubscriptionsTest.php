@@ -79,7 +79,7 @@ final class SubscriptionsTest extends TestCase
 
         $id = 'I-MT4EHFSKC1U4';
 
-        self::$subscriptions->capture($id, 'USD', 1, 'plan payment');
+        self::$subscriptions->capture($id, 'USD', 1.0, 'plan payment');
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/capture
@@ -140,6 +140,25 @@ final class SubscriptionsTest extends TestCase
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/cancel
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
+
+    public function testListTransactions() : void
+    {
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/SubscriptionListTransactions.json')));
+
+        $id = 'I-BW452GLLEP1G';
+
+        self::$subscriptions->listTransactions($id);
+
+        $expected = <<<TEXT
+        https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/transactions?start_time=2018-01-21T07%3A50%3A20.940Z&end_time=2030-01-21T07%3A50%3A20.940Z
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json

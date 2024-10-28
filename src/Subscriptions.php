@@ -152,4 +152,25 @@ class Subscriptions extends RestBase
 
         return $this;
     }
+
+    /**
+     * List subscription transactions
+     *
+     * @param string $id
+     *
+     * @return array<mixed>
+     */
+    public function listTransactions(string $id) : array
+    {
+        $url = "/v1/billing/subscriptions/{$id}/transactions";
+
+        $url .= '?' . http_build_query([
+            'start_time' => '2018-01-21T07:50:20.940Z',
+            'end_time' => '2030-01-21T07:50:20.940Z',
+        ]);
+
+        $response = $this->sendRequest('GET', $url, [], null, 200);
+
+        return json_decode($response, true);
+    }
 }

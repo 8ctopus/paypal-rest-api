@@ -148,6 +148,11 @@ $router->add('subscriptions get <id>', static function (array $args) use ($sandb
     dump($subscriptions->get($args['id']));
 });
 
+$router->add('subscriptions list transactions <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->listTransactions($args['id']));
+});
+
 $router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
 
@@ -161,7 +166,6 @@ $router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static
     }
 
     dump($response);
-
 });
 
 $router->add('subscriptions capture <id> <currency> <amount> <note>', static function (array $args) use ($sandbox, $handler, $auth) : void {

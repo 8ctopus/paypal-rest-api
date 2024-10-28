@@ -1,0 +1,35 @@
+{
+    "transactions": [
+        {
+            "status": "COMPLETED",
+            "id": "0K248413N6360881G",
+            "amount_with_breakdown": {
+                "gross_amount": {
+                    "currency_code": "USD",
+                    "value": "19.99"
+                },
+                "fee_amount": {
+                    "currency_code": "USD",
+                    "value": "0.98"
+                },
+                "net_amount": {
+                    "currency_code": "USD",
+                    "value": "19.01"
+                }
+            },
+            "payer_name": {
+                "given_name": "John",
+                "surname": "Doe"
+            },
+            "payer_email": "sb-0479eu30918010@personal.example.com",
+            "time": "2024-10-24T10:36:06.000Z"
+        }
+    ],
+    "links": [
+        {
+            "href": "https:\/\/api-m.sandbox.paypal.com\/v1\/billing\/subscriptions\/I-1S3UVF7WT1G2\/transactions?start_time=2018-01-21T07%3A50%3A20.940Z&end_time=2025-01-21T07%3A50%3A20.940Z",
+            "rel": "SELF",
+            "method": "GET"
+        }
+    ]
+}
