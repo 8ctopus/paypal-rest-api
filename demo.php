@@ -13,6 +13,7 @@ use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\OAuthCache;
 use Oct8pus\PayPal\Orders;
 use Oct8pus\PayPal\Orders\Intent;
+use Oct8pus\PayPal\Payments;
 use Oct8pus\PayPal\Plans;
 use Oct8pus\PayPal\Plans\BillingCycle;
 use Oct8pus\PayPal\Plans\BillingCycles;
@@ -329,6 +330,21 @@ $router->add('orders capture <id>', static function (array $args) use ($sandbox,
 $router->add('orders track <id> <carrier> <tracking-number> <capture-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $orders = new Orders($sandbox, $handler, $auth);
     dump($orders->track($args['id'], $args['carrier'], $args['tracking-number'], $args['capture-id'], false));
+});
+
+$router->add('payments get authorized <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->getAuthorized($args['id']));
+});
+
+$router->add('payments get captured <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->getCaptured($args['id']));
+});
+
+$router->add('payments get refunded <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->getRefunded($args['id']));
 });
 
 $router->add('auth token', static function () use ($auth) : void {
