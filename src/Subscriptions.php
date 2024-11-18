@@ -179,6 +179,7 @@ class Subscriptions extends RestBase
         }
 
         $params = [
+            // FIX ME RFC3339 or RFC3339 extended like in doc?
             'start_time' => $start->format(DateTimeInterface::RFC3339),
             'end_time' => $end->format(DateTimeInterface::RFC3339),
         ];
