@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use DateInterval;
+use DateTime;
+use DateTimeInterface;
+
 class Subscriptions extends RestBase
 {
     /**
@@ -154,20 +158,32 @@ class Subscriptions extends RestBase
     }
 
     /**
-     * List subscription transactions
+     * List transactions
      *
      * @param string $id
+     * @param ?DateTime $start
+     * @param ?DateTime $end
      *
      * @return array<mixed>
      */
-    public function listTransactions(string $id) : array
+    public function listTransactions(string $id, ?DateTime $start = null, ?DateTime $end = null) : array
     {
         $url = "/v1/billing/subscriptions/{$id}/transactions";
 
-        $url .= '?' . http_build_query([
-            'start_time' => '2018-01-21T07:50:20.940Z',
-            'end_time' => '2030-01-21T07:50:20.940Z',
-        ]);
+        if (!$end) {
+            $end = new DateTime('now');
+        }
+
+        if (!$start) {
+            $start = new DateTime('2020-01-01');
+        }
+
+        $params = [
+            'start_time' => $start->format(DateTimeInterface::RFC3339),
+            'end_time' => $end->format(DateTimeInterface::RFC3339),
+        ];
+
+        $url .= '?' . http_build_query($params);
 
         $response = $this->sendRequest('GET', $url, [], null, 200);
 

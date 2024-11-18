@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use DateTime;
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
@@ -154,11 +155,13 @@ final class SubscriptionsTest extends TestCase
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/SubscriptionListTransactions.json')));
 
         $id = 'I-BW452GLLEP1G';
+        $start = new DateTime('2020-01-01');
+        $end = new DateTime('2025-01-01');
 
-        self::$subscriptions->listTransactions($id);
+        self::$subscriptions->listTransactions($id, $start, $end);
 
         $expected = <<<TEXT
-        https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/transactions?start_time=2018-01-21T07%3A50%3A20.940Z&end_time=2030-01-21T07%3A50%3A20.940Z
+        https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/transactions?start_time=2020-01-01T00%3A00%3A00%2B00%3A00&end_time=2025-01-01T00%3A00%3A00%2B00%3A00
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
