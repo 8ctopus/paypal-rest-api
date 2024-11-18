@@ -54,6 +54,8 @@ if (!file_exists($file)) {
     return;
 }
 
+date_default_timezone_set('UTC');
+
 $config = Config::load($file);
 
 $sandbox = $config->get('paypal.rest.sandbox');
@@ -142,6 +144,16 @@ $router->add('hooks clear', static function () use ($sandbox, $handler, $auth) :
 $router->add('hooks simulate <id> <event>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
     dump($webhooks->simulate($args['id'], $args['event']));
+});
+
+$router->add('hooks list events <event-type> <max-events>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $webhooks = new Hooks($sandbox, $handler, $auth);
+
+    $end = new DateTime('now');
+    $start = clone $end;
+    $start = $start->sub(new DateInterval('P30D'));
+
+    dump($webhooks->listEvents($args['event-type'], $start, $end, (int) $args['max-events']));
 });
 
 $router->add('subscriptions get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {

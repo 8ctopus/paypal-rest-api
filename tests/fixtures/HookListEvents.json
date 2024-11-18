@@ -1,0 +1,124 @@
+{
+    "events": [
+        {
+            "id": "WH-3SE223106H886834W-26R84221AE287451V",
+            "create_time": "2024-10-28T12:07:50.193Z",
+            "resource_type": "sale",
+            "event_type": "PAYMENT.SALE.COMPLETED",
+            "summary": "Payment completed for $ 3.0 USD",
+            "resource": {
+                "billing_agreement_id": "I-3XG2D96MW2RV",
+                "amount": {
+                    "total": "3.00",
+                    "currency": "USD",
+                    "details": {
+                        "subtotal": "3.00"
+                    }
+                },
+                "payment_mode": "INSTANT_TRANSFER",
+                "update_time": "2024-10-28T12:07:46Z",
+                "create_time": "2024-10-28T12:07:46Z",
+                "protection_eligibility_type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE",
+                "transaction_fee": {
+                    "currency": "USD",
+                    "value": "0.40"
+                },
+                "protection_eligibility": "ELIGIBLE",
+                "links": [
+                    {
+                        "method": "GET",
+                        "rel": "self",
+                        "href": "https:\/\/api.sandbox.paypal.com\/v1\/payments\/sale\/7L617746BJ3375153"
+                    },
+                    {
+                        "method": "POST",
+                        "rel": "refund",
+                        "href": "https:\/\/api.sandbox.paypal.com\/v1\/payments\/sale\/7L617746BJ3375153\/refund"
+                    }
+                ],
+                "id": "7L617746BJ3375153",
+                "state": "completed",
+                "invoice_number": ""
+            },
+            "links": [
+                {
+                    "href": "https:\/\/api.sandbox.paypal.com\/v1\/notifications\/webhooks-events\/WH-3SE223106H886834W-26R84221AE287451V",
+                    "rel": "self",
+                    "method": "GET",
+                    "encType": "application\/json"
+                },
+                {
+                    "href": "https:\/\/api.sandbox.paypal.com\/v1\/notifications\/webhooks-events\/WH-3SE223106H886834W-26R84221AE287451V\/resend",
+                    "rel": "resend",
+                    "method": "POST",
+                    "encType": "application\/json"
+                }
+            ],
+            "event_version": "1.0"
+        },
+        {
+            "id": "WH-08U70118SG839300K-9S493432ND554593F",
+            "create_time": "2024-10-28T11:51:37.172Z",
+            "resource_type": "sale",
+            "event_type": "PAYMENT.SALE.COMPLETED",
+            "summary": "Payment completed for $ 3.0 USD",
+            "resource": {
+                "billing_agreement_id": "I-D2SNNC12DBTS",
+                "amount": {
+                    "total": "3.00",
+                    "currency": "USD",
+                    "details": {
+                        "subtotal": "3.00"
+                    }
+                },
+                "payment_mode": "INSTANT_TRANSFER",
+                "update_time": "2024-10-28T11:51:33Z",
+                "create_time": "2024-10-28T11:51:33Z",
+                "protection_eligibility_type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE",
+                "transaction_fee": {
+                    "currency": "USD",
+                    "value": "0.40"
+                },
+                "protection_eligibility": "ELIGIBLE",
+                "links": [
+                    {
+                        "method": "GET",
+                        "rel": "self",
+                        "href": "https:\/\/api.sandbox.paypal.com\/v1\/payments\/sale\/7WD53875RR9371230"
+                    },
+                    {
+                        "method": "POST",
+                        "rel": "refund",
+                        "href": "https:\/\/api.sandbox.paypal.com\/v1\/payments\/sale\/7WD53875RR9371230\/refund"
+                    }
+                ],
+                "id": "7WD53875RR9371230",
+                "state": "completed",
+                "invoice_number": ""
+            },
+            "links": [
+                {
+                    "href": "https:\/\/api.sandbox.paypal.com\/v1\/notifications\/webhooks-events\/WH-08U70118SG839300K-9S493432ND554593F",
+                    "rel": "self",
+                    "method": "GET",
+                    "encType": "application\/json"
+                },
+                {
+                    "href": "https:\/\/api.sandbox.paypal.com\/v1\/notifications\/webhooks-events\/WH-08U70118SG839300K-9S493432ND554593F\/resend",
+                    "rel": "resend",
+                    "method": "POST",
+                    "encType": "application\/json"
+                }
+            ],
+            "event_version": "1.0"
+        }
+    ],
+    "count": 2,
+    "links": [
+        {
+            "href": "https:\/\/api.sandbox.paypal.com\/v1\/notifications\/webhooks-events\/?start_time=2024-10-19T05:21:52Z&end_time=2024-11-18T05:21:52Z&page_size=2&move_to=next&offset=0&prev_offset=0&index_id=1",
+            "rel": "next",
+            "method": "GET"
+        }
+    ]
+}

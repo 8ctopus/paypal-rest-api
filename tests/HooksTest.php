@@ -131,4 +131,21 @@ final class HooksTest extends TestCase
 
         self::assertSame($expected, self::$handler->dumpRequest());
     }
+
+    public function testListEvents() : void
+    {
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/HookListEvents.json')));
+
+        self::$hooks->listEvents('PAYMENT.SALE.COMPLETED', null, null, 10);
+
+        $expected = <<<'TEXT'
+        https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events?page_size=10&event_type=PAYMENT.SALE.COMPLETED
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
 }

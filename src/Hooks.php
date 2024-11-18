@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use DateTime;
+use DateTimeInterface;
 use JsonException;
 
 class Hooks extends RestBase
@@ -136,6 +138,34 @@ class Hooks extends RestBase
         ];
 
         $response = $this->sendJsonRequest('POST', $url, [], $json, 202);
+
+        return json_decode($response, true);
+    }
+
+    public function listEvents(?string $eventType, ?DateTime $start, ?DateTime $end, int $maxEvents = 10) : array
+    {
+        // transaction_id
+        $url = '/v1/notifications/webhooks-events';
+
+        $params = [
+            'page_size' => $maxEvents,
+        ];
+
+        if ($eventType) {
+            $params['event_type'] = $eventType;
+        }
+
+        if ($start) {
+            $params['start_time'] = $start->format(DateTimeInterface::RFC3339);
+        }
+
+        if ($end) {
+            $params['end_time'] = $end->format(DateTimeInterface::RFC3339);
+        }
+
+        $url .= '?' . http_build_query($params);
+
+        $response = $this->sendRequest('GET', $url, [], null, 200);
 
         return json_decode($response, true);
     }
