@@ -24,7 +24,7 @@ Copy `.env.example` to `.env` and fill in your PayPal REST API credentials. If y
 
 ## demo
 
-Here's a code sample that shows how to make a one-time payment. To see all possibilites run `demo.php`. There is also a demo store using this package, check out [PayPal sandbox](https://github.com/8ctopus/paypal-sandbox).
+Here's a code sample that shows how to make a one-time payment. To see all possibilites run `php demo.php`. There is also a demo store using this package, check out [PayPal sandbox](https://github.com/8ctopus/paypal-sandbox).
 
 ```php
 use HttpSoft\Message\RequestFactory;

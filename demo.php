@@ -384,7 +384,29 @@ $output = "\033[01;{$color}m{$env}\033[0m\n";
 
 echo $output;
 
-$router->execArgv();
+$stdin = fopen('php://stdin', 'r');
+
+if ($stdin === false) {
+    throw new Exception('fopen');
+}
+
+$input = $argv;
+
+do {
+    echo "\n> ";
+    $input = trim(fgets($stdin));
+
+    if (in_array($input, ['', 'exit', 'quit', 'q'])) {
+        break;
+    }
+
+    $input = explode(' ', "dummy {$input}");
+
+    $router->execArgv($input);
+} while (true);
+
+fclose($stdin);
+exit(0);
 
 /**
  * Dump variable
