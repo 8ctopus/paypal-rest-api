@@ -159,14 +159,14 @@ $router->add('hooks list events <event-type> <search> <max-events>', static func
     dump($webhooks->listEvents($eventType, $search, $start, $end, (int) $args['max-events']));
 });
 
-$router->add('subscriptions get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions get <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->get($args['id']));
+    dump($subscriptions->get($args['billing-agreement']));
 });
 
-$router->add('subscriptions list transactions <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions list transactions <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->listTransactions($args['id']));
+    dump($subscriptions->listTransactions($args['billing-agreement']));
 });
 
 $router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
@@ -184,24 +184,24 @@ $router->add('subscriptions create <plan-id> <success-url> <cancel-url>', static
     dump($response);
 });
 
-$router->add('subscriptions capture <id> <currency> <amount> <note>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions capture <billing-agreement> <currency> <amount> <note>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->capture($args['id'], $args['currency'], $args['amount'], $args['note']));
+    dump($subscriptions->capture($args['billing-agreement'], $args['currency'], $args['amount'], $args['note']));
 });
 
-$router->add('subscriptions activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions activate <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->activate($args['id']));
+    dump($subscriptions->activate($args['billing-agreement']));
 });
 
-$router->add('subscriptions suspend <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions suspend <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->suspend($args['id']));
+    dump($subscriptions->suspend($args['billing-agreement']));
 });
 
-$router->add('subscriptions cancel <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions cancel <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->cancel($args['id']));
+    dump($subscriptions->cancel($args['billing-agreement']));
 });
 
 $router->add('plans list', static function () use ($sandbox, $handler, $auth) : void {
@@ -209,19 +209,19 @@ $router->add('plans list', static function () use ($sandbox, $handler, $auth) : 
     dump($plans->list());
 });
 
-$router->add('plans get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans get <plan-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->get($args['id']));
+    dump($plans->get($args['plan-id']));
 });
 
-$router->add('plans activate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans activate <plan-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->activate($args['id']));
+    dump($plans->activate($args['plan-id']));
 });
 
-$router->add('plans deactivate <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans deactivate <plan-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->deactivate($args['id']));
+    dump($plans->deactivate($args['plan-id']));
 });
 
 // php demo.php plans create PROD-XXCD1234QWER65782 "Video Streaming Service Plan" "Video Streaming Service basic plan" active
@@ -275,12 +275,12 @@ $router->add('plans create <product-id> <name> <description> <status>', static f
     ));
 });
 
-$router->add('plans update <id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans update <plan-id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
-    dump($plans->update($args['id'], Operation::from($args['operation']), $args['attribute'], $args['value']));
+    dump($plans->update($args['plan-id'], Operation::from($args['operation']), $args['attribute'], $args['value']));
 });
 
-$router->add('plans update pricing <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans update pricing <plan-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
 
     $billingCycles = (new BillingCycles())
@@ -288,7 +288,7 @@ $router->add('plans update pricing <id>', static function (array $args) use ($sa
 
     throw new Exception('not working');
 
-    dump($plans->updatePricing($args['id'], $billingCycles));
+    dump($plans->updatePricing($args['plan-id'], $billingCycles));
 });
 
 $router->add('products list', static function () use ($sandbox, $handler, $auth) : void {
@@ -296,12 +296,12 @@ $router->add('products list', static function () use ($sandbox, $handler, $auth)
     dump($products->list());
 });
 
-$router->add('products get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products get <product-id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
-    dump($products->get($args['id']));
+    dump($products->get($args['product-id']));
 });
 
-$router->add('products create <id> <name> <description> <type> <category> <home-url> <image-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products create <product-id> <name> <description> <type> <category> <home-url> <image-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
     dump($products->create([
         'name' => $args['name'],
@@ -313,9 +313,9 @@ $router->add('products create <id> <name> <description> <type> <category> <home-
     ]));
 });
 
-$router->add('products update <id> <operation> <path> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products update <product-id> <operation> <path> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
-    $products->update($args['id'], $args['operation'], $args['path'], $args['value']);
+    $products->update($args['product-id'], $args['operation'], $args['path'], $args['value']);
 });
 
 $router->add('orders create <intent> <amount> <currency>', static function (array $args) use ($sandbox, $handler, $auth) : void {
