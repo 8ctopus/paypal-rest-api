@@ -225,7 +225,7 @@ $router->add('plans deactivate <id>', static function (array $args) use ($sandbo
 });
 
 // php demo.php plans create PROD-XXCD1234QWER65782 "Video Streaming Service Plan" "Video Streaming Service basic plan" active
-$router->add('plans create <product_id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('plans create <product-id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
 
     /*
@@ -265,7 +265,7 @@ $router->add('plans create <product_id> <name> <description> <status>', static f
     */
 
     dump($plans->create(
-        $args['product_id'],
+        $args['product-id'],
         $args['name'],
         $args['description'],
         Status::fromLowerCase($args['status']),
@@ -301,15 +301,15 @@ $router->add('products get <id>', static function (array $args) use ($sandbox, $
     dump($products->get($args['id']));
 });
 
-$router->add('products create <id> <name> <description> <type> <category> <home_url> <image_url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('products create <id> <name> <description> <type> <category> <home-url> <image-url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $products = new Products($sandbox, $handler, $auth);
     dump($products->create([
         'name' => $args['name'],
         'description' => $args['description'],
         'type' => $args['type'], // Physical Goods, Digital Goods, Service
         'category' => $args['category'], // Software
-        'home_url' => $args['home_url'],
-        'image_url' => $args['image_url'],
+        'home_url' => $args['home-url'],
+        'image_url' => $args['image-url'],
     ]));
 });
 
