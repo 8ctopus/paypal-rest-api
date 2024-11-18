@@ -379,7 +379,7 @@ $router->add('[--help | -h]', static function () use ($router) : void {
 });
 
 $env = $sandbox ? "SANDBOX" : "PRODUCTION";
-$color = $sandbox ? 31 : 32;
+$color = $sandbox ? 32 : 31;
 $output = "\033[01;{$color}m{$env}\033[0m\n";
 
 echo $output;
