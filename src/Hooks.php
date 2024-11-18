@@ -169,7 +169,7 @@ class Hooks extends RestBase
         }
 
         // supported: event id, transaction id, but maybe other fields are supported
-        // not supported: billing agreement
+        // not supported: billing agreement, email
         if ($search) {
             $params['transaction_id'] = $search;
         }

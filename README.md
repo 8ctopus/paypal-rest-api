@@ -10,7 +10,7 @@
 
 A php implementation of the PayPal REST API using `PSR-7`, `PSR-17` and `PSR-18`.
 
-The package is a work in progress and contributions are welcome. For now, it covers `Orders` (one-time payments), subscriptions (`Products`, `Plans` and `Subscriptions`), and `web hooks` (receive notifications from PayPal when certain events occur). That's all that's needed to create a store, be it one-time payment or subscription based.
+The package is a work in progress and contributions are welcome. For now, it covers `Orders` (one-time payments), subscriptions (`Products`, `Plans` and `Subscriptions`), and `Webhooks` (receive notifications from PayPal when certain events occur). That's all that's needed to create a store, be it one-time payment or subscription based.
 
 ## install package
 
