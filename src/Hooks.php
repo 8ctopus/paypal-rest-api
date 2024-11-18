@@ -142,7 +142,7 @@ class Hooks extends RestBase
         return json_decode($response, true);
     }
 
-    public function listEvents(?string $eventType, ?DateTime $start, ?DateTime $end, int $maxEvents = 10) : array
+    public function listEvents(?string $eventType, ?string $search, ?DateTime $start, ?DateTime $end, int $maxEvents = 10) : array
     {
         // transaction_id
         $url = '/v1/notifications/webhooks-events';
@@ -153,6 +153,11 @@ class Hooks extends RestBase
 
         if ($eventType) {
             $params['event_type'] = $eventType;
+        }
+
+        // can be an event id or a transaction id, but maybe other fields are supported
+        if ($search) {
+            $params['transaction_id'] = $search;
         }
 
         if ($start) {

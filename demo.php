@@ -146,14 +146,17 @@ $router->add('hooks simulate <id> <event>', static function (array $args) use ($
     dump($webhooks->simulate($args['id'], $args['event']));
 });
 
-$router->add('hooks list events <event-type> <max-events>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('hooks list events <event-type> <search> <max-events>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
+
+    $eventType = $args['event-type'] !== 'null' ? $args['event-type'] : null;
+    $search = $args['search'] !== 'null' ? $args['search'] : null;
 
     $end = new DateTime('now');
     $start = clone $end;
     $start = $start->sub(new DateInterval('P30D'));
 
-    dump($webhooks->listEvents($args['event-type'], $start, $end, (int) $args['max-events']));
+    dump($webhooks->listEvents($eventType, $search, $start, $end, (int) $args['max-events']));
 });
 
 $router->add('subscriptions get <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
