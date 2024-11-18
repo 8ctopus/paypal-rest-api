@@ -380,9 +380,13 @@ $router->add('help', static function () use ($router) : void {
 
 $env = $sandbox ? "SANDBOX" : "PRODUCTION";
 $color = $sandbox ? 32 : 31;
-$output = "\033[01;{$color}m{$env}\033[0m\n";
+$output = "\033[01;{$color}m{$env}\033[0m";
 
-echo $output;
+echo <<<TXT
+{$output}
+Type "help" to view commands
+
+TXT;
 
 $stdin = fopen('php://stdin', 'r');
 
