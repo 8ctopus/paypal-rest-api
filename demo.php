@@ -378,7 +378,11 @@ $router->add('[--help | -h]', static function () use ($router) : void {
     }
 });
 
-echo $sandbox ? "SANDBOX\n" : "PRODUCTION\n";
+$env = $sandbox ? "SANDBOX" : "PRODUCTION";
+$color = $sandbox ? 31 : 32;
+$output = "\033[01;{$color}m{$env}\033[0m\n";
+
+echo $output;
 
 $router->execArgv();
 
