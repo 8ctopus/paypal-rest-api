@@ -370,11 +370,11 @@ $router->add('custom simulate <url> <file>', static function (array $args) : voi
     simulate($args['url'], $args['file']);
 });
 
-$router->add('[--help | -h]', static function () use ($router) : void {
-    echo 'Usage:' . PHP_EOL;
+$router->add('help', static function () use ($router) : void {
+    echo "commands:\n";
 
-    foreach ($router->getRoutes() as $route) {
-        echo '  ' . $route . PHP_EOL;
+    foreach ($router->getRoutes() as $command) {
+        echo "{$command}\n";
     }
 });
 
@@ -417,7 +417,7 @@ exit(0);
  */
 function dump(mixed $variable) : void
 {
-    $variable = json_encode($variable, JSON_PRETTY_PRINT) . PHP_EOL;
+    $variable = json_encode($variable, JSON_PRETTY_PRINT) . "\n";
 
     echo $variable;
 
