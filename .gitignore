@@ -12,3 +12,4 @@
 /.env.php
 /.cache.json
 /paypal-demo/
+/dump.json
