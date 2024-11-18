@@ -184,7 +184,8 @@ class Hooks extends RestBase
         $url .= '?' . http_build_query($params);
 
         $response = $this->sendRequest('GET', $url, [], null, 200);
+        $response = json_decode($response, true);
 
-        return json_decode($response, true);
+        return $response['events'];
     }
 }

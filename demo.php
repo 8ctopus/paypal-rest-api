@@ -390,7 +390,13 @@ $router->execArgv();
  */
 function dump(mixed $variable) : void
 {
-    echo json_encode($variable, JSON_PRETTY_PRINT) . PHP_EOL;
+    $variable = json_encode($variable, JSON_PRETTY_PRINT) . PHP_EOL;
+
+    echo $variable;
+
+    if (true) {
+        file_put_contents('dump.json', $variable);
+    }
 }
 
 /**
