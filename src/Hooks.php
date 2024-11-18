@@ -142,6 +142,19 @@ class Hooks extends RestBase
         return json_decode($response, true);
     }
 
+    /**
+     * List events
+     *
+     * @param  ?string   $eventType
+     * @param  ?string   $search
+     * @param  ?DateTime $start
+     * @param  ?DateTime $end
+     * @param  int      $maxEvents
+     *
+     * @return array
+     *
+     * @note it does not list the event of a hook but of all hooks
+     */
     public function listEvents(?string $eventType, ?string $search, ?DateTime $start, ?DateTime $end, int $maxEvents = 10) : array
     {
         // transaction_id

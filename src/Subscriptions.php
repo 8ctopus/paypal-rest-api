@@ -29,13 +29,13 @@ class Subscriptions extends RestBase
     /**
      * Get info
      *
-     * @param string $id
+     * @param string $billingAgreement
      *
      * @return array<mixed>
      */
-    public function get(string $id) : array
+    public function get(string $billingAgreement) : array
     {
-        $url = "/v1/billing/subscriptions/{$id}";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}";
 
         $response = $this->sendRequest('GET', $url, [], null, 200);
 
@@ -84,16 +84,16 @@ class Subscriptions extends RestBase
     /**
      * Capture payment
      *
-     * @param  string $id
+     * @param  string $billingAgreement
      * @param  string $currency
      * @param  float  $amount
      * @param  string $note
      *
      * @return self
      */
-    public function capture(string $id, string $currency, float $amount, string $note) : self
+    public function capture(string $billingAgreement, string $currency, float $amount, string $note) : self
     {
-        $url = "/v1/billing/subscriptions/{$id}/capture";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}/capture";
 
         $capture = [
             'capture_type' => 'OUTSTANDING_BALANCE',
@@ -112,13 +112,13 @@ class Subscriptions extends RestBase
     /**
      * Cancel
      *
-     * @param string $id
+     * @param string $billingAgreement
      *
      * @return self
      */
-    public function cancel(string $id) : self
+    public function cancel(string $billingAgreement) : self
     {
-        $url = "/v1/billing/subscriptions/{$id}/cancel";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}/cancel";
 
         $this->sendRequest('POST', $url, [], null, 204);
 
@@ -128,13 +128,13 @@ class Subscriptions extends RestBase
     /**
      * Suspend
      *
-     * @param string $id
+     * @param string $billingAgreement
      *
      * @return self
      */
-    public function suspend(string $id) : self
+    public function suspend(string $billingAgreement) : self
     {
-        $url = "/v1/billing/subscriptions/{$id}/suspend";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}/suspend";
 
         $this->sendRequest('POST', $url, [], null, 204);
 
@@ -144,13 +144,13 @@ class Subscriptions extends RestBase
     /**
      * Activate
      *
-     * @param string $id
+     * @param string $billingAgreement
      *
      * @return self
      */
-    public function activate(string $id) : self
+    public function activate(string $billingAgreement) : self
     {
-        $url = "/v1/billing/subscriptions/{$id}/activate";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}/activate";
 
         $this->sendRequest('POST', $url, [], null, 204);
 
@@ -160,15 +160,15 @@ class Subscriptions extends RestBase
     /**
      * List transactions
      *
-     * @param string $id
+     * @param string $billingAgreement
      * @param ?DateTime $start
      * @param ?DateTime $end
      *
      * @return array<mixed>
      */
-    public function listTransactions(string $id, ?DateTime $start = null, ?DateTime $end = null) : array
+    public function listTransactions(string $billingAgreement, ?DateTime $start = null, ?DateTime $end = null) : array
     {
-        $url = "/v1/billing/subscriptions/{$id}/transactions";
+        $url = "/v1/billing/subscriptions/{$billingAgreement}/transactions";
 
         if (!$end) {
             $end = new DateTime('now');
