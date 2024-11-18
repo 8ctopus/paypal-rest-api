@@ -149,14 +149,14 @@ $router->add('hooks simulate <id> <event>', static function (array $args) use ($
 $router->add('hooks list events <event-type> <search> <max-events>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
 
-    $eventType = $args['event-type'] !== 'null' ? $args['event-type'] : null;
-    $search = $args['search'] !== 'null' ? $args['search'] : null;
+    $eventType = interpret($args['event-type']);
+    $search = interpret($args['search']);
 
     $end = new DateTime('now');
     $start = clone $end;
     $start = $start->sub(new DateInterval('P30D'));
 
-    dump($webhooks->listEvents($eventType, $search, $start, $end, (int) $args['max-events']));
+    dump($webhooks->listEvents($eventType, $search, $start, $end, interpret($args['max-events'])));
 });
 
 $router->add('subscriptions get <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
@@ -372,6 +372,7 @@ $router->add('custom simulate <url> <file>', static function (array $args) : voi
 
 $router->add('[--help | -h]', static function () use ($router) : void {
     echo 'Usage:' . PHP_EOL;
+
     foreach ($router->getRoutes() as $route) {
         echo '  ' . $route . PHP_EOL;
     }
@@ -443,4 +444,17 @@ function simulate(string $webhookUrl, string $file) : void
     if ($response === false || $status !== 200) {
         throw new Exception("curl - {$status}");
     }
+}
+
+function interpret(string $value) : mixed
+{
+    if (is_numeric($value)) {
+        return (int) $value;
+    }
+
+    if ($value === 'null') {
+        return null;
+    }
+
+    return $value;
 }
