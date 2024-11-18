@@ -153,11 +153,11 @@ class Hooks extends RestBase
      *
      * @return array
      *
-     * @note it does not list the event of a hook but of all hooks
+     * @note it does not list the event of a hook but the events of all hooks
+     * @note start date can be maximum 30 days ago
      */
     public function listEvents(?string $eventType, ?string $search, ?DateTime $start, ?DateTime $end, int $maxEvents = 10) : array
     {
-        // transaction_id
         $url = '/v1/notifications/webhooks-events';
 
         $params = [
