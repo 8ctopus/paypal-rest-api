@@ -164,6 +164,7 @@ $router->add('subscriptions get <billing-agreement>', static function (array $ar
     dump($subscriptions->get($args['billing-agreement']));
 });
 
+// it does not show reversed transactions!!
 $router->add('subscriptions list transactions <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
     dump($subscriptions->listTransactions($args['billing-agreement']));
@@ -352,6 +353,7 @@ $router->add('payments get authorized <id>', static function (array $args) use (
     dump($payments->getAuthorized($args['id']));
 });
 
+// it does not show reversed transactions!!
 $router->add('payments get captured <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $payments = new Payments($sandbox, $handler, $auth);
     dump($payments->getCaptured($args['id']));
