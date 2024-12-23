@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
-use DateInterval;
 use DateTime;
 use DateTimeInterface;
 
