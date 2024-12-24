@@ -49,7 +49,7 @@ $handler = new HttpHandler(
 $sandbox = true;
 
 // get authorization token
-$auth = new OAuth($sandbox, $handler, 'rest.id', 'rest.pass');
+$auth = new OAuth($sandbox, $handler, 'rest.id', 'rest.secret');
 
 $orders = new Orders($sandbox, $handler, $auth);
 
