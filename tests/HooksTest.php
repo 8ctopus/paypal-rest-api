@@ -88,7 +88,17 @@ final class HooksTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "url": "https:\/\/example.com\/example_webhook",
+            "event_types": [
+                {
+                    "name": "PAYMENT.AUTHORIZATION.CREATED"
+                },
+                {
+                    "name": "PAYMENT.AUTHORIZATION.VOIDED"
+                }
+            ]
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -126,7 +136,11 @@ final class HooksTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "webhook_id": "8PT597110X687430LKGECATA",
+            "event_type": "PAYMENT.AUTHORIZATION.CREATED",
+            "resource_version": "1.0"
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());

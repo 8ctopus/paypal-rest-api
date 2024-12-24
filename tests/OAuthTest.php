@@ -41,7 +41,7 @@ final class OAuthTest extends TestCase
         Authorization: Basic dGVzdElkOnRlc3RTZWNyZXQ=
         Content-Type: application/x-www-form-urlencoded
         Accept: application/json
-
+        grant_type=client_credentials
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());

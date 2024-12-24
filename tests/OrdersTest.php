@@ -48,7 +48,25 @@ final class OrdersTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "intent": "CAPTURE",
+            "purchase_units": [
+                {
+                    "amount": {
+                        "value": 10,
+                        "currency_code": "USD"
+                    }
+                }
+            ],
+            "payment_source": {
+                "paypal": {
+                    "experience_context": {
+                        "return_url": "http:\/\/localhost\/success\/",
+                        "cancel_url": "http:\/\/localhost\/cancel\/"
+                    }
+                }
+            }
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -103,7 +121,17 @@ final class OrdersTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "intent": "AUTHORIZE",
+            "purchase_units": [
+                {
+                    "amount": {
+                        "value": 10,
+                        "currency_code": "USD"
+                    }
+                }
+            ]
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -141,7 +169,12 @@ final class OrdersTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "tracking_number": "1234",
+            "carrier": "DHL",
+            "notify_payer": "false",
+            "capture_id": "22Y6807431701101J"
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());

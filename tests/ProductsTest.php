@@ -91,7 +91,14 @@ final class ProductsTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "name": "Video Streaming Service",
+            "type": "SERVICE",
+            "description": "Video streaming service",
+            "category": "SOFTWARE",
+            "image_url": "https:\/\/example.com\/streaming.jpg",
+            "home_url": "https:\/\/example.com\/home"
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -108,7 +115,13 @@ final class ProductsTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        [
+            {
+                "op": "replace",
+                "path": "\/\/description",
+                "value": "test"
+            }
+        ]
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());

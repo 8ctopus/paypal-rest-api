@@ -68,7 +68,14 @@ final class SubscriptionsTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "plan_id": "P-5ML4271244454362WXNWU5NQ",
+            "application_context": {
+                "locale": "en-US",
+                "return_url": "http:\/\/localhost\/success\/",
+                "cancel_url": "http:\/\/localhost\/cancel\/"
+            }
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -87,7 +94,14 @@ final class SubscriptionsTest extends TestCase
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "capture_type": "OUTSTANDING_BALANCE",
+            "amount": {
+                "currency_code": "USD",
+                "value": 1
+            },
+            "note": "plan payment"
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());
@@ -137,14 +151,16 @@ final class SubscriptionsTest extends TestCase
 
         $id = 'I-BW452GLLEP1G';
 
-        self::$subscriptions->cancel($id);
+        self::$subscriptions->cancel($id, "user didn't like the product");
 
         $expected = <<<TEXT
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions/{$id}/cancel
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
         Content-Type: application/json
-
+        {
+            "reason": "user didn't like the product"
+        }
         TEXT;
 
         self::assertSame($expected, self::$handler->dumpRequest());

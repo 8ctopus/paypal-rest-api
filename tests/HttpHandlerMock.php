@@ -42,6 +42,8 @@ class HttpHandlerMock extends HttpHandler
             $dump .= $name . ': ' . implode(', ', $values) . "\n";
         }
 
+        $dump .= $this->request->getBody();
+
         return $dump;
     }
 }
