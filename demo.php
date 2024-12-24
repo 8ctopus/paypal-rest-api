@@ -406,7 +406,7 @@ do {
         break;
     }
 
-    $input = explode(' ', "dummy {$input}");
+    $input = splitArguments("dummy {$input}");
 
     $router->execArgv($input);
 } while (true);
@@ -489,4 +489,44 @@ function interpret(string $value) : mixed
     }
 
     return $value;
+}
+
+function splitArguments(string $input) : array
+{
+    $result = [];
+
+    $input = trim($input) . ' ';
+    $length = strlen($input);
+
+    $lastPosition = 0;
+    $doubleQuote = false;
+
+    for ($i = 0; $i < $length; ++$i) {
+        $char = $input[$i];
+
+        switch ($char) {
+            case '"':
+                if (!$doubleQuote) {
+                    $doubleQuote = true;
+                    break;
+                }
+
+                $result[] = substr($input, $lastPosition + 1, $i - $lastPosition - 1);
+                $lastPosition = $i + 1;
+                ++$i;
+                $doubleQuote = false;
+                break;
+
+            case ' ':
+                if ($doubleQuote) {
+                    break;
+                }
+
+                $result[] = substr($input, $lastPosition, $i - $lastPosition);
+                $lastPosition = $i + 1;
+                break;
+        }
+    }
+
+    return $result;
 }
