@@ -200,9 +200,9 @@ $router->add('subscriptions suspend <billing-agreement>', static function (array
     dump($subscriptions->suspend($args['billing-agreement']));
 });
 
-$router->add('subscriptions cancel <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+$router->add('subscriptions cancel <billing-agreement> <reason>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
-    dump($subscriptions->cancel($args['billing-agreement']));
+    dump($subscriptions->cancel($args['billing-agreement'], $args['reason']));
 });
 
 $router->add('plans list', static function () use ($sandbox, $handler, $auth) : void {

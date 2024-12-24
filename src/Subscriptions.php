@@ -112,14 +112,21 @@ class Subscriptions extends RestBase
      * Cancel
      *
      * @param string $billingAgreement
+     * @param string $reason
      *
      * @return self
      */
-    public function cancel(string $billingAgreement) : self
+    public function cancel(string $billingAgreement, string $reason) : self
     {
         $url = "/v1/billing/subscriptions/{$billingAgreement}/cancel";
 
-        $this->sendRequest('POST', $url, [], null, 204);
+        $body = [
+            'reason' => $reason,
+        ];
+
+        $body = json_encode($body, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+
+        $this->sendRequest('POST', $url, [], $body, 204);
 
         return $this;
     }
