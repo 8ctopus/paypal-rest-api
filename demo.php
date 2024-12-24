@@ -401,7 +401,7 @@ while (true) {
     echo "\n> ";
     $input = trim(fgets($stdin));
 
-    if (in_array($input, ['', 'exit', 'quit', 'q'])) {
+    if (in_array($input, ['', 'exit', 'quit', 'q'], true)) {
         break;
     }
 
