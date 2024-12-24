@@ -145,11 +145,11 @@ class Hooks extends RestBase
     /**
      * List events
      *
-     * @param  ?string   $eventType
-     * @param  ?string   $search
-     * @param  ?DateTime $start
-     * @param  ?DateTime $end
-     * @param  int      $maxEvents
+     * @param ?string   $eventType
+     * @param ?string   $search
+     * @param ?DateTime $start
+     * @param ?DateTime $end
+     * @param int       $maxEvents
      *
      * @return array
      *

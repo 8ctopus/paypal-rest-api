@@ -57,7 +57,7 @@ class Payments extends RestBase
     /**
      * Get info for refunded payment
      *
-     * @param  string $refundId
+     * @param string $refundId
      *
      * @return array
      */
@@ -89,7 +89,7 @@ class Payments extends RestBase
     /**
      * Refund captured payment
      *
-     * @param  string $captureId
+     * @param string $captureId
      *
      * @return array
      */
@@ -105,7 +105,7 @@ class Payments extends RestBase
     /**
      * Void authorized payment
      *
-     * @param  string $authorizationId
+     * @param string $authorizationId
      *
      * @return array
      */

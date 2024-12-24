@@ -63,7 +63,7 @@ final class SubscriptionsTest extends TestCase
 
         self::$subscriptions->create($id, 'http://localhost/success/', 'http://localhost/cancel/');
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test

@@ -288,7 +288,6 @@ $router->add('plans update pricing <plan-id>', static function (array $args) use
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
 
     throw new Exception('not working');
-
     dump($plans->updatePricing($args['plan-id'], $billingCycles));
 });
 
@@ -380,7 +379,7 @@ $router->add('help', static function () use ($router) : void {
     }
 });
 
-$env = $sandbox ? "SANDBOX" : "PRODUCTION";
+$env = $sandbox ? 'SANDBOX' : 'PRODUCTION';
 $color = $sandbox ? 32 : 31;
 $output = "\033[01;{$color}m{$env}\033[0m";
 
@@ -398,7 +397,7 @@ if ($stdin === false) {
 
 $input = $argv;
 
-do {
+while (true) {
     echo "\n> ";
     $input = trim(fgets($stdin));
 
@@ -409,7 +408,7 @@ do {
     $input = splitArguments("dummy {$input}");
 
     $router->execArgv($input);
-} while (true);
+}
 
 fclose($stdin);
 exit(0);

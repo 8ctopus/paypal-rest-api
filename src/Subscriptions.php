@@ -83,10 +83,10 @@ class Subscriptions extends RestBase
     /**
      * Capture payment
      *
-     * @param  string $billingAgreement
-     * @param  string $currency
-     * @param  float  $amount
-     * @param  string $note
+     * @param string $billingAgreement
+     * @param string $currency
+     * @param float  $amount
+     * @param string $note
      *
      * @return self
      */
@@ -166,7 +166,7 @@ class Subscriptions extends RestBase
     /**
      * List transactions
      *
-     * @param string $billingAgreement
+     * @param string    $billingAgreement
      * @param ?DateTime $start
      * @param ?DateTime $end
      *

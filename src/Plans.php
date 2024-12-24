@@ -80,7 +80,7 @@ class Plans extends RestBase
      * @param string             $name
      * @param string             $description
      * @param Status             $status
-     * @param BillingCycles      $cycles - A plan can have at most two trial cycles and only one regular cycle
+     * @param BillingCycles      $cycles      - A plan can have at most two trial cycles and only one regular cycle
      * @param PaymentPreferences $payment
      * @param Taxes              $taxes
      *
