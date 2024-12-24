@@ -9,14 +9,15 @@ use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\OAuth;
+use Oct8pus\PayPal\RestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\PayPal\OAuth
- * @covers \Oct8pus\PayPal\RestBase
  */
+#[CoversClass(OAuth::class)]
+#[CoversClass(RestBase::class)]
 final class OAuthTest extends TestCase
 {
     private static HttpHandlerMock $handler;

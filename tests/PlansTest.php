@@ -19,25 +19,26 @@ use Oct8pus\PayPal\Plans\PricingScheme;
 use Oct8pus\PayPal\Plans\SetupFeeFailure;
 use Oct8pus\PayPal\Plans\Taxes;
 use Oct8pus\PayPal\Plans\TenureType;
+use Oct8pus\PayPal\RestBase;
 use Oct8pus\PayPal\Status;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\PayPal\Plans
- * @covers \Oct8pus\PayPal\Plans\BillingCycle
- * @covers \Oct8pus\PayPal\Plans\BillingCycles
- * @covers \Oct8pus\PayPal\Plans\Frequency
- * @covers \Oct8pus\PayPal\Plans\IntervalUnit
- * @covers \Oct8pus\PayPal\Plans\Operation
- * @covers \Oct8pus\PayPal\Plans\PaymentPreferences
- * @covers \Oct8pus\PayPal\Plans\PricingScheme
- * @covers \Oct8pus\PayPal\Plans\SetupFeeFailure
- * @covers \Oct8pus\PayPal\Plans\Taxes
- * @covers \Oct8pus\PayPal\Plans\TenureType
- * @covers \Oct8pus\PayPal\RestBase
  */
+#[CoversClass(Plans::class)]
+#[CoversClass(BillingCycle::class)]
+#[CoversClass(BillingCycles::class)]
+#[CoversClass(Frequency::class)]
+#[CoversClass(IntervalUnit::class)]
+#[CoversClass(Operation::class)]
+#[CoversClass(PaymentPreferences::class)]
+#[CoversClass(PricingScheme::class)]
+#[CoversClass(SetupFeeFailure::class)]
+#[CoversClass(Taxes::class)]
+#[CoversClass(TenureType::class)]
+#[CoversClass(RestBase::class)]
 final class PlansTest extends TestCase
 {
     private static HttpHandlerMock $handler;

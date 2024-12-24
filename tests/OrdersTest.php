@@ -10,15 +10,16 @@ use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\Orders;
 use Oct8pus\PayPal\Orders\Intent;
+use Oct8pus\PayPal\RestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\PayPal\Orders
- * @covers \Oct8pus\PayPal\Orders\Intent
- * @covers \Oct8pus\PayPal\RestBase
  */
+#[CoversClass(Orders::class)]
+#[CoversClass(Intent::class)]
+#[CoversClass(RestBase::class)]
 final class OrdersTest extends TestCase
 {
     private static HttpHandlerMock $handler;

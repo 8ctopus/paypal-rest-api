@@ -10,13 +10,13 @@ use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\HttpHandler;
 use Oct8pus\PayPal\PayPalException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\PayPal\HttpHandler
  */
+#[CoversClass(HttpHandler::class)]
 final class HttpHandlerTest extends TestCase
 {
     public function testCreateRequest() : void

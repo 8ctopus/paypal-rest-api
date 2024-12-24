@@ -9,14 +9,15 @@ use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\Products;
+use Oct8pus\PayPal\RestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\PayPal\Products
- * @covers \Oct8pus\PayPal\RestBase
  */
+#[CoversClass(Products::class)]
+#[CoversClass(RestBase::class)]
 final class ProductsTest extends TestCase
 {
     private static HttpHandlerMock $handler;
