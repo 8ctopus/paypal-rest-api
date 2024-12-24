@@ -1,5 +1,7 @@
 <?php
 
+$risky = isset($GLOBALS['argv']) && in_array('--allow-risky=yes', $GLOBALS['argv'], true);
+
 $finder = PhpCsFixer\Finder::create()
     ->in('.');
 
@@ -26,12 +28,15 @@ $fixer = (new PhpCsFixer\Config('', ''))
         'multiline_whitespace_before_semicolons' => false,
         'no_empty_comment' => false,
         'no_superfluous_phpdoc_tags' => false,
+        'no_unused_imports' => false,
         'no_useless_else' => false,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_no_empty_return' => false,
         'phpdoc_summary' => false,
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
+        'php_unit_attributes' => true,
+        'php_unit_internal_class' => false,
         'php_unit_method_casing' => false,
         'psr_autoloading' => false,
         'return_type_declaration' => [
@@ -42,7 +47,7 @@ $fixer = (new PhpCsFixer\Config('', ''))
     ])
     ->setFinder($finder);
 
-if (isset($GLOBALS['argv']) && in_array('--allow-risky=yes', $GLOBALS['argv'], true)) {
+if ($risky) {
     echo 'Risky rules enabled' . PHP_EOL;
 
     $fixer
@@ -53,6 +58,7 @@ if (isset($GLOBALS['argv']) && in_array('--allow-risky=yes', $GLOBALS['argv'], t
             'phpdoc_to_param_type' => true,
             'phpdoc_to_property_type' => true,
             'phpdoc_to_return_type' => true,
+            'psr_autoloading' => false,
             'void_return' => true,
         ]);
 }
