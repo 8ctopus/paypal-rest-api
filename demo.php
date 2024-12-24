@@ -363,6 +363,21 @@ $router->add('payments get refunded <id>', static function (array $args) use ($s
     dump($payments->getRefunded($args['id']));
 });
 
+$router->add('payments capture <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->capture($args['id']));
+});
+
+$router->add('payments refund <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->refund($args['id']));
+});
+
+$router->add('payments void <id>', static function (array $args) use ($sandbox, $handler, $auth) : void {
+    $payments = new Payments($sandbox, $handler, $auth);
+    dump($payments->void($args['id']));
+});
+
 $router->add('auth token', static function () use ($auth) : void {
     dump($auth->token());
 });
