@@ -23,7 +23,9 @@ class OAuthCache extends OAuth
 
         $this->file = $cacheFile;
 
-        $this->load();
+        if (file_exists($this->file)) {
+            $this->load($this->file);
+        }
     }
 
     /**
@@ -43,17 +45,15 @@ class OAuthCache extends OAuth
     }
 
     /**
-     * Load token from file
+     * Load token
+     *
+     * @param string $file
      *
      * @return void
      */
-    private function load() : void
+    private function load(string $file) : void
     {
-        if (!file_exists($this->file)) {
-            return;
-        }
-
-        $json = file_get_contents($this->file);
+        $json = file_get_contents($file);
 
         if ($json === false) {
             return;
@@ -65,7 +65,7 @@ class OAuthCache extends OAuth
             return;
         }
 
-        if (($decoded['clientId'] ?? '') !== $this->clientId) {
+        if ($this->clientId !== ($decoded['clientId'] ?? '')) {
             return;
         }
 
