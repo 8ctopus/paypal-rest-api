@@ -6,7 +6,7 @@ namespace Oct8pus\PayPal;
 
 class OAuthCache extends OAuth
 {
-    private readonly string $file;
+    protected string $file;
 
     /**
      * Constructor
@@ -22,10 +22,15 @@ class OAuthCache extends OAuth
         parent::__construct($sandbox, $handler, $clientId, $clientSecret);
 
         $this->file = $cacheFile;
+    }
 
-        if (file_exists($this->file)) {
+    public function token() : string
+    {
+        if (!isset($this->token)) {
             $this->load($this->file);
         }
+
+        return parent::token();
     }
 
     /**
@@ -33,28 +38,34 @@ class OAuthCache extends OAuth
      *
      * @param string $file
      *
-     * @return void
+     * @return bool
      */
-    private function load(string $file) : void
+    protected function load(string $file) : bool
     {
+        if (!file_exists($file)) {
+            return false;
+        }
+
         $json = file_get_contents($file);
 
         if ($json === false) {
-            return;
+            return false;
         }
 
         $decoded = json_decode($json, true);
 
         if (!is_array($decoded)) {
-            return;
+            return false;
         }
 
         if ($this->clientId !== ($decoded['clientId'] ?? '')) {
-            return;
+            return false;
         }
 
         $this->token = $decoded['token'];
         $this->expires = (int) $decoded['expires'];
+
+        return true;
     }
 
     /**
