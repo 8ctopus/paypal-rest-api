@@ -10,7 +10,7 @@ use Noodlehaus\Config;
 use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\HttpHandler;
-use Oct8pus\PayPal\OAuthCache;
+use Oct8pus\PayPal\OAuthSecureCache;
 use Oct8pus\PayPal\Orders;
 use Oct8pus\PayPal\Orders\Intent;
 use Oct8pus\PayPal\Payments;
@@ -69,7 +69,7 @@ $handler = new HttpHandler(
     new StreamFactory()
 );
 
-$auth = new OAuthCache($sandbox, $handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'), __DIR__ . '/.cache.json');
+$auth = new OAuthSecureCache($sandbox, $handler, $config->get('paypal.rest.id'), $config->get('paypal.rest.secret'), __DIR__ . '/.cache.json', 'xTNRv7CLdZF6Mz1lpQkHnf');
 
 $router = new Router();
 
@@ -225,7 +225,7 @@ $router->add('plans deactivate <plan-id>', static function (array $args) use ($s
     dump($plans->deactivate($args['plan-id']));
 });
 
-// php demo.php plans create PROD-XXCD1234QWER65782 "Video Streaming Service Plan" "Video Streaming Service basic plan" active
+// plans create PROD-XXCD1234QWER65782 "Video Streaming Service Plan" "Video Streaming Service basic plan" active
 $router->add('plans create <product-id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
 
@@ -239,21 +239,21 @@ $router->add('plans create <product-id> <name> <description> <status>', static f
     $taxes = new Taxes(0.10, false);
     */
 
-    /*
-    // monthly $4.99
+    // monthly $2.99
     $billingCycles = (new BillingCycles())
-        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(4.99, 'USD')));
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(2.99, 'USD')));
 
     $paymentPreferences = new PaymentPreferences(true, 'USD', 0.0, SetupFeeFailure::Continue, 1);
     $taxes = new Taxes(0.0, false);
-    */
 
+    /*
     // yearly $12
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Year, 1), 0, new PricingScheme(12.0, 'USD')));
 
     $paymentPreferences = new PaymentPreferences(true, 'USD', 0.0, SetupFeeFailure::Continue, 1);
     $taxes = new Taxes(0.0, false);
+    */
 
     /*
     // first year $24 then from year 2 $1 yearly
