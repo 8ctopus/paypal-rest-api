@@ -526,8 +526,8 @@ function splitArguments(string $input) : array
                 }
 
                 $result[] = substr($input, $lastPosition + 1, $i - $lastPosition - 1);
-                $lastPosition = $i + 1;
                 ++$i;
+                $lastPosition = $i + 1;
                 $doubleQuote = false;
                 break;
 
