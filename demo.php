@@ -229,16 +229,6 @@ $router->add('plans deactivate <plan-id>', static function (array $args) use ($s
 $router->add('plans create <product-id> <name> <description> <status>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $plans = new Plans($sandbox, $handler, $auth);
 
-    /*
-    $billingCycles = (new BillingCycles())
-        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3.0, 'USD')))
-        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6.0, 'USD')))
-        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10.0, 'USD')));
-
-    $paymentPreferences = new PaymentPreferences(true, 'USD', 10.0, SetupFeeFailure::Continue, 3);
-    $taxes = new Taxes(0.10, false);
-    */
-
     // monthly $2.99
     $billingCycles = (new BillingCycles())
         ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 0, new PricingScheme(2.99, 'USD')));
@@ -265,6 +255,16 @@ $router->add('plans create <product-id> <name> <description> <status>', static f
     $taxes = new Taxes(0.0, false);
     */
 
+    /*
+    $billingCycles = (new BillingCycles())
+        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 2, new PricingScheme(3.0, 'USD')))
+        ->add(new BillingCycle(TenureType::Trial, new Frequency(IntervalUnit::Month, 1), 3, new PricingScheme(6.0, 'USD')))
+        ->add(new BillingCycle(TenureType::Regular, new Frequency(IntervalUnit::Month, 1), 12, new PricingScheme(10.0, 'USD')));
+
+    $paymentPreferences = new PaymentPreferences(true, 'USD', 10.0, SetupFeeFailure::Continue, 3);
+    $taxes = new Taxes(0.0, false);
+    */
+
     dump($plans->create(
         $args['product-id'],
         $args['name'],
@@ -274,6 +274,9 @@ $router->add('plans create <product-id> <name> <description> <status>', static f
         $paymentPreferences,
         $taxes
     ));
+
+    // exit for safety as if you edit the php while the script is running, it won't pick your new plan
+    exit;
 });
 
 $router->add('plans update <plan-id> <operation> <attribute> <value>', static function (array $args) use ($sandbox, $handler, $auth) : void {
