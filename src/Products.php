@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Oct8pus\PayPal;
 
 use JsonException;
+use Oct8pus\PayPal\OAuth\OAuth;
 
 /* FIX ME
 enum Operation : string

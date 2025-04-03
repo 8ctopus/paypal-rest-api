@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use Oct8pus\PayPal\OAuth\OAuth;
 use Oct8pus\PayPal\Plans\BillingCycles;
 use Oct8pus\PayPal\Plans\Operation;
 use Oct8pus\PayPal\Plans\PaymentPreferences;

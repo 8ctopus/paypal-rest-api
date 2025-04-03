@@ -10,6 +10,7 @@ namespace Oct8pus\PayPal;
 
 use DateTime;
 use DateTimeInterface;
+use Oct8pus\PayPal\OAuth\OAuth;
 
 class Subscriptions extends RestBase
 {

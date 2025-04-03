@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+use Oct8pus\PayPal\OAuth\OAuth;
+
 class Payments extends RestBase
 {
     /**

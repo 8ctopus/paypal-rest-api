@@ -16,6 +16,7 @@ namespace Oct8pus\PayPal;
 use DateTime;
 use DateTimeInterface;
 use JsonException;
+use Oct8pus\PayPal\OAuth\OAuth;
 
 class Hooks extends RestBase
 {

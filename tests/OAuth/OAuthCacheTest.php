@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\OAuth;
 
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\OAuthCache;
+use Oct8pus\PayPal\OAuth\OAuthCache;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpHandlerMock;
 
 /**
  * @internal
@@ -30,7 +31,7 @@ final class OAuthCacheTest extends TestCase
 
     public function testTokenNoCache() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/../fixtures/OAuth.json')));
 
         $token = (new OAuthCache(true, self::$handler, 'testId', 'testSecret', self::$cacheFile))
             ->token();
@@ -40,7 +41,7 @@ final class OAuthCacheTest extends TestCase
 
     public function testTokenCache() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/../fixtures/OAuth.json')));
 
         $token = (new OAuthCache(true, self::$handler, 'testId', 'testSecret2', self::$cacheFile))
             ->token();

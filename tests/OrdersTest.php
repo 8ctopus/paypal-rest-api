@@ -13,6 +13,7 @@ use Oct8pus\PayPal\Orders\Intent;
 use Oct8pus\PayPal\RestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\OAuth\OAuthMock;
 
 /**
  * @internal

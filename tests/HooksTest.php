@@ -11,6 +11,7 @@ use Nimbly\Shuttle\Shuttle;
 use Oct8pus\PayPal\Hooks;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\OAuth\OAuthMock;
 
 /**
  * @internal

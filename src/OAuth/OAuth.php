@@ -6,10 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Oct8pus\PayPal;
+namespace Oct8pus\PayPal\OAuth;
 
 use DateTime;
 use DateTimeInterface;
+use Oct8pus\PayPal\HttpHandler;
+use Oct8pus\PayPal\PayPalException;
+use Oct8pus\PayPal\RestBase;
 
 class OAuth extends RestBase
 {

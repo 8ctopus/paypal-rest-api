@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oct8pus\PayPal;
+namespace Oct8pus\PayPal\OAuth;
+
+use Oct8pus\PayPal\HttpHandler;
 
 /**
  * Store the authentication token for future use in a file

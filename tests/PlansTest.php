@@ -23,6 +23,7 @@ use Oct8pus\PayPal\RestBase;
 use Oct8pus\PayPal\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\OAuth\OAuthMock;
 
 /**
  * @internal

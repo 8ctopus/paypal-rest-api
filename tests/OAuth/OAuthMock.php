@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\OAuth;
 
 use Oct8pus\PayPal\HttpHandler;
-use Oct8pus\PayPal\OAuth;
+use Oct8pus\PayPal\OAuth\OAuth;
 
 class OAuthMock extends OAuth
 {

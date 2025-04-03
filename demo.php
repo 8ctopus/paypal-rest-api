@@ -10,7 +10,7 @@ use Noodlehaus\Config;
 use NunoMaduro\Collision\Provider;
 use Oct8pus\PayPal\Hooks;
 use Oct8pus\PayPal\HttpHandler;
-use Oct8pus\PayPal\OAuthSecureCache;
+use Oct8pus\PayPal\OAuth\OAuthSecureCache;
 use Oct8pus\PayPal\Orders;
 use Oct8pus\PayPal\Orders\Intent;
 use Oct8pus\PayPal\Payments;

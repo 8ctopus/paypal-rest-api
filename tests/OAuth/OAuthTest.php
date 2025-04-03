@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\OAuth;
 
 use Nimbly\Capsule\Factory\RequestFactory;
 use Nimbly\Capsule\Factory\StreamFactory;
 use Nimbly\Capsule\Response;
 use Nimbly\Shuttle\Shuttle;
-use Oct8pus\PayPal\OAuth;
+use Oct8pus\PayPal\OAuth\OAuth;
 use Oct8pus\PayPal\RestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Tests\HttpHandlerMock;
 
 /**
  * @internal
@@ -29,7 +30,7 @@ final class OAuthTest extends TestCase
 
     public function testToken() : void
     {
-        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/OAuth.json')));
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/../fixtures/OAuth.json')));
 
         $token = (new OAuth(true, self::$handler, 'testId', 'testSecret'))
             ->token();
