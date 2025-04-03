@@ -2,6 +2,11 @@
 
 /**
  * @reference https://developer.paypal.com/docs/api/webhooks/v1/
+ *
+ * Successful receipt requires your listener endpoint to respond with an HTTP 200 or other 2xx status code.
+ * Any non-2xx status code will cause PayPal to reattempt delivery up to 25 times over the course of 3 days
+ * or until it receives a 2xx success code. If unsuccessful after 3 days, delivery will be marked as Failed
+ * (but can be resent again manually from the Webhook Events dashboard).
  */
 
 declare(strict_types=1);
