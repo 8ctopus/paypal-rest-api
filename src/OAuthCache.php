@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+/**
+ * Store the authentication token for future use in a file
+ */
 class OAuthCache extends OAuth
 {
     protected string $file;
@@ -58,7 +61,7 @@ class OAuthCache extends OAuth
             return false;
         }
 
-        if ($this->clientId !== ($decoded['clientId'] ?? '')) {
+        if ($this->clientId !== ($decoded['clientId'] ?? null)) {
             return false;
         }
 

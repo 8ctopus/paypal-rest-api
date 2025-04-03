@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Oct8pus\PayPal;
 
+/**
+ * Store the authentication token for future use in a file in encrypted form
+ */
 class OAuthSecureCache extends OAuthCache
 {
     private readonly string $encryptionKey;
