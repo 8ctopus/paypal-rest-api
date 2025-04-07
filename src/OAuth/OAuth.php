@@ -83,22 +83,6 @@ class OAuth extends RestBase
         return $this->token;
     }
 
-    /**
-     * Set token
-     *
-     * @param  string $token
-     * @param  int    $expires
-     *
-     * @return self
-     */
-    public function setToken(string $token, int $expires) : self
-    {
-        $this->token = $token;
-        $this->expires = $expires;
-
-        return $this;
-    }
-
     protected function save() : void
     {
         // so that inherited classes can save token
