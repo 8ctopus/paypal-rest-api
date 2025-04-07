@@ -159,6 +159,12 @@ $router->add('hooks list events <event-type> <search> <max-events>', static func
     dump($webhooks->listEvents($eventType, $search, $start, $end, interpret($args['max-events'])));
 });
 
+$router->add('hooks list event types', static function () use ($sandbox, $handler, $auth) : void {
+    $webhooks = new Hooks($sandbox, $handler, $auth);
+
+    dump($webhooks->listEventTypes());
+});
+
 $router->add('subscriptions get <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
     dump($subscriptions->get($args['billing-agreement']));

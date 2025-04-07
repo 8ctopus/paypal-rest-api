@@ -163,4 +163,21 @@ final class HooksTest extends TestCase
 
         self::assertSame($expected, self::$handler->dumpRequest());
     }
+
+    public function testListEventTypes() : void
+    {
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/HookListEventTypes.json')));
+
+        self::$hooks->listEventTypes();
+
+        $expected = <<<'TEXT'
+        https://api-m.sandbox.paypal.com/v1/notifications/webhooks-event-types
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
 }

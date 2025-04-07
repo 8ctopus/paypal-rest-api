@@ -195,4 +195,19 @@ class Hooks extends RestBase
 
         return $response['events'];
     }
+
+    /**
+     * List available hook events
+     *
+     * @return array
+     */
+    public function listEventTypes() : array
+    {
+        $url = '/v1/notifications/webhooks-event-types';
+
+        $response = $this->sendRequest('GET', $url, [], null, 200);
+        $response = json_decode($response, true);
+
+        return $response['event_types'];
+    }
 }
