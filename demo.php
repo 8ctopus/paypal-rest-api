@@ -90,13 +90,6 @@ $router->add('hooks get <id>', static function (array $args) use ($sandbox, $han
 $router->add('hooks create <url>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $webhooks = new Hooks($sandbox, $handler, $auth);
     $webhooks->create($args['url'], [
-        // a payment on a subscription was made
-        'PAYMENT.SALE.COMPLETED',
-        // a payment on a subscription was refunded
-        'PAYMENT.SALE.REFUNDED',
-        // a payment on a subscription was reversed
-        'PAYMENT.SALE.REVERSED',
-
         // user starts subscription process - it's not completed yet!
         'BILLING.SUBSCRIPTION.CREATED',
         // either user just subscribed to a plan - no payment yet or subscription resumed
@@ -111,6 +104,13 @@ $router->add('hooks create <url>', static function (array $args) use ($sandbox, 
         'BILLING.SUBSCRIPTION.PAYMENT.FAILED',
         // subscription is updated - how to do that? (like suspended, change of state? no)
         'BILLING.SUBSCRIPTION.UPDATED',
+
+        // a payment on a subscription was made
+        'PAYMENT.SALE.COMPLETED',
+        // a payment on a subscription was refunded
+        'PAYMENT.SALE.REFUNDED',
+        // a payment on a subscription was reversed
+        'PAYMENT.SALE.REVERSED',
 
         //'PAYMENT.AUTHORIZATION.CREATED',
         //'PAYMENT.AUTHORIZATION.VOIDED',
