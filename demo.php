@@ -114,7 +114,12 @@ $router->add('hooks create <url>', static function (array $args) use ($sandbox, 
 
         //'PAYMENT.AUTHORIZATION.CREATED',
         //'PAYMENT.AUTHORIZATION.VOIDED',
+        // a payment capture completed
         //'PAYMENT.CAPTURE.COMPLETED',
+        // merchant refunded a payment capture
+        'PAYMENT.CAPTURE.REFUNDED',
+        // PayPal reversed a payment capture
+        //'PAYMENT.CAPTURE.REVERSED',
 
         // customer dispute created
         'CUSTOMER.DISPUTE.CREATED',
