@@ -12,6 +12,8 @@ A php implementation of the PayPal REST API using `PSR-7`, `PSR-17` and `PSR-18`
 
 The package is a work in progress and contributions are welcome. For now, it covers `Orders` (one-time payments), subscriptions (`Products`, `Plans` and `Subscriptions`), `Webhooks` (receive notifications from PayPal when certain events occur) and `Payments`. That's all that's needed to create a store, be it one-time payment or subscription based.
 
+_NOTE_: If you're just starting to use PayPal think twice as I have found that their apis are unstable, bugs are introduced all the time in production and despite contacting Merchant Technical Support the issues take forever to get fixed. Save yourself the hassle and use a more reliable payment provider.
+
 ## install package
 
     composer require 8ctopus/paypal-rest-api
