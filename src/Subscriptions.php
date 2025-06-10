@@ -171,9 +171,9 @@ class Subscriptions extends RestBase
      * @param ?DateTime $start
      * @param ?DateTime $end
      *
-     * @return array<mixed>
+     * @return ?array<mixed>
      */
-    public function listTransactions(string $billingAgreement, ?DateTime $start = null, ?DateTime $end = null) : array
+    public function listTransactions(string $billingAgreement, ?DateTime $start = null, ?DateTime $end = null) : ?array
     {
         $url = "/v1/billing/subscriptions/{$billingAgreement}/transactions";
 
@@ -196,6 +196,6 @@ class Subscriptions extends RestBase
         $response = $this->sendRequest('GET', $url, [], null, 200);
         $response = json_decode($response, true);
 
-        return $response['transactions'];
+        return $response['transactions'] ?? null;
     }
 }
