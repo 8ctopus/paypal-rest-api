@@ -67,6 +67,9 @@ class HttpHandler
 
     public function processResponse(ResponseInterface $response, array|int $expectedStatus) : string
     {
+        $body = (string) $response->getBody();
+        //file_put_contents(__DIR__ . '/../dump.txt', $body);
+
         if (is_int($expectedStatus)) {
             $expectedStatus = [$expectedStatus];
         }
@@ -75,9 +78,9 @@ class HttpHandler
 
         if (!in_array($status, $expectedStatus, true)) {
             $expected = implode(', ', $expectedStatus);
-            throw new PayPalException("status {$status} - expected [{$expected}] - " . (string) $response->getBody());
+            throw new PayPalException("status {$status} - expected [{$expected}] - {$body}");
         }
 
-        return (string) $response->getBody();
+        return $body;
     }
 }
