@@ -35,7 +35,7 @@ class Subscriptions extends RestBase
      */
     public function list(array $conditions = []) : array
     {
-        $url = "/v1/billing/subscriptions";
+        $url = '/v1/billing/subscriptions';
 
         /*
         $conditions = [
@@ -57,7 +57,6 @@ class Subscriptions extends RestBase
 
         return json_decode($response, true)['subscriptions'];
     }
-
 
     /**
      * Get info

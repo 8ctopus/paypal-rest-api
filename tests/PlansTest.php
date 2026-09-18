@@ -254,4 +254,3 @@ final class PlansTest extends TestCase
         self::assertSame($expected, self::$handler->dumpRequest());
     }
 }
-

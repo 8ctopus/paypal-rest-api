@@ -44,7 +44,7 @@ final class SubscriptionsTest extends TestCase
 
         self::$subscriptions->list();
 
-        $expected = <<<TEXT
+        $expected = <<<'TEXT'
         https://api-m.sandbox.paypal.com/v1/billing/subscriptions
         Host: api-m.sandbox.paypal.com
         Authorization: Bearer test
