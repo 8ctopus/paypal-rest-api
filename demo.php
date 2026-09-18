@@ -170,6 +170,13 @@ $router->add('hooks list event types', static function () use ($sandbox, $handle
     dump($webhooks->listEventTypes());
 });
 
+$router->add('subscriptions list', static function () use ($sandbox, $handler, $auth) : void {
+    $subscriptions = new Subscriptions($sandbox, $handler, $auth);
+    dump($subscriptions->list([
+        'statuses' => 'ACTIVE',
+    ]));
+});
+
 $router->add('subscriptions get <billing-agreement>', static function (array $args) use ($sandbox, $handler, $auth) : void {
     $subscriptions = new Subscriptions($sandbox, $handler, $auth);
     dump($subscriptions->get($args['billing-agreement']));

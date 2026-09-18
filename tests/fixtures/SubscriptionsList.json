@@ -1,0 +1,146 @@
+{
+    "subscriptions": [
+        {
+            "status": "ACTIVE",
+            "id": "I-TMC1E9PKGX8F",
+            "auto_renewal": false,
+            "create_time": "2024-05-24T05:51:19Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-TMC1E9PKGX8F",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-6EB5838U2HNN",
+            "auto_renewal": false,
+            "create_time": "2024-05-24T07:06:03Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-6EB5838U2HNN",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-V8GLGBB41SDJ",
+            "auto_renewal": false,
+            "create_time": "2025-08-22T06:32:32Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-V8GLGBB41SDJ",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-9NYT336Y01TF",
+            "auto_renewal": false,
+            "create_time": "2026-06-30T06:40:45Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-9NYT336Y01TF",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-ERV66FHVXKNR",
+            "auto_renewal": false,
+            "create_time": "2026-07-02T06:29:30Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-ERV66FHVXKNR",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-PL32U2G8K1TM",
+            "auto_renewal": false,
+            "create_time": "2026-07-02T06:46:08Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-PL32U2G8K1TM",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-1PYPCH7FJ6HD",
+            "auto_renewal": false,
+            "create_time": "2026-07-02T06:51:18Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-1PYPCH7FJ6HD",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-WJ5VTJFEV8EL",
+            "auto_renewal": false,
+            "create_time": "2026-07-06T06:23:47Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-WJ5VTJFEV8EL",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-D7ACLM8GS973",
+            "auto_renewal": false,
+            "create_time": "2026-07-09T02:53:47Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-D7ACLM8GS973",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        {
+            "status": "ACTIVE",
+            "id": "I-D1P4JB7BHAS5",
+            "auto_renewal": false,
+            "create_time": "2026-07-09T05:56:50Z",
+            "links": [
+                {
+                    "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-D1P4JB7BHAS5",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions?statuses=ACTIVE&page=1&page_size=10",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions?statuses=ACTIVE&page=2&page_size=10",
+            "rel": "next",
+            "method": "GET"
+        }
+    ]
+}

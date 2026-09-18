@@ -27,6 +27,39 @@ class Subscriptions extends RestBase
     }
 
     /**
+     * List subscriptions
+     *
+     * @param array $conditions
+     *
+     * @return array<mixed>
+     */
+    public function list(array $conditions = []) : array
+    {
+        $url = "/v1/billing/subscriptions";
+
+        /*
+        $conditions = [
+            'plan_ids' => string,
+            'statuses' => string,
+            'created_after' => string,
+            'created_before' => string,
+            'status_updated_before' => string,
+            'status_updated_after' => string,
+            'filter' => string,
+        ];
+        */
+
+        if (count($conditions)) {
+            $url .= '?' . http_build_query($conditions);
+        }
+
+        $response = $this->sendRequest('GET', $url, [], null, 200);
+
+        return json_decode($response, true)['subscriptions'];
+    }
+
+
+    /**
      * Get info
      *
      * @param string $billingAgreement

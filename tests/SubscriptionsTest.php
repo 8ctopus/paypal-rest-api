@@ -38,6 +38,23 @@ final class SubscriptionsTest extends TestCase
         self::assertInstanceOf(Subscriptions::class, new Subscriptions(true, self::$handler, self::$auth));
     }
 
+    public function testList() : void
+    {
+        self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/SubscriptionsList.json')));
+
+        self::$subscriptions->list();
+
+        $expected = <<<TEXT
+        https://api-m.sandbox.paypal.com/v1/billing/subscriptions
+        Host: api-m.sandbox.paypal.com
+        Authorization: Bearer test
+        Content-Type: application/json
+
+        TEXT;
+
+        self::assertSame($expected, self::$handler->dumpRequest());
+    }
+
     public function testGet() : void
     {
         self::$handler->setResponse(new Response(200, file_get_contents(__DIR__ . '/fixtures/SubscriptionDetails.json')));
